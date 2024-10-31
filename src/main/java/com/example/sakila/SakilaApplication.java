@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.example.sakila.controller.OnInterceptor;
-
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @SpringBootApplication
