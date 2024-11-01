@@ -17,9 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 	@Autowired StaffMapper staffMapper;
 	
+	
 	@GetMapping("/off/login")
 	public String login() {
-		log.debug("off/login run");
+		log.debug("off/login getMapping run");
 		return "off/login";
 	}
 	
@@ -32,13 +33,22 @@ public class LoginController {
 		paramStaff.setPassword(password);
 		
 		Staff loginStaff = staffMapper.login(paramStaff);
-		if(loginStaff == null) {
+		
+		if(loginStaff == null) {		// when login failed
 			log.debug("login failed");
-			model.addAttribute("msg", "Login failed");
+			//model.addAttribute("msg", "Login failed");
 			return "/off/login";
 		}
+		// when login success
 		session.setAttribute("loginStaff", loginStaff);
-		
-		return "redirect:on/login";
+		log.debug("login success");
+		return "redirect:/on/main";
+	}
+	
+	@GetMapping("/on/logout")
+	public String logout(HttpSession session) {
+		log.debug("/on/logout run");
+		session.invalidate();
+		return "redirect:/off/login";
 	}
 }

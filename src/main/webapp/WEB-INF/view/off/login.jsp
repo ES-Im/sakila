@@ -10,54 +10,92 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<title></title>
 		<style>
-			.setborder {
+		
+			html,
+			body {
+				height : 100%;
+			}
+			
+			body {
+				display : flex;
+				align-items: center;
+				justify-contents : center;
+			}
+			
+			.LoginBox {
 				padding : 10px;
-			}
-			.setWidth {
-				width : 50%;
-			}
-			.setCenter {
-				text-align : center;
-			}
-			
-			.setInputBox { 
-				margin-left : 110px;
-			}
-			
-			.flex-container {
-				  display: flex;
-				  flex-direction: row;
 			}
 			
 		
 		</style>
 	</head>
-	<br><br><br><br><br><br><br><br><br><br><br><br>
+	
 	<body class="container" >
 	  <div class="col" >
 	  		 <div class="row">
-			    <div class="col-md-4"></div>
+			    <div class="col-md-3"></div>	<!-- left blank block -->
 			    
-			    <div class="col-md-4 bg-secondary setborder">
-			    	<h1 class="text-dark-50 setCenter">Login Page</h1>
-					<form action="${pageContext.request.contextPath}/off/login" method="post">
-						<div class="mb-3 mt-3 setInputBox">
+			    
+			    
+			    <div class="col-md-6">
+			    
+			    	<h1 class="text-dark-50">Login Page</h1>
+			    	<div class="loginResult" id="loginResult">${msg}</div>
+			    	<br>
+			    	<div class="bg-secondary LoginBox">
+					<form id="form" action="${pageContext.request.contextPath}/off/login" method="post">
+						<div class="mb-3 mt-3">
 							<label for="email" class="form-label">staffId : </label>
-							<input type="text" class="form-control setWidth" id="staffId" name="staffId">
+							<input  class="form-control" name="staffId" id="staffId" type="text">
 						</div>
-						<div class="mb-3 setInputBox">
+						<div class="mb-3">
 							<label for="pwd" class="form-label">Password : </label> 
-							<input type="password" class="form-control setWidth" id="password" name="password">
+							<input  class="form-control" id="password" name="password" type="password">
 						</div>
-					<button type="button" class="setInputBox">Login</button>
+					<button id="btn" type="button" class="btn btn-secondary">Login</button>
 					</form>
-					
 			    </div>
 			    
-			    <div class="col-md-4"></div>
+			    </div>
+			    
+			    <div class="col-md-3"></div>	<!-- right blank block -->
 			  </div>
 	  </div>
-	
-	 
+	  
+
 	</body>
+    <script>
+	  	// when click btn, check the form validated
+	  	$('#btn').click(function() {
+	  		console.log('click');
+	  		
+	  		// whether staffId is number or not & password > 4
+	  		if( $.isNumeric($("#staffId").val()) == false) {
+	  			$('#loginResult').text("Login failed, fill in staffId by number type")
+	  		} else if($('#password').val().length < 4) {
+	  			$('#loginResult').text("Login failed, password's length must be 4 at least")
+	  		} else {
+	  			$('#form').submit();
+	  		}
+	  	});
+	  
+	  </script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

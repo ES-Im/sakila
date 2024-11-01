@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.example.sakila.mapper.StaffMapper">
 	<select id="login" parameterType="com.example.sakila.vo.Staff" resultType="com.example.sakila.vo.Staff">
 		SELECT staff_id as staffId, store_id as storeId, username as userName
 		FROM staff 
 		WHERE active =1 AND staff_id = #{staffId} AND password = #{password};
+	</select>
+	
+	<select id="selectStaffOne" parameterType="Integer" resultType="com.example.sakila.vo.Staff">
+		<!-- join address Table & staff Table : resultType -> map -->
+		SELECT  staff_id staffId, 
+				first_name firstName, 
+				last_name lastName, 
+				address_id addressId, 
+				email, 
+				store_id storeId, 
+				username userName, 
+				last_update lastUpdate 
+		FROM staff 
+		WHERE staff_id = #{staffId}
 	</select>
 
 </mapper>

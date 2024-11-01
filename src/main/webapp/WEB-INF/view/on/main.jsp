@@ -12,6 +12,18 @@
 	</head>
 	
 	<body class="container">
-		<h1>main</h1>
+		<div class="row">
+			<div class="col-sm-2">
+				<!-- leftMenu.jsp include -->
+				<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
+			</div>
+			
+			<div class="col-sm-10">
+				<!-- main content -->
+				<h1>Main Title</h1>
+			
+			</div>
+			
+		</div>
 	</body>
 </html>
