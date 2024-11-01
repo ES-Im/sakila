@@ -1,5 +1,7 @@
 package com.example.sakila.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.sakila.vo.Staff;
@@ -10,6 +12,6 @@ public interface StaffMapper {
 	Staff login(Staff staff);
 	
 	// /on/staffOne.jsp
-	Staff selectStaffOne(int staffId);
+	Map<String, Object> selectStaffOne(int staffId);
 	
 }
