@@ -41,7 +41,10 @@
 			  <li class="list-group-item">
 				<a href="${pageContext.request.contextPath}/on/logout">Edit STAFF</a>
 			  </li>
-			  
+  			  <li class="list-group-item">
+				<a href="${pageContext.request.contextPath}/on/addStaff">ADD STAFF</a>
+			  </li>
+ 
 			  <li class="list-group-item">
 				|||STORE|||
 			  </li>
@@ -66,7 +69,7 @@
 			  </li>
 			  <li class="list-group-item">
 				<a href="${pageContext.request.contextPath}/on/logout">Edit STAFF</a>
-			  </li>
+			  </li>			  
 			</ul>
 		
 		</div>

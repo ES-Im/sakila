@@ -1,14 +1,21 @@
 package com.example.sakila.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.sakila.mapper.AddressMapper;
 import com.example.sakila.mapper.StaffMapper;
+import com.example.sakila.mapper.StoreMapper;
+import com.example.sakila.vo.Address;
 import com.example.sakila.vo.Staff;
+import com.example.sakila.vo.Store;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class StaffController {
 	@Autowired StaffMapper staffMapper;
+	@Autowired StoreMapper storeMapper;
+	@Autowired AddressMapper addressMapper;
+	
 
 	@GetMapping("/on/staffOne")
 	public String staffOne(HttpSession session, Model model) {
@@ -25,6 +35,32 @@ public class StaffController {
 		model.addAttribute("staff", staff);
 		log.debug(staff.toString());
 		return "on/staffOne";
+	}
+	
+	// (1) LeftMenu - a tag, (2) addStaff.jsp - click search btn  
+	@GetMapping("/on/addStaff")
+	public String addStaff(Model model, @RequestParam(defaultValue ="") String searchAddress) {	// model (storeList, addressList)
+		
+		List<Store> storeList = storeMapper.selectStoreList(); 
+		model.addAttribute("storeList", storeList);
+		
+		if(!searchAddress.equals("")) {
+			List<Address> addressList = addressMapper.selectAddressListByWord(searchAddress);
+			model.addAttribute("addressList", addressList);
+			log.debug(addressList.toString());
+		}
+		return "on/addStaff";
+	}
+	
+	@PostMapping("/on/addStaff")
+	public String addStaff(Staff staff) {	// model (insert)
+		
+		return "redirect:/on/staffList";
+	}
+	
+	@GetMapping("/on/staffList")
+	public String staffList(Model model, @RequestParam(defaultValue="1") int currentPage) {
+		return "on/staffList";
 	}
 	
 }
