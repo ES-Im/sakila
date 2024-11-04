@@ -16,60 +16,33 @@
 	
 	<body>
 		<div class="container">
-			<ul class="list-group">
-			  <li class="list-group-item">
-			  	<a href="${pageContext.request.contextPath}/on/main">HOME</a>
-			
-			  </li>
-			  <li class="list-group-item">
-			  	<a href="${pageContext.request.contextPath}/on/staffOne">${loginStaff.username}님</a> 
-			  
-			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">LOGOUT</a>
-			  </li>
-			  
+
 			  <li class="list-group-item">
 				|||STAFF|||
 			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Register STAFF</a>
-			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Inactivate STAFF</a>
-			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Edit STAFF</a>
-			  </li>
-  			  <li class="list-group-item">
+   			  <li class="list-group-item">
 				<a href="${pageContext.request.contextPath}/on/addStaff">ADD STAFF</a>
 			  </li>
- 
+			  <li class="list-group-item">
+  			  <li class="list-group-item">
+				<a href="${pageContext.request.contextPath}/on/staffList">STAFF List</a>
+			  </li>
+				<a href="${pageContext.request.contextPath}/on/logout">[x]Inactivate STAFF</a>
+			  </li>
+			  <li class="list-group-item">
+				<a href="${pageContext.request.contextPath}/on/logout">[x]Edit STAFF</a>
+			  </li>
+
+
 			  <li class="list-group-item">
 				|||STORE|||
 			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Register STAFF</a>
-			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Inactivate STAFF</a>
-			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Edit STAFF</a>
-			  </li>
+			  
 			  
 			  <li class="list-group-item">
 				|||Comtomer|||
 			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Register STAFF</a>
-			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Inactivate STAFF</a>
-			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">Edit STAFF</a>
-			  </li>			  
+			 
 			</ul>
 		
 		</div>

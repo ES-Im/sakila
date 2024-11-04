@@ -26,8 +26,8 @@ public class LoginController {
 	
 	@PostMapping("/off/login")
 	public String login(Model model, HttpSession session,
-							@RequestParam(name="staffId") int staffId, 
-							@RequestParam(name = "password") String password) {
+							@RequestParam() int staffId, 
+							@RequestParam() String password) {
 		Staff paramStaff = new Staff();
 		paramStaff.setStaffId(staffId);
 		paramStaff.setPassword(password);

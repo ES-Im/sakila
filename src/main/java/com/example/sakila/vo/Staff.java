@@ -10,7 +10,7 @@ public class Staff {
 	private int addressId; // FK
 	private String email;
 	private int storeId;	// FK
-	private int active;		// 1: active 0: unactive
+	private int active;		// 1: active 2: inactive
 	private String username;
 	private String password;
 	private String lastUpdate;

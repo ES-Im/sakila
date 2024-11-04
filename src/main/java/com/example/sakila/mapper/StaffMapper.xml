@@ -3,9 +3,9 @@
 
 <mapper namespace="com.example.sakila.mapper.StaffMapper">
 	<select id="login" parameterType="com.example.sakila.vo.Staff" resultType="com.example.sakila.vo.Staff">
-		SELECT staff_id as staffId, store_id as storeId, username as userName
+		SELECT staff_id as staffId, store_id as storeId, username, active
 		FROM staff 
-		WHERE active =1 AND staff_id = #{staffId} AND password = #{password};
+		WHERE active=1 AND staff_id = #{staffId} AND password = #{password};
 	</select>
 	
 	<select id="selectStaffOne" parameterType="int" resultType="Map">
@@ -113,5 +113,43 @@
 		ON t4.address_id = t5.address_id
 		WHERE t4.staff_id = ${staffId}; 
 	</select>
-
+	
+	<insert id="insertStaff" parameterType="com.example.sakila.vo.Staff">
+		INSERT INTO staff(first_name, last_name, address_id, email, store_id, username) 
+					VALUES(#{firstName}, #{lastName}, #{addressId}, #{email}, #{storeId}, #{username});
+	</insert>
+	
+	<select id="selectStaffList" parameterType="Map" resultType="com.example.sakila.vo.Staff">
+		SELECT staff_id as staffId, first_name as firstName, last_name as lastName, address_id as addressId, email, store_id as storeId, username, last_update as lastUpdate, active
+		FROM staff
+		ORDER BY staff_id
+		LIMIT #{beginRow}, #{rowPerPage} 
+	</select>
+	
+	<select id="selectStaffCount" resultType="int">
+		SELECT COUNT(*) FROM STAFF
+	</select>
+	
+	<update id="updateStaff" parameterType="com.example.sakila.vo.Staff">
+		UPDATE staff 
+		<set>
+			<if test="active != null and active != ''">
+				active = #{active}, 
+			</if>
+			<if test="addressId != null and addressId != ''">
+				address_Id = #{addressId}, 
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email}, 
+			</if>
+			<if test="storeId != null and storeId != ''">
+				store_Id = #{storeId}, 
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password}, 
+			</if>
+		</set>
+		WHERE staff_id = #{staffId}
+	</update>
+	
 </mapper>

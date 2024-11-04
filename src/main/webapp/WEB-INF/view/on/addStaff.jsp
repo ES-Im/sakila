@@ -206,12 +206,12 @@
 						<input id="email" name="email" type="text" >
 	
 						<!-- 5 : first_name-->
-						<label for="first_name">first_name</label>
-						<input id="first_name" name="first_name" type="text" >
+						<label for="firstName">first_name</label>
+						<input id="firstName" name="firstName" type="text" >
 							
 						<!-- 6 : last_name-->
-						<label for="last_name">last_name</label>
-						<input id="last_name" name="last_name" type="text" >
+						<label for="lastName">last_name</label>
+						<input id="lastName" name="lastName" type="text" >
 						
 						<!-- button -->
 						<button type="button" id="btnAddstaff">Select</button>
@@ -225,7 +225,7 @@
 
 		$('#btnAddstaff').click(function() {
 			let arr = [$('#storeId'), $('#addressId'), $('#username'), $('#email'), 
-					 	$('#first_name'), $('#last_name')];
+					 	$('#firstName'), $('#lastName')];
 			console.log(arr[3].val());
 			// (1) check empty and null
 			for(let i = 0; i < arr.length-1; i++) {

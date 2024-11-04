@@ -1,5 +1,6 @@
 package com.example.sakila.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,13 +55,43 @@ public class StaffController {
 	
 	@PostMapping("/on/addStaff")
 	public String addStaff(Staff staff) {	// model (insert)
-		
+		log.debug(staff.toString());
+		int checkSuccess = staffMapper.insertStaff(staff);
+		log.debug("insert result = " + checkSuccess);
+		if(checkSuccess == 0) {
+			return "on/addStaff";
+		}
 		return "redirect:/on/staffList";
 	}
 	
 	@GetMapping("/on/staffList")
-	public String staffList(Model model, @RequestParam(defaultValue="1") int currentPage) {
+	public String staffList(Model model, @RequestParam(defaultValue="1") int currentPage, @RequestParam(defaultValue = "10") int rowPerPage) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("beginRow", (currentPage-1) * rowPerPage);
+		map.put("rowPerPage", rowPerPage);
+		
+		List<Staff> staffList = staffMapper.selectStaffList(map);
+		log.debug(staffList.toString());
+		model.addAttribute("staffMap", staffList);
+		model.addAttribute("currentPage", currentPage);
+		int lastPage = staffMapper.selectStaffCount() / rowPerPage;
+		if(staffMapper.selectStaffCount() % rowPerPage != 0) {
+			lastPage++;
+		}
+		model.addAttribute("lastPage", lastPage);
+		
 		return "on/staffList";
+	}
+	
+	@GetMapping("/on/modifyStaffActive")
+	public String modifyStaffActive(Staff staff) {
+		if(staff.getActive() == 1) {
+			staff.setActive(2);
+		} else {
+			staff.setActive(1);
+		}
+		staffMapper.updateStaff(staff);
+		return "redirect:/on/staffList";
 	}
 	
 }

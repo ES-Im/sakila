@@ -44,10 +44,14 @@
 					      	STAFF : ${staff.staffUserName} ( ${staff.staffFirstName} ${staff.staffLastName} )
 							<br>
 							ADDRESS : ${staff.staffCountry} ${staff.staffCity} ${staff.staffDistrict} ${staff.staffAddress}
+							<a href="">Edit ADDRESS</a>
 							<br>
 							EMAIL : ${staff.staffEmail}
+							<a href="">Edit Email</a>
 							<br>
 							PHONE NUM : ${staff.staffPhone}
+							
+							<a href="">Edit Password</a>
 				      </div>
 				    </div>
 				  </div>
@@ -64,6 +68,7 @@
 					        <br>
 					        ADDRESS : ${staff.storeCountry} ${staff.storeDistrict} ${staff.storeCity} ${staff.storeAddress}
 							<br>
+							<a href="">Change Store</a>
 				      </div>
 				    </div>
 				  </div>
@@ -84,6 +89,9 @@
 				  </div>
 				</div>
 			</div>
+			<a href="">modify account</a>
+			<a href="">delete account</a>
+			
 			<hr>
 						
 		</div>

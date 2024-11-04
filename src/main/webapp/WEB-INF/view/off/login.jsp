@@ -8,63 +8,72 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<title></title>
-		<style>
-		
-			html,
+		<style>		
 			body {
-				height : 100%;
+			    font-family: "Lato", sans-serif;
 			}
 			
-			body {
-				display : flex;
-				align-items: center;
-				justify-contents : center;
+			.sidenav {
+			    height: 100%;
+   			    width: 40%;
+			    background-color: #000;
+			    padding-top: 20px;
+		        position: fixed;
+		        top: 0;
+		        left: 0;
 			}
 			
-			.LoginBox {
-				padding : 10px;
+			.main {
+			    padding: 0px 10px;
+			    margin-left: 40%; 
+		        margin-top: 30%;
 			}
 			
-		
-		</style>
+			.login-main-text{
+			    margin-top: 20%;
+			    padding: 60px;
+			    color: #fff;
+			}
+			
+			.login-main-text h2{
+			    font-weight: 300;
+			}
+			
+			.btn-black{
+			    background-color: #000;
+			    color: #fff;
+			}
+		 </style>
 	</head>
 	
-	<body class="container" >
-	  <div class="col" >
-	  		 <div class="row">
-			    <div class="col-md-3"></div>	<!-- left blank block -->
-			    
-			    
-			    
-			    <div class="col-md-6">
-			    
-			    	<h1 class="text-dark-50">Login Page</h1>
-			    	<div class="loginResult" id="loginResult">${msg}</div>
-			    	<br>
-			    	<div class="bg-secondary LoginBox">
-					<form id="form" action="${pageContext.request.contextPath}/off/login" method="post">
-						<div class="mb-3 mt-3">
-							<label for="email" class="form-label">staffId : </label>
-							<input  class="form-control" name="staffId" id="staffId" type="text">
-						</div>
-						<div class="mb-3">
-							<label for="pwd" class="form-label">Password : </label> 
-							<input  class="form-control" id="password" name="password" type="password">
-						</div>
-					<button id="btn" type="button" class="btn btn-secondary">Login</button>
-					</form>
-			    </div>
-			    
-			    </div>
-			    
-			    <div class="col-md-3"></div>	<!-- right blank block -->
-			  </div>
-	  </div>
-	  
-
+	<body class="container">
+		 <div class="sidenav">
+         <div class="login-main-text">
+            <h2>Sakila<br> Login Page</h2>
+            <p>Login or register from here to access.</p>
+            <div class="loginResult" id="loginResult">${msg}</div>
+         </div>
+      </div>
+      <div class="main">
+         <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+               <form id="form" action="${pageContext.request.contextPath}/off/login" method="post">
+                  <div class="form-group">
+                   	<label >staffId : </label>
+					<input class="form-control" name="staffId" id="staffId" type="text">
+                  </div>
+                  <div class="form-group">
+                    <label >Password : </label> 
+					<input  class="form-control" id="password" name="password" type="password">
+                  </div>
+                  <button id="btn" type="button" class="btn btn-black">Login</button>
+                  <button id="registerBtn" type="button" class="btn btn-secondary">Register</button>
+               </form>
+            </div>
+         </div>
+      </div>
 	</body>
-    <script>
+	    <script>
 	  	// when click btn, check the form validated
 	  	$('#btn').click(function() {
 	  		console.log('click');
@@ -81,8 +90,6 @@
 	  
 	  </script>
 </html>
-
-
 
 
 
