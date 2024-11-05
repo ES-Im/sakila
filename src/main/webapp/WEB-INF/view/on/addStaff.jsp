@@ -3,225 +3,198 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<style>
-			*, *:before, *:after {
-			  -moz-box-sizing: border-box;
-			  -webkit-box-sizing: border-box;
+		<Style>
+			body {
+			  margin: 0;
+			  padding: 0;
+			  color: #fff;
+			  font-family: 'Open Sans', Helvetica, sans-serif;
 			  box-sizing: border-box;
 			}
 			
-			body {
-			  font-family: 'Nunito', sans-serif;
-			  color: #384047;
+			.grid-container {
+			  display: grid;
+			  grid-template-columns: 240px 1fr;
+			  grid-template-rows: 50px 1fr 50px;
+			  grid-template-areas: 
+			    "sidenav header" 
+			    "sidenav main" 
+			    "sidenav footer";
+			  height: 100vh;
 			}
 			
-			form {
-			  max-width: 300px;
-			  margin: 10px auto;
-			  padding: 10px 20px;
-			  background: #f4f7f8;
-			  border-radius: 8px;
+			.menu-icon {
+			  position: fixed;
+			  top: 5px;
+			  left: 10px;
+			  display: flex;
+			  align-items: center;
+			  justify-content: center;
+			  background-color: #DADAE3;
+			  border-radius: 50%;
+			  z-index: 1;
+			  cursor: pointer;
+			  padding: 12px;
 			}
 			
-			h1 {
-			  margin: 0 0 30px 0;
+			.header {
+			  grid-area: header;
+			  display: flex;
+			  align-items: center;
+			  justify-content: space-between;
+			  padding: 0 16px;
+			  background-color: #648ca6;
+			}
+			
+			.sidenav {
+			  grid-area: sidenav;
+			  display: flex;
+			  flex-direction: column;
+			  width: 240px;
+			  overflow-y: auto;
+			  background-color: #394263;
+			  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+			}
+			
+			.sidenav__list {
+			  margin-top: 85px;
+			  padding: 0;
+			  list-style-type: none;
+			}
+			
+			.sidenav__list-item {
+			  padding: 20px 40px;
+			  color: #ddd;
+			  cursor: pointer;
+			}
+			
+			.sidenav__list-item:hover {
+			  background-color: rgba(255, 255, 255, 0.2);
+			}
+			
+			.main {
+			  grid-area: main;
+			  background-color: #8fd4d9;
+			  padding: 20px;
+			}
+			
+			.card {
+			  background-color: #82bef6;
+			  padding: 24px;
+			  margin-bottom: 20px;
 			  text-align: center;
 			}
 			
-			input[type="text"],
-			input[type="password"],
-			input[type="date"],
-			input[type="datetime"],
-			input[type="email"],
-			input[type="number"],
-			input[type="search"],
-			input[type="tel"],
-			input[type="time"],
-			input[type="url"],
-			textarea,
-			select {
-			  background: rgba(255,255,255,0.1);
-			  border: none;
-			  font-size: 16px;
-			  height: auto;
-			  margin: 0;
-			  outline: 0;
-			  padding: 15px;
-			  width: 100%;
-			  background-color: #e8eeef;
-			  color: #8a97a0;
-			  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-			  margin-bottom: 30px;
+			.footer {
+			  grid-area: footer;
+			  display: flex;
+			  align-items: center;
+			  justify-content: space-between;
+			  padding: 0 16px;
+			  background-color: #648ca6;
 			}
-			
-			input[type="radio"],
-			input[type="checkbox"] {
-			  margin: 0 4px 8px 0;
-			}
-			
-			select {
-			  display: block;
-			  max-width: 480px;
-			  margin: 10px auto;
-			  padding: 10px 20px;
-			  background: #f4f7f8;
-			  border-radius: 8px;
-			  padding: 6px;
-			  height: 100px;
-			  border-radius: 2px;
-			}
-			
-			button {
-			  padding: 19px 39px 18px 39px;
-			  color: #FFF;
-			  background-color: #4bc970;
-			  font-size: 18px;
-			  text-align: center;
-			  font-style: normal;
-			  border-radius: 5px;
-			  width: 100%;
-			  border: 1px solid #3ac162;
-			  border-width: 1px 1px 3px;
-			  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-			  margin-bottom: 10px;
-			}
-			
-			fieldset {
-			  margin-bottom: 30px;
-			  border: none;
-			}
-			
-			legend {
-			  font-size: 1.4em;
-			  margin-bottom: 10px;
-			}
-			
-			label {
-			  display: block;
-			  margin-bottom: 8px;
-			}
-			
-			label.light {
-			  font-weight: 300;
-			  display: inline;
-			}
-			
-			.number {
-			  background-color: #5fcf80;
-			  color: #fff;
-			  height: 30px;
-			  width: 30px;
-			  display: inline-block;
-			  font-size: 0.8em;
-			  margin-right: 4px;
-			  line-height: 30px;
-			  text-align: center;
-			  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-			  border-radius: 100%;
-			}
-			
-			@media screen and (min-width: 480px) {
-			
-			  form {
-			    max-width: 480px;
-			  }
-			
-			}
-						
-		</style>
+		</Style>
 		<title></title>
-	</head>
-	
-	<body class="container">
-		<div class="row">
-			<div class="col-sm-2">
-				<!-- leftMenu.jsp include -->
-				<c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
-			</div>
+    </head>
 
+    <body>
+	       <div class="grid-container">
+			  <header class="header">
+			    <div>Register STAFF</div>
+			  </header>
 			
-			<div class="col-sm-10">
-				<!-- main content -->
-				<h1>Register STAFF</h1>
-				<hr>
-				<fieldset>
-					<!-- Address search box -->
-
-					
-					<form class="searchForm" id="formAddress" action="${pageContext.request.contextPath}/on/addStaff" method="get">
-						<legend>
-							<sapn class="number">1</sapn>
-							Select Address
-						</legend>
-						<input id="searchAddress" name="searchAddress" type="text">
-						<button id="btnAddress" type="button">Search</button>
-					</form>
-					
-					<!-- display Address List -->
-					<form>
-						<label for="Result">Search Result:</label>
-						<select  id="resultAddress" size="10">
-							<c:forEach var="a" items="${addressList}">
-								<option value="${a.addressId}">(ID:${a.addressId}) ${a.address}</option>
-							</c:forEach>
-						</select>
-						<br>
-						<button type="button" id="btnAddrSel">Select</button>
-					</form>
-				</fieldset>
-				
-				<fieldset>
-				<!-- addStaff Form -->
-					
-					<form id="Addform" action="${pageContext.request.contextPath}/on/addStaff" method="post">
-						<legend>
-							<sapn class="number">2</sapn>
-							add Form
-						</legend>
-						<!-- 1 :Store List -->
-
-						<label for="storeId">storeId:</label>
-						<select id="storeId" name="storeId">
-							<option value="">|||select|||</option>
-							<c:forEach var="s" items="${storeList}">
-								<option value="${s.storeId}">${s.storeId}</option>
-							</c:forEach>
-						</select>
-
-						 <!-- 2 : AddressId-->
-						<label for="AddressId">AddressId</label>
-						<input id="addressId" name="addressId" type="text" readonly>
-							
-						<!-- 3 : username-->
-						<label for="username">username</label>
-						<input id="username" name="username" type="text" >
-
-						<!-- 4 : email-->
-						<label for="Email">Email</label>
-						<input id="email" name="email" type="text" >
-	
-						<!-- 5 : first_name-->
-						<label for="firstName">first_name</label>
-						<input id="firstName" name="firstName" type="text" >
-							
-						<!-- 6 : last_name-->
-						<label for="lastName">last_name</label>
-						<input id="lastName" name="lastName" type="text" >
+			  <aside class="sidenav">
+				  <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
+			  </aside>
+			
+			  <main class="main">
+			    <div class="card">
+				    
+	 				<!-- Address search box -->
+					<fieldset>	
+						<form class="searchForm" id="formAddress" action="${pageContext.request.contextPath}/on/addStaff" method="get">
+							<legend>
+								Select Address
+							</legend>
+							<hr>
+							<label for="storeId" class="form-label">search</label>
+							<input id="searchAddress" name="searchAddress" class="form-control" type="text">
+							<button id="btnAddress" type="button">Search</button>
+						</form>
 						
-						<!-- button -->
-						<button type="button" id="btnAddstaff">Select</button>
-					</form>
-				</fieldset>
+						<!-- display Address List -->
+						<form>
+							<label for="Result" class="form-label">Search Result:</label>
+							<br>
+							<select  id="resultAddress" class="form-select" size="10">
+								<c:forEach var="a" items="${addressList}">
+									<option value="${a.addressId}">(ID:${a.addressId}) ${a.address}</option>
+								</c:forEach>
+							</select>
+							<br>
+							<button type="button" id="btnAddrSel">Select</button>
+						</form>
+					</fieldset>
+				</div>
+				<div class="card">
+					<fieldset>
+					<!-- addStaff Form -->
+						
+						<form id="Addform" action="${pageContext.request.contextPath}/on/addStaff" method="post">
+							<legend>
+								add Form
+							</legend>
+							<hr>
+							<!-- 1 :Store List -->
+	
+							<label for="storeId" class="form-label">storeId:</label>
+							<select id="storeId" name="storeId" class="form-control">
+								<option value="">|||select|||</option>
+								<c:forEach var="s" items="${storeList}">
+									<option value="${s.storeId}">${s.storeId}</option>
+								</c:forEach>
+							</select>
+	
+							 <!-- 2 : AddressId-->
+							<label for="AddressId" class="form-label">AddressId</label>
+							<input id="addressId" name="addressId" class="form-control" type="text" readonly>
+								
+							<!-- 3 : username-->
+							<label for="username" class="form-label">username</label>
+							<input id="username" name="username" class="form-control" type="text" >
+	
+							<!-- 4 : email-->
+							<label for="Email" class="form-label">Email</label>
+							<input id="email" name="email" class="form-control" type="text" >
+		
+							<!-- 5 : first_name-->
+							<label for="firstName" class="form-label">first_name</label>
+							<input id="firstName" name="firstName" class="form-control" type="text" >
+								
+							<!-- 6 : last_name-->
+							<label for="lastName" class="form-label">last_name</label>
+							<input id="lastName" name="lastName" class="form-control" type="text" >
+							
+							<!-- button -->
+							<button type="button" id="btnAddstaff">Select</button>
+						</form>
+					</fieldset>
+				</div>
+			  </main>
+
+			
+		  <footer class="footer">
+			 <div></div>
+		  </footer>
 			</div>
 			
-		</div>
-	</body>
-	<script>
+    </body>
+    <script>
 
 		$('#btnAddstaff').click(function() {
 			let arr = [$('#storeId'), $('#addressId'), $('#username'), $('#email'), 

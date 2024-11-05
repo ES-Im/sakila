@@ -60,11 +60,11 @@
                <form id="form" action="${pageContext.request.contextPath}/off/login" method="post">
                   <div class="form-group">
                    	<label >staffId : </label>
-					<input class="form-control" name="staffId" id="staffId" type="text">
+					<input class="form-control" name="staffId" id="staffId" type="text" value="1">
                   </div>
                   <div class="form-group">
                     <label >Password : </label> 
-					<input  class="form-control" id="password" name="password" type="password">
+					<input  class="form-control" id="password" name="password" type="password" value="1234">
                   </div>
                   <button id="btn" type="button" class="btn btn-black">Login</button>
                   <button id="registerBtn" type="button" class="btn btn-secondary">Register</button>

@@ -103,22 +103,75 @@
     </head>
 
     <body>
-	       <div class="grid-container">
-			  <header class="header">
-			    <div>Main</div>
-			  </header>
-			
-			  <aside class="sidenav">
-				  <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
-			  </aside>
-			
-			  <main class="main">
-			    <div class="card">Card</div>
-			  </main>
-			
-			  <footer class="footer">
-			  <div></div>
-			  </footer>
-			</div>
+       <div class="grid-container">
+		  <header class="header">
+		    <div>Add Actor</div>
+		  </header>
+		
+		  <aside class="sidenav">
+			  <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
+		  </aside>
+		
+		  <main class="main">
+		    <div class="card">
+		    	<!-- form dto = Actor instance + multipart-form-data -->
+		    	<form id="formActor" method="post" action="${pageContext.request.contextPath}/on/addActor" enctype="multipart/form-data">
+					<label class="form-label">firstName</label>
+					<input id="firstName" name="firstName" class="form-control" type="text">
+					
+					<label class="form-label">lastName</label>
+					<input id="lastName" name="lastName" class="form-control" type="text">
+					
+					<label class="form-label">AddFile</label>
+					<div id="fileDiv">
+						<div>
+							<button id="btnAddFile" type="button">AddFile</button>						
+							<button id="btnRemoveFile" type="button">RemoveFile</button>
+						</div>						
+					</div>
+
+					<button id="btnAddActor" type="button">ADD</button>
+					
+				</form>
+		    </div>
+		  </main>
+		
+		  <footer class="footer"></footer>
+		</div>
     </body>
+    <script>
+    	// form submit
+		$('#btnAddActor').click(function() {
+			if($('#firstName').val == '' || $('#lastName').val() == '') {
+				alert("fill in required form");
+				return;
+			} else if($('.actorFile').length > 0 && $('.actorFile').last().val() == '') {
+				alert('첨부되지 않은 파일이 있습니다');
+			} else {
+				$('#formActor').submit();
+			}
+			
+		});
+    
+    	// add file btn
+    	$('#btnAddFile').click(function() {
+    		if($('.actorFile').last().val() == '') {
+    			alert('empty File already exist.');
+    		} else {
+    			let html = '<input id="addFile" class="actorFile" name="actorFile" type="file">';
+	    		$('#fileDiv').append(html);
+    		}
+    	});
+		
+    	//delete file btn
+    	$('#btnRemoveFile').click(function() {
+    		if($('.actorFile').length == 0) {
+    			alert('File doesn`t exist for being deleted.');
+    		} else {
+    			$('.actorFile').last().remove();
+    		}
+    	});
+    	
+
+    </script>
 </html>

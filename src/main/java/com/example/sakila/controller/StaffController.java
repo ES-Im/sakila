@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.sakila.mapper.AddressMapper;
 import com.example.sakila.mapper.StaffMapper;
 import com.example.sakila.mapper.StoreMapper;
+import com.example.sakila.service.AddressService;
+import com.example.sakila.service.StaffService;
+import com.example.sakila.service.StoreService;
 import com.example.sakila.vo.Address;
 import com.example.sakila.vo.Staff;
 import com.example.sakila.vo.Store;
@@ -24,15 +27,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class StaffController {
-	@Autowired StaffMapper staffMapper;
-	@Autowired StoreMapper storeMapper;
-	@Autowired AddressMapper addressMapper;
+	@Autowired StaffService staffService;
+	@Autowired StoreService storeService;
+	@Autowired AddressService addressService;
+	
 	
 
 	@GetMapping("/on/staffOne")
 	public String staffOne(HttpSession session, Model model) {
 		int staffId= ((Staff) (session.getAttribute("loginStaff"))).getStaffId();
-		Map<String, Object> staff = staffMapper.selectStaffOne(staffId);
+		Map<String, Object> staff = staffService.getStaffOne(staffId);
 		model.addAttribute("staff", staff);
 		log.debug(staff.toString());
 		return "on/staffOne";
@@ -42,11 +46,11 @@ public class StaffController {
 	@GetMapping("/on/addStaff")
 	public String addStaff(Model model, @RequestParam(defaultValue ="") String searchAddress) {	// model (storeList, addressList)
 		
-		List<Store> storeList = storeMapper.selectStoreList(); 
+		List<Store> storeList = storeService.getStoreList(); 
 		model.addAttribute("storeList", storeList);
 		
 		if(!searchAddress.equals("")) {
-			List<Address> addressList = addressMapper.selectAddressListByWord(searchAddress);
+			List<Address> addressList = addressService.getAddressListByWord(searchAddress);
 			model.addAttribute("addressList", addressList);
 			log.debug(addressList.toString());
 		}
@@ -56,7 +60,7 @@ public class StaffController {
 	@PostMapping("/on/addStaff")
 	public String addStaff(Staff staff) {	// model (insert)
 		log.debug(staff.toString());
-		int checkSuccess = staffMapper.insertStaff(staff);
+		int checkSuccess = staffService.addStaff(staff);
 		log.debug("insert result = " + checkSuccess);
 		if(checkSuccess == 0) {
 			return "on/addStaff";
@@ -70,14 +74,12 @@ public class StaffController {
 		map.put("beginRow", (currentPage-1) * rowPerPage);
 		map.put("rowPerPage", rowPerPage);
 		
-		List<Staff> staffList = staffMapper.selectStaffList(map);
+		List<Staff> staffList = staffService.getStaffList(map);
 		log.debug(staffList.toString());
 		model.addAttribute("staffMap", staffList);
 		model.addAttribute("currentPage", currentPage);
-		int lastPage = staffMapper.selectStaffCount() / rowPerPage;
-		if(staffMapper.selectStaffCount() % rowPerPage != 0) {
-			lastPage++;
-		}
+		
+		int lastPage = staffService.getLastPage(rowPerPage);
 		model.addAttribute("lastPage", lastPage);
 		
 		return "on/staffList";
@@ -90,7 +92,7 @@ public class StaffController {
 		} else {
 			staff.setActive(1);
 		}
-		staffMapper.updateStaff(staff);
+		staffService.modifyStaff(staff);
 		return "redirect:/on/staffList";
 	}
 	

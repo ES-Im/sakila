@@ -1,52 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<ul class="sidenav__list">
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/main">HOME</a>
+  </li>
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<title></title>
-		<style>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/staffOne">${loginStaff.username}</a>
+  </li>
+  
+  <li style="padding : 5% 5%">	
+  	||| Staff |||
+  	<hr>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/staffList">STAFF List</a>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/addStaff">ADD STAFF</a>
+  </li>
 
-		</style>
-	</head>
-	
-	<body>
-		<div class="container">
-
-			  <li class="list-group-item">
-				|||STAFF|||
-			  </li>
-   			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/addStaff">ADD STAFF</a>
-			  </li>
-			  <li class="list-group-item">
-  			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/staffList">STAFF List</a>
-			  </li>
-				<a href="${pageContext.request.contextPath}/on/logout">[x]Inactivate STAFF</a>
-			  </li>
-			  <li class="list-group-item">
-				<a href="${pageContext.request.contextPath}/on/logout">[x]Edit STAFF</a>
-			  </li>
-
-
-			  <li class="list-group-item">
-				|||STORE|||
-			  </li>
-			  
-			  
-			  <li class="list-group-item">
-				|||Comtomer|||
-			  </li>
-			 
-			</ul>
-		
-		</div>
-	</body>
-</html>
+  <li style="padding : 5% 5%">	
+  	||| Actor |||
+  	<hr>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/actorList">Actor List</a>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/addActor">ADD Actor</a>
+  </li>
+  
+  <li style="padding : 5% 5%">	
+  	||| Logout |||
+  	<hr>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/logout">LOGOUT</a>
+  </li>
+</ul>
 
 

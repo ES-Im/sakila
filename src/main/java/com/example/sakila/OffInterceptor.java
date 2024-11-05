@@ -16,7 +16,7 @@ public class OffInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		log.debug(request.getRequestURL().toString() + "reqeust intercepted");
+		//log.debug(request.getRequestURL().toString() + "reqeust intercepted");
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginStaff")!=null) {
