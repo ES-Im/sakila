@@ -9,5 +9,5 @@ import com.example.sakila.vo.ActorFile;
 public interface ActorFileMapper {
 	List<ActorFile> selectActorFileListByActor(int actorId);
 	int insertActorFile(ActorFile actorFile);
-
+	
 }

@@ -24,10 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class ActorService {
-	@Autowired
-	ActorFileMapper actorFileMapper;
-	@Autowired
-	ActorMapper actorMapper;
+	@Autowired ActorFileMapper actorFileMapper;
+	@Autowired ActorMapper actorMapper;
 
 	public Actor getActorOne(int actorId) {
 		return actorMapper.selectActorOne(actorId);
@@ -106,4 +104,11 @@ public class ActorService {
 		}
 		return lastPage;
 	}
+	
+	// FilmController (/on/filmList)에서 출연진에서 사용
+	public List<Actor> getActorListByFilm(int filmNo) {
+		return actorMapper.selectActorListByFilm(filmNo);
+	}
+	
+	
 }

@@ -31,7 +31,7 @@
 		<where>
 			<if test="searchWord != null">
 				first_name LIKE CONCAT('%', #{searchWord}, '%')
-				last_name LIKE CONCAT('%', #{searchWord}, '%')
+				OR last_name LIKE CONCAT('%', #{searchWord}, '%')
 			</if>
 		</where>
 	</select>
@@ -45,4 +45,13 @@
 	    WHERE  actor_id = #{a}
 	</select>
 	
+	
+	<select id="selectActorListByFilm" parameterType="int" resultType="com.example.sakila.vo.Actor">
+		SELECT a.actor_id AS actorId, 
+			   a.first_name AS firstName, 
+			   a.last_name AS lastName 
+		FROM film_actor f INNER JOIN actor a
+		ON a.actor_id = f.actor_id
+		WHERE f.film_id=#{filmId};
+	</select>
 </mapper>

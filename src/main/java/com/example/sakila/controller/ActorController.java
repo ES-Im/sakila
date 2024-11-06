@@ -1,6 +1,7 @@
 package com.example.sakila.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -71,11 +72,13 @@ public class ActorController {
 		model.addAttribute("actorFileList", actorFileList);
 		model.addAttribute("filmList", filmList);
 		
-		log.debug(actor.toString());
-		log.debug(actorFileList.toString());
-		log.debug(filmList.toString());
+		//log.debug(actor.toString());
+		//log.debug(actorFileList.toString());
+		//log.debug("filmList=" + filmList.toString());
 		
 		return "on/actorOne";
 	}
+	
+	
 
 }

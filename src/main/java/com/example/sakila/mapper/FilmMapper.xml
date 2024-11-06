@@ -3,11 +3,31 @@
 <mapper namespace="com.example.sakila.mapper.FilmMapper">
 	<select id="selectFilmTitleListByActor" parameterType="int" resultType="com.example.sakila.vo.Film">
 
-		SELECT f.film_id, f.title
+		SELECT 
+			f.film_id as filmId, 
+			f.title as title
 		FROM film_actor fa INNER JOIN film f
 		ON fa.film_id = f.film_id
 		WHERE actor_id = #{a}
 		
 	</select>
-
+	
+	<select id="selectFilmone" parameterType="int" resultType="Map">
+		SELECT 
+			fi.film_id as filmId, 
+			fi.title as title, 
+			fi.description as description, 
+			fi.release_year as releaseYear, 
+			fi.rental_duration as rentalDuration, 
+			fi.rental_rate as rentalRate, 
+			fi.length as length, 
+			fi.replacement_cost as replacementCost,  
+			fi.rating as rating, 
+			fi.special_features as specialFeatures, 
+			fi.last_update as lastUpdate, 
+			la.name as languageName
+		FROM film fi INNER JOIN language la
+		ON fi.language_id = la.language_id
+		WHERE fi.film_id=#{a};
+	</select>
 </mapper>

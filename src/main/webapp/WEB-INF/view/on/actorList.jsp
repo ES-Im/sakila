@@ -119,31 +119,33 @@
 			
 			  <main class="main">
 			    <div class="card">
-	  			    	<ul class="pagination">
-					    	<li class="item">
-				    			<a href="${pageContext.request.contextPath}/on/actorList?rowPerPage=5">5Page</a>
-			    			</li>
-			    			<li class="item">
-				    			<a href="${pageContext.request.contextPath}/on/actorList?rowPerPage=10">10Page</a>
-				    		</li>
-			    		</ul>
-						<form id="formSearch" action="${pageContext.request.contextPath}/on/actorList" method="get">
-				    		<input name="searchWord" id="searchWord" type="text">
-				    		<button id="btnSearch">Search</button>
+			    	<div class="d-flex justify-content-between  text-white">
+	  			    	<span class="p-1">
+			    			<a class="btn" href="${pageContext.request.contextPath}/on/actorList?rowPerPage=5">5Page</a>
+			    			<a class="btn" href="${pageContext.request.contextPath}/on/actorList?rowPerPage=10">10Page</a>
+				    	</span>
+						<form class="p-1" id="formSearch" action="${pageContext.request.contextPath}/on/actorList" method="get" placeholder="Search Actor">
+				    		<div class="form-control">
+					    		<input class="form-input" name="searchWord" id="searchWord" type="text">
+					    		<button  id="btnSearch">Search</button>
+				    		</div>
 				    	</form>
+		    		</div>
 			    	
 			    	<table class="table table-striped">
-			    		<tr>
-			    			<th>ActorNo</th>
-			    			<th>Name</th>
-			    			<th>Detail</th>
-			    		</tr>
+			    		<thead class="table-primary">
+				    		<tr>
+				    			<th>ActorNo</th>
+				    			<th>Name</th>
+				    			<th>Detail</th>
+				    		</tr>
+			    		</thead>
 			    		<c:forEach var="a" items="${actorList}">
 			    			<tr>
 			    				<td>${a.actorId}</td>
 			    				<td>${a.firstName} ${a.lastName}</td>
 			    				<td>
-			    					<a href="${pageContext.request.contextPath}/on/actorOne?actorId=${a.actorId}">이동</a>
+			    					<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/actorOne?actorId=${a.actorId}">이동</a>
 		    					</td>
 			    			</tr>
 			    		</c:forEach>

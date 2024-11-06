@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -85,11 +84,10 @@
 			}
 			
 			.card {
-			  background-color: #D4F4FA;
+			  background-color: #82bef6;
 			  padding: 24px;
 			  margin-bottom: 20px;
 			  text-align: center;
-			  min-height: 100%;
 			}
 			
 			.footer {
@@ -101,66 +99,90 @@
 			  background-color: #648ca6;
 			}
 			
-			.min-thead {
-				min-heigth:30%;
+			li {
+			    list-style: outside none none;
+			    padding-left: 5px;
 			}
 		</Style>
 		<title></title>
     </head>
 
     <body>
-       <div class="grid-container">
-		  <header class="header">
-		    <div>Staff List</div>
-		  </header>
-		
-		  <aside class="sidenav">
-			  <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
-		  </aside>
+	       <div class="grid-container">
+			  <header class="header">
+			    <div>Actor One</div>
+			  </header>
 			
-		  <main class="main">
-		    <div class="card">
-			<table class="table table-striped">
-				<thead class="table-primary">
-					<tr>
-						<th>ID</th>
-						<th>UserName</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Address Id</th>
-						<th>Email</th>
-						<th>Store Id</th>
-						<th>last Update</th>
-						<th>Active</th>
-					</tr>
-				</thead>
-				<c:forEach items="${staffMap}" var="s">
-					<tr>
-						<td>${s.staffId}</td>
-						<td>${s.username}</td>
-						<td>${s.firstName}</td>
-						<td>${s.lastName}</td>
-						<td>${s.addressId}</td>
-						<td>${s.email}</td>
-						<td>${s.lastUpdate}</td>
-						<td>status : ${s.active}</td>
-						<td>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/modifyStaffActive?staffId=${s.staffId}&active=${s.active}">
-							<c:if test="${s.active==1}">disable</c:if>
-							<c:if test="${s.active==2}">Activate</c:if>
-						</a>
-						
-						</td>
-						
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-		    
-	  </main>
-      </div>
+			  <aside class="sidenav">
+				  <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
+			  </aside>
 			
-	  <footer class="footer">
-	  </footer>
+			  <main class="main">
+			    <div class="card">
+			    
+	  			    <!-- Actor Info  -->
+	  			    <h2>ACTOR</h2>
+	  			    <table class="table">
+	  			    	<tr>
+		  			    	<td>Id</td>
+		  			    	<td>${actor.actorId}</td>
+	  			    	</tr>
+	  			    	<tr>
+		  			    	<td>Name</td>
+		  			    	<td>${actor.firstName} ${actor.lastName}</td>
+	  			    	</tr>
+	  			    </table>
+	  			    <div>
+	  			    	<a href="">Edit ACTOR</a>
+	  			    </div>
+	  			    
+	  			    <!-- Actor File -->
+					<h2>Actor File</h2>
+					<table class="table">
+						<tr>
+							<td>Image</td>
+							<td>Type</td>
+							<td>Size</td>
+							<td>CreateDate</td>
+							<td>Delete</td>
+						</tr>
+						<c:forEach var="af" items="${actorFileList}">
+							<tr>
+								<td>
+									<img src="${pageContext.request.contextPath}/upload/${af.fileName}.${af.ext}">
+								</td>
+								<td>${af.contentType}</td>
+								<td>${af.size}</td>
+								<td>${af.createDate}</td>
+								<td>
+									<a href="">Delete</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>	  	
+					<div>
+						<a href="">이미지 파일 추가</a>
+					</div>
+							    
+	  			    <!-- Film -->
+	  			    <h2>Film</h2>
+  			    	<ul>
+	  			    	<c:forEach var="f" items="${filmList}">
+
+		  			    	<li>
+		  			    		<a href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}">${f.title}</a>
+		  			    	</li>
+		  			    </c:forEach>
+  			    	</ul>
+				</div>
+			  </main>
+			
+			  <footer class="footer">
+			  <div></div>
+			  </footer>
+		  </div>
     </body>
+    <script>
+    	
+    </script>
 </html>

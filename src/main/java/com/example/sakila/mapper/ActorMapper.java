@@ -14,4 +14,5 @@ public interface ActorMapper {
 	int selectTotalCount(String searchWord);
 	Actor selectActorOne(int actorId);
 	
+	List<Actor> selectActorListByFilm(int filmId);
 }

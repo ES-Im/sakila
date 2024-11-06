@@ -7,16 +7,15 @@
 	</insert>
 	
 	<select id="selectActorFileListByActor" parameterType="int" resultType="com.example.sakila.vo.ActorFile">
-		SELECT actor_file_id actorFileId, 
-			   actor_id actorId,
-			   orginname originName,
-			   filename fileName,
+		SELECT actor_file_id as actorFileId, 
+			   actor_id as actorId,
+			   orginname as originName,
+			   filename as fileName,
 			   ext,
-			   content_type contentType,
+			   content_type as contentType,
 			   size,
-			   create_date createDate
+			   create_date as createDate
 		FROM actor_file
 		WHERE actor_id = #{a}
-	
 	</select>
 </mapper>
