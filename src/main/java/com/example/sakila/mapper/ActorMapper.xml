@@ -9,4 +9,40 @@
 		INSERT INTO actor (first_name, last_name) 
 		VALUES (#{firstName}, #{lastName})
 	</insert>
+	
+	<select id="selectActorList" parameterType="Map" resultType="com.example.sakila.vo.Actor">
+		
+		SELECT actor_id as actorId, 
+			   first_name as firstName, 
+			   last_name as lastName
+	    FROM   actor
+	    <where>
+	    	<if test="searchWord != null">
+			    first_name LIKE CONCAT('%', #{searchWord}, '%')
+			    OR last_name LIKE CONCAT('%', #{searchWord}, '%')
+		    </if>
+	    </where>
+	    ORDER BY first_name ASC
+	    LIMIT  #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectTotalCount" parameterType="String" resultType="int">
+		SELECT count(*) FROM actor
+		<where>
+			<if test="searchWord != null">
+				first_name LIKE CONCAT('%', #{searchWord}, '%')
+				last_name LIKE CONCAT('%', #{searchWord}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectActorOne" parameterType="int" resultType="com.example.sakila.vo.Actor">
+		SELECT actor_id as actorId, 
+			   first_name as firstName, 
+			   last_name as lastName,
+			   last_update as lastUpdate
+	    FROM   actor 
+	    WHERE  actor_id = #{a}
+	</select>
+	
 </mapper>

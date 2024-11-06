@@ -5,4 +5,18 @@
 		INSERT INTO actor_file (actor_id, orginname, filename, ext, content_type, size) 
 		VALUES (#{actorId}, #{originName}, #{fileName}, #{ext}, #{contentType}, #{size})
 	</insert>
+	
+	<select id="selectActorFileListByActor" parameterType="int" resultType="com.example.sakila.vo.ActorFile">
+		SELECT actor_file_id actorFileId, 
+			   actor_id actorId,
+			   orginname originName,
+			   filename fileName,
+			   ext,
+			   content_type contentType,
+			   size,
+			   create_date createDate
+		FROM actor_file
+		WHERE actor_id = #{a}
+	
+	</select>
 </mapper>
