@@ -1,21 +1,34 @@
 package com.example.sakila.vo;
 
 import lombok.Data;
-
 @Data
 public class Film {
 	private int filmId;				//PK
 	private String title;
-	private String description;
-	private String releaseYear;
-	private int languageId;		//FK(language)
-	private int originalLanguageId;	//FK(language)
+	private String description;		// default : null
+	private Integer releaseYear;		// default : null
+	private Integer languageId;		    // FK(language) // default : null
+	private Integer originalLanguageId;	// FK(language) // default : null
 	private int rentalDuration;
 	private double rentalRate;
-	private int length;
+	private Integer length;				// default : null
 	private double replacementCost;
 	private String rating;
-	private String specialFeatures;
+	private String specialFeatures;	// default : null
 	private String lastUpdate;
+	
+
 
 }
+
+/*
+
+
+[default : null]
+description 
+release_year 
+original_language_id
+length
+special_features
+
+*/

@@ -30,4 +30,31 @@
 		ON fi.language_id = la.language_id
 		WHERE fi.film_id=#{a};
 	</select>
+	
+	<insert id="insertFilm" parameterType="com.example.sakila.vo.Film">
+		INSERT INTO film(title, 
+						 description, 
+						 release_year, 
+						 language_id, 
+						 original_language_id,
+						 rental_duration,  
+						 rental_rate, 
+						 length, 
+						 replacement_cost, 
+						 rating, 
+						 special_features
+			   )
+			   VALUES(#{title}, 
+			   		  #{description}, 
+			   		  #{releaseYear}, 
+			   		  #{languageId}, 
+			   		  #{originalLanguageId}, 
+			   		  #{rentalDuration}, 
+			   		  #{rentalRate}, 
+			   		  #{length}, 
+			   		  #{replacementCost}, 
+			   		  #{rating}, 
+			   		  #{specialFeatures} 
+			   )
+	</insert>
 </mapper>

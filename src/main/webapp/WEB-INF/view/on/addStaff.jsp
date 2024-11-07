@@ -86,8 +86,7 @@
 			.card {
 			  background-color: #82bef6;
 			  padding: 24px;
-			  margin-bottom: 20px;
-			  text-align: center;
+			  min-height: 80pv;
 			}
 			
 			.footer {
@@ -113,35 +112,48 @@
 			  </aside>
 			
 			  <main class="main">
-			    <div class="card">
-				    
-	 				<!-- Address search box -->
-					<fieldset>	
-						<form class="searchForm" id="formAddress" action="${pageContext.request.contextPath}/on/addStaff" method="get">
-							<legend>
-								Select Address
-							</legend>
-							<hr>
-							<label for="storeId" class="form-label">search</label>
-							<input id="searchAddress" name="searchAddress" class="form-control" type="text">
-							<button id="btnAddress" type="button">Search</button>
-						</form>
-						
-						<!-- display Address List -->
-						<form>
-							<label for="Result" class="form-label">Search Result:</label>
-							<br>
-							<select  id="resultAddress" class="form-select" size="10">
-								<c:forEach var="a" items="${addressList}">
-									<option value="${a.addressId}">(ID:${a.addressId}) ${a.address}</option>
-								</c:forEach>
-							</select>
-							<br>
-							<button type="button" id="btnAddrSel">Select</button>
-						</form>
-					</fieldset>
-				</div>
-				<div class="card">
+			  <div class="row">
+				   <div class="card col-xl-3" style="max-width: 20%; margin: 0px 5px">
+					    
+		 				<!-- Address search box -->
+						<fieldset>	
+							<form class="searchForm" id="formAddress" action="${pageContext.request.contextPath}/on/addStaff" method="get">
+								<legend>
+									Select Address
+								</legend>
+								<hr>
+								
+
+								<label for="storeId" class="form-group-label mb-2">주소 검색 : </label>
+								<br>
+								<div class="d-flex">
+										<input id="searchAddress" name="searchAddress" class="form-control me-2" type="text" placeholder="address Search">
+										<button id="btnAddress" class="btn btn-success" type="button">Search</button>
+								</div>
+							</form>
+							
+							<c:if test="${searchAddress != ''}">
+								<!-- display Address List -->
+								<form>
+									<label for="Result" class="form-label mt-5 mb-2">Search Result:</label>
+									<br>
+									<select id="resultAddress" class="form-select" size="10">
+										<c:forEach var="a" items="${addressList}">
+											<option value="${a.addressId}">(ID:${a.addressId}) ${a.address}</option>
+										</c:forEach>
+									</select>
+									<br>
+									<div class="d-flex flex-row-reverse">
+										<button id="btnAddrSel" class="btn btn-success mt-4" type="button" >Select</button>
+									</div>
+								</form>
+							</c:if>
+
+						</fieldset>
+				   </div>
+			   
+				
+			   <div class="card col-xl-7" style="max-width: 55%">
 					<fieldset>
 					<!-- addStaff Form -->
 						
@@ -149,43 +161,57 @@
 							<legend>
 								add Form
 							</legend>
+							
 							<hr>
 							<!-- 1 :Store List -->
+							<div class="col-xl-6">
+								<label for="storeId" class="form-label">storeId:</label>
+								<select id="storeId" name="storeId" class="form-control">
+									<option value="">|||select|||</option>
+									<c:forEach var="s" items="${storeList}">
+										<option value="${s.storeId}">${s.storeId}</option>
+									</c:forEach>
+								</select>
+							</div>
 	
-							<label for="storeId" class="form-label">storeId:</label>
-							<select id="storeId" name="storeId" class="form-control">
-								<option value="">|||select|||</option>
-								<c:forEach var="s" items="${storeList}">
-									<option value="${s.storeId}">${s.storeId}</option>
-								</c:forEach>
-							</select>
-	
-							 <!-- 2 : AddressId-->
-							<label for="AddressId" class="form-label">AddressId</label>
-							<input id="addressId" name="addressId" class="form-control" type="text" readonly>
+							<!-- 2 : AddressId-->
+							<div class="col-xl-6">
+								<label for="AddressId" class="form-label">AddressId</label>
+								<input id="addressId" name="addressId" class="form-control" type="text" placeholder="주소를 선택하세요" readonly>
+							</div>
 								
 							<!-- 3 : username-->
-							<label for="username" class="form-label">username</label>
-							<input id="username" name="username" class="form-control" type="text" >
-	
-							<!-- 4 : email-->
-							<label for="Email" class="form-label">Email</label>
-							<input id="email" name="email" class="form-control" type="text" >
-		
-							<!-- 5 : first_name-->
-							<label for="firstName" class="form-label">first_name</label>
-							<input id="firstName" name="firstName" class="form-control" type="text" >
-								
-							<!-- 6 : last_name-->
-							<label for="lastName" class="form-label">last_name</label>
-							<input id="lastName" name="lastName" class="form-control" type="text" >
+							<div class="col-xl-6">
+								<label for="username" class="form-label">username</label>
+								<input id="username" name="username" class="form-control" type="text" >
+							</div>
 							
+							<!-- 4 : email-->
+							<div class="col-xl-6">
+								<label for="Email" class="form-label">Email</label>
+								<input id="email" name="email" class="form-control" type="text" >
+							</div>
+							<div class="row">
+							<!-- 5 : first_name-->
+								<div class="col-xl-3">
+									<label for="firstName" class="form-label">first_name</label>
+									<input id="firstName" name="firstName" class="form-control" type="text" >
+								</div>					
+							<!-- 6 : last_name-->
+								<div class="col-xl-3">				
+									<label for="lastName" class="form-label">last_name</label>
+									<input id="lastName" name="lastName" class="form-control" type="text" >
+								</div>
+							</div>
 							<!-- button -->
-							<button type="button" id="btnAddstaff">Select</button>
+							<div class="d-flex flex-row-reverse">
+								<button id="btnAddstaff" class="btn btn-success mt-5" type="button">Select</button>
+							</div>
 						</form>
 					</fieldset>
 				</div>
 			  </main>
+			  </div>
 
 			
 		  <footer class="footer">

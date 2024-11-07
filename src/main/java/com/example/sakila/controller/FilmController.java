@@ -51,6 +51,9 @@ public class FilmController {
 	public String addFilm(FilmForm filmForm) {
 		//filmService 에서 filmForm을 film 객체로 변환
 		log.debug("filmForm = " + filmForm.toString());
+		filmService.addFilm(filmForm);
 		return "redirect:/on/filmList";
 	}
+	
+	
 }

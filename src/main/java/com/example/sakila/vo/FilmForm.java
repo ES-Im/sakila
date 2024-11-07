@@ -8,12 +8,13 @@ import lombok.Data;
 public class FilmForm {
 	private String title;
 	private String description;
-	private String releaseYear;
-	private int languageId;		
-	private int originalLanguageId;	
-	private int rentalDuration;
+	private Integer releaseYear;
+	private Integer languageId;		
+	private Integer originalLanguageId;	
+	private Integer rentalDuration;
 	private double rentalRate;
-	private int length;
+	private String rating;
+	private Integer length;
 	private double replacementCost;
 	private List<String> specialFeatures;	// getValues by CheckBox
 	

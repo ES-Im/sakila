@@ -48,7 +48,7 @@ public class StaffController {
 		
 		List<Store> storeList = storeService.getStoreList(); 
 		model.addAttribute("storeList", storeList);
-		
+		model.addAttribute("searchAddress",searchAddress);
 		if(!searchAddress.equals("")) {
 			List<Address> addressList = addressService.getAddressListByWord(searchAddress);
 			model.addAttribute("addressList", addressList);

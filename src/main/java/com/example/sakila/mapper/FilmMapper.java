@@ -14,4 +14,7 @@ public interface FilmMapper {
 	
 	// /on/FilmOne
 	Map<String, Object> selectFilmone(int filmId);
+	
+	// /on/addFilm
+	int insertFilm(Film film);
 }

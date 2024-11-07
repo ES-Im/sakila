@@ -87,7 +87,6 @@
 			  background-color: #82bef6;
 			  padding: 24px;
 			  margin-bottom: 20px;
-			  text-align: center;
 			}
 			
 			.footer {
@@ -139,9 +138,6 @@
 								<option value="${la.languageId}">${la.name}</option>
 							</c:forEach>
 						</select>
-						
-						
-						
 						
 						<br>
 						
@@ -201,8 +197,36 @@
     <script>
     	// form submit
 		$('#btnAddFilm').click(function() {
+			let arr = [$("#rentalDuration").val(),  $("#rentalRate").val(), $("#replacementCost").val(), $('#rating:checked').length, $("#title").val()];
+			/* FilmForm 의 int를 전부 기본형으로 설계시 사용 : 서비스에서 -1을 널로 치환하는 작업을 해야된다.(공백을 int에 담을수없어 공백입력받을시 특정 숫자로 치환필요)
+			$('#releaseYear').val(($('#releaseYear').val() == "") ? -1 : $('#releaseYear').val());
+			$('#length').val(($('#length').val() == "") ? -1 : $('#length').val());
+			$('#languageId').val(($('#languageId').val() == "") ? -1 : $('#languageId').val());
+			$('#originalLanguageId').val(($('#originalLanguageId').val() == "") ? -1 : $('#originalLanguageId').val());
+			*/
+			//console.log("length = " + $('#length').val());
+			//console.log("releaseYear = " + $('#releaseYear').val());
+
+			for(let i = 0; i < arr.length; i++) {
+					// 유효성 검사(1) : 대상 = 숫자가 입력됬는지 확인 rentalDuration, rentalRate, replacementCost
+					if((i < 3) && isNaN(arr[i])) {
+						alert('rentalDuration, rentalRate, replacementCost 항목은 숫자를 입력해야합니다.');
+						return;
+					}
+					// 유효성 검사(2) : 대상 = rating 이 체크되어 있지 않은지
+					if((i==3) && arr[i] == 0) {
+						alert('rating을 선택하세요');
+						return;
+					}
+					// 유효성 검사(3) : 대상 = 기본값이 NULL 이 아닌 필드 {title, rentalDuration, rentalRate, replacementCost, rating, lastUpdate}
+					if((i > 3) && arr[i] == '') {
+						alert('fill in the requeired form');
+						return;
+					}
+			}
+			
 			$("#formFilm").submit();
-		})
+		});
 		
     </script>
 </html>

@@ -87,7 +87,6 @@
 			  background-color: #82bef6;
 			  padding: 24px;
 			  margin-bottom: 20px;
-			  text-align: center;
 			}
 			
 			.footer {
@@ -115,25 +114,25 @@
 		  <main class="main">
 		    <div class="card">
 		    	<!-- form dto = Actor instance + multipart-form-data -->
-		    	<div style="width: 50%" class="">
+		    	<div class="" style="max-width:50%">
 			    	<form id="formActor" method="post" action="${pageContext.request.contextPath}/on/addActor" enctype="multipart/form-data">
-						<label class="form-label">firstName</label>
+						<label class="form-label mt-1" >firstName</label>
 						<input id="firstName" name="firstName" class="form-control" type="text">
 						
-						<label class="form-label">lastName</label>
+						<label class="form-label mt-3">lastName</label>
 						<input id="lastName" name="lastName" class="form-control" type="text">
 						
-						<label class="form-label">AddFile</label>
 						<span>${msg}</span>
-						<div id="fileDiv">
-							<div>
-								<button id="btnAddFile" type="button">AddFile</button>						
-								<button id="btnRemoveFile" type="button">RemoveFile</button>
-							</div>						
+						<label class="form-label mt-3">AddFile</label>
+						<div class="d-flex flex-row flex-row-reverse">
+							<button id="btnRemoveFile" type="button" class="btn btn-danger">RemoveFile</button>
+							<button id="btnAddFile" type="button" class="btn btn-success">AddFile</button>	
 						</div>
-	
-						<button id="btnAddActor" type="button">ADD</button>
+						<div id="fileDiv"></div>					
 						
+						<div class="d-flex flex-row flex-row-reverse">
+							<button id="btnAddActor" type="button" class="btn btn-success mt-3">ADD</button>
+						</div>
 					</form>
 				</div>
 		    </div>
@@ -161,7 +160,7 @@
     		if($('.actorFile').last().val() == '') {
     			alert('empty File already exist.');
     		} else {
-    			let html = '<input id="addFile" class="actorFile" name="actorFile" type="file">';
+    			let html = '<input id="addFile" class="actorFile form-control" name="actorFile" type="file">';
 	    		$('#fileDiv').append(html);
     		}
     	});
