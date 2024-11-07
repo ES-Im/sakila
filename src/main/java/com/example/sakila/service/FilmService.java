@@ -15,12 +15,16 @@ import com.example.sakila.vo.Film;
 public class FilmService {
 	@Autowired FilmMapper filmMapper;
 	
+	// on/actorOne
 	public List<Film> getFilmTitleListByActor(int actorId) {
 		return filmMapper.selectFilmTitleListByActor(actorId);
 	}
 	
+	// on/filmOne
 	public Map<String, Object> getFilmOne(int filmId) {
 		return filmMapper.selectFilmone(filmId);
 	}
+	
+	// on/addFilm
 
 }

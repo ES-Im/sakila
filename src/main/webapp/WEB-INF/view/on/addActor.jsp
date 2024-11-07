@@ -115,24 +115,27 @@
 		  <main class="main">
 		    <div class="card">
 		    	<!-- form dto = Actor instance + multipart-form-data -->
-		    	<form id="formActor" method="post" action="${pageContext.request.contextPath}/on/addActor" enctype="multipart/form-data">
-					<label class="form-label">firstName</label>
-					<input id="firstName" name="firstName" class="form-control" type="text">
-					
-					<label class="form-label">lastName</label>
-					<input id="lastName" name="lastName" class="form-control" type="text">
-					
-					<label class="form-label">AddFile</label>
-					<div id="fileDiv">
-						<div>
-							<button id="btnAddFile" type="button">AddFile</button>						
-							<button id="btnRemoveFile" type="button">RemoveFile</button>
-						</div>						
-					</div>
-
-					<button id="btnAddActor" type="button">ADD</button>
-					
-				</form>
+		    	<div style="width: 50%" class="">
+			    	<form id="formActor" method="post" action="${pageContext.request.contextPath}/on/addActor" enctype="multipart/form-data">
+						<label class="form-label">firstName</label>
+						<input id="firstName" name="firstName" class="form-control" type="text">
+						
+						<label class="form-label">lastName</label>
+						<input id="lastName" name="lastName" class="form-control" type="text">
+						
+						<label class="form-label">AddFile</label>
+						<span>${msg}</span>
+						<div id="fileDiv">
+							<div>
+								<button id="btnAddFile" type="button">AddFile</button>						
+								<button id="btnRemoveFile" type="button">RemoveFile</button>
+							</div>						
+						</div>
+	
+						<button id="btnAddActor" type="button">ADD</button>
+						
+					</form>
+				</div>
 		    </div>
 		  </main>
 		

@@ -35,8 +35,22 @@ public class ActorController {
 	}
 	
 	@PostMapping("/on/addActor")	// ActorForm = Comment Entity
-	public String addActor(HttpSession session, ActorForm actorForm) {
-		log.debug(actorForm.toString());
+	public String addActor(Model model, HttpSession session, ActorForm actorForm) {
+		//log.debug(actorForm.toString());
+		
+		// 파일 마임타입 제한
+
+		List<MultipartFile> list = actorForm.getActorFile();
+		if(list !=null && list.size() != 0) {
+			for(MultipartFile i : list) {
+				log.debug(i.getContentType());
+				if (i.getContentType().equals("image/jpeg") == false && i.getContentType().equals("image/png") == false ) {
+					model.addAttribute("msg", "its impossible file's contentType isnt image type");
+					model.addAttribute("actorId", actorForm.getActorId());
+					return "on/addActor";
+				}
+			}
+		}
 		
 		String path = session.getServletContext().getRealPath("/upload/");
 		log.debug(path);

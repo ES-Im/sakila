@@ -8,7 +8,7 @@ public class Film {
 	private String title;
 	private String description;
 	private String releaseYear;
-	private int language_id;		//FK(language)
+	private int languageId;		//FK(language)
 	private int originalLanguageId;	//FK(language)
 	private int rentalDuration;
 	private double rentalRate;

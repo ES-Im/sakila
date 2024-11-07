@@ -133,18 +133,19 @@
 	  			    	</tr>
 	  			    </table>
 	  			    <div>
-	  			    	<a href="">Edit ACTOR</a>
+	  			    	<a href="${pageContext.request.contextPath}/on/modifyActor">Edit ACTOR</a>
+	  			    	// 배우의 firstName, lastName 수정 기능 과제[입력폼, 액션, 서비스, 매퍼]
 	  			    </div>
 	  			    
 	  			    <!-- Actor File -->
 					<h2>Actor File</h2>
 					<table class="table">
 						<tr>
-							<td>Image</td>
-							<td>Type</td>
-							<td>Size</td>
-							<td>CreateDate</td>
-							<td>Delete</td>
+							<th>Image</th>
+							<th>Type</th>
+							<th>Size</th>
+							<th>CreateDate</th>
+							<th>Delete</th>
 						</tr>
 						<c:forEach var="af" items="${actorFileList}">
 							<tr>
@@ -161,7 +162,7 @@
 						</c:forEach>
 					</table>	  	
 					<div>
-						<a href="">이미지 파일 추가</a>
+						<a href="${pageContext.request.contextPath}/on/addActorFile?actorId=${actor.actorId}" class="btn btn-success">이미지 파일 추가</a>
 					</div>
 							    
 	  			    <!-- Film -->

@@ -30,12 +30,32 @@
   </li>
   
   <li style="padding : 5% 5%">	
+  	||| Film |||
+  	<hr>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="">Film List</a>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/addFilm">ADD FILM</a>
+  </li>
+  
+  <li style="padding : 5% 5%">	
+  	||| STATICSTICS |||
+  	<hr>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="">---</a>
+  </li>
+  
+  <li style="padding : 5% 5%">	
   	||| Logout |||
   	<hr>
   </li>
   <li class="sidenav__list-item">
   	<a class="nav-link" href="${pageContext.request.contextPath}/on/logout">LOGOUT</a>
   </li>
+
 </ul>
 
 

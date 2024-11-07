@@ -5,9 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.sakila.vo.ActorFile;
+import com.example.sakila.vo.ActorForm;
 @Mapper
 public interface ActorFileMapper {
 	List<ActorFile> selectActorFileListByActor(int actorId);
 	int insertActorFile(ActorFile actorFile);
+	
+	
+	
 	
 }
