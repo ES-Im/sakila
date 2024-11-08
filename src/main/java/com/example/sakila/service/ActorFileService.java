@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sakila.mapper.ActorFileMapper;
+import com.example.sakila.mapper.FilmMapper;
 import com.example.sakila.vo.Actor;
 import com.example.sakila.vo.ActorFile;
 import com.example.sakila.vo.ActorForm;
@@ -18,6 +19,7 @@ import com.example.sakila.vo.ActorForm;
 @Transactional
 public class ActorFileService {
 	@Autowired ActorFileMapper actorFileMapper;
+	
 	// /on/actorOne
 	public List<ActorFile> getActorFileListByActor(int actorId) {
 		return actorFileMapper.selectActorFileListByActor(actorId);
@@ -63,6 +65,18 @@ public class ActorFileService {
 			}	
 		
 		 }
+	}
+	
+	// /on/removeActorFile) actor_file 삭제 + 물리적으로 삭제(fileName, Path필요)
+	public void removeActorFile(int actorFileId, String path) {
+		ActorFile actorFile = actorFileMapper.selectActorFileOne(actorFileId);
+		int row = actorFileMapper.deleteActorFile(actorFileId);
+		
+		if(row == 1) {
+			String fileFullName = path + actorFile.getFileName()+"."+actorFile.getExt();
+			File file = new File(fileFullName);
+			file.delete();
+		}
 	}
 }
 

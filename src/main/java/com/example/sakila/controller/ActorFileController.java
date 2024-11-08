@@ -48,5 +48,13 @@ public class ActorFileController {
 		log.debug("actorForm = "+actorForm.toString());
 		return "redirect:/on/actorOne?actorId=" + actorForm.getActorId();
 	}
+	
+	@GetMapping("/on/removeActorFile")
+	public String removeActorFile(HttpSession session, @RequestParam int actorFileId, @RequestParam int actorId) {
+		String path = session.getServletContext().getRealPath("/upload/");
+		actorFileService.removeActorFile(actorFileId, path);
+		return "redirect:/on/actorOne?actorId="+actorId;
+	}
+	
 
 }

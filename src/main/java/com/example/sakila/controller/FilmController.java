@@ -28,7 +28,7 @@ public class FilmController {
 	
 	// filmOne Info
 	@GetMapping("/on/filmOne")
-	public String filmOne(Model model, @RequestParam() int filmId) {
+	public String filmOne(Model model, @RequestParam int filmId) {
 		Map<String,Object> filmList = filmService.getFilmOne(filmId);
 		 List<Actor> actorList = actorService.getActorListByFilm(filmId);
 		model.addAttribute("filmList", filmList);

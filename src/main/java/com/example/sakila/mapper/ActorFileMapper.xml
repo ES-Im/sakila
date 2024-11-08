@@ -15,7 +15,26 @@
 			   content_type as contentType,
 			   size,
 			   create_date as createDate
+		FROM actor_file 
+		WHERE actor_id = #{actorId}
+	</select>
+	
+	<delete id="deleteActorFile" parameterType="int">
+		DELETE 
 		FROM actor_file
-		WHERE actor_id = #{a}
+		WHERE actor_file_id = #{actorFileId}
+	</delete>
+	
+	<select id="selectActorFileOne" parameterType="int" resultType="com.example.sakila.vo.ActorFile">
+		SELECT 
+			actor_file_id as actorFileId, 
+			actor_id as actorId, 
+			filename fileName, 
+			ext, 
+			content_type as contextType, 
+			size, 
+			create_date as createDate
+		FROM actor_file
+		WHERE actor_file_id = #{actorFileId} 
 	</select>
 </mapper>

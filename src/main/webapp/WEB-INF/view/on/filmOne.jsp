@@ -106,7 +106,20 @@
 		</Style>
 		<title></title>
     </head>
-
+	<%--
+		1) film 상세 
+			(o) - film One
+			- film 수정 /on/modifyFilm
+			- actor 삭제 /on/removeActor (film_actor 삭제 + film-category 삭제 + film 삭제) 
+		2) film-category 리스트
+			- 리스트
+			- film-category 추가 /on/addFilmCategory (체크박스로 선택, 추가)
+			- film-category 개별 삭제 /on/removeFilmCategory
+		3) film-actor 리스트
+			(o) - 리스트 
+			- film_actor 추가 /on/addActorByFilm (Actor 검색 후 선택, 추가)
+			- film_actor 개별 삭제 /on/removeActorFile
+	 --%>
     <body>
 	       <div class="grid-container">
 			  <header class="header">
@@ -127,7 +140,9 @@
 							${film}
 						</div>
 						<div>
-							<a href="">Edit</a>
+							<a href="${pageContext.request.contextPath}/on/">Edit</a>
+							<a href="">Delete</a>
+							<%-- artorList --%>
 						</div>
 						<br>	
 						<div>

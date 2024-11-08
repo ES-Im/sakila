@@ -11,7 +11,9 @@ public interface ActorFileMapper {
 	List<ActorFile> selectActorFileListByActor(int actorId);
 	int insertActorFile(ActorFile actorFile);
 	
-	
-	
+	// on/ActorOne-deleteActorFile
+	int deleteActorFile(int actorFileId);
+	// on/actorOne-dleteActorFile, 파일 물리적 삭제를 위함
+	ActorFile selectActorFileOne(int actorFileId);
 	
 }

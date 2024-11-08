@@ -61,4 +61,8 @@ public class FilmService {
 		return filmMapper.insertFilm(film);
 	}
 
+	// on//actorOne for searchFilm
+	public List<Film> getFilmListByTitle(String searchTitle) {
+		return filmMapper.selectFilmListByTitle(searchTitle);
+	}
 }

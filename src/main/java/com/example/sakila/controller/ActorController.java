@@ -77,14 +77,24 @@ public class ActorController {
 	}
 	
 	@GetMapping("/on/actorOne")
-	public String actorone(Model model, @RequestParam int actorId) {
+	public String actorone(Model model, 
+			@RequestParam() int actorId, @RequestParam(defaultValue = "") String searchTitle) {
+		// 기본 정보 출력 포워딩
 		Actor actor = actorService.getActorOne(actorId);
 		List<ActorFile> actorFileList = ActorFileService.getActorFileListByActor(actorId);
 		List<Film> filmList = filmService.getFilmTitleListByActor(actorId);
-		
+		log.debug("actorId = " + actorId);
 		model.addAttribute("actor", actor);
+		model.addAttribute("actorId",actorId);
 		model.addAttribute("actorFileList", actorFileList);
 		model.addAttribute("filmList", filmList);
+		
+		// searchWord가 공백이 아니면 film검색을 통한 포워딩 -> 검색시 FilmList 출력필요
+		if(searchTitle.equals("") == false) {
+			// Film 검색 결과 리스트 출력
+			List<Film> searchFilmList = filmService.getFilmListByTitle(searchTitle);
+			model.addAttribute("searchFilmList", searchFilmList);
+		}
 		
 		//log.debug(actor.toString());
 		//log.debug(actorFileList.toString());

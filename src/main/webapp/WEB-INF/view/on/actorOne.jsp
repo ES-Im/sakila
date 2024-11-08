@@ -106,7 +106,21 @@
 		</Style>
 		<title></title>
     </head>
-
+    // 배우의 firstName, lastName 수정 기능 과제[입력폼, 액션, 서비스, 매퍼]
+	<%--
+		1) actor 상세 
+			(o) - actor One
+			- actor 수정 /on/modifyActor
+			- actor 삭제 /on/removeActor (actor의 파일 삭제 + film_actor 삭제 + actor 삭제)
+		2) actor_file 리스트
+			(o) - 리스트
+			(o) - actor_file 추가 /on/addFilmByActor
+			(o) - 개별 actor_file 삭제 /on/removeActorFile
+		3) film-actor 리스트
+			(o) - 리스트 
+			- film_actor 추가 /on/addFilmActor (Film 검색 후 선택, 추가)
+			- film_actor 개별 삭제 /on/removeFilmActor
+	 --%>
     <body>
 	       <div class="grid-container">
 			  <header class="header">
@@ -121,61 +135,116 @@
 			    <div class="card">
 			    
 	  			    <!-- Actor Info  -->
-	  			    <h2>ACTOR</h2>
-	  			    <table class="table">
-	  			    	<tr>
-		  			    	<td>Id</td>
-		  			    	<td>${actor.actorId}</td>
-	  			    	</tr>
-	  			    	<tr>
-		  			    	<td>Name</td>
-		  			    	<td>${actor.firstName} ${actor.lastName}</td>
-	  			    	</tr>
+			    	<legend>
+			    		Actor
+			    	</legend>
+			    	<hr>
+		    		<table class="table table-primary">
+		    			<tr>
+		    				<td>Id</td>
+		    				<td>${actor.actorId}</td>
+		    			</tr>
+		    			<tr>
+		    				<td>Name</td>
+		    				<td>${actor.firstName} ${actor.lastName}</td>
+		    			</tr>
 	  			    </table>
+
 	  			    <div>
-	  			    	<a href="${pageContext.request.contextPath}/on/modifyActor">Edit ACTOR</a>
-	  			    	// 배우의 firstName, lastName 수정 기능 과제[입력폼, 액션, 서비스, 매퍼]
+	  			    	<a class="btn btn-success" href="${pageContext.request.contextPath}/on/modifyActor">Edit ACTOR</a>
 	  			    </div>
 	  			    
+  			    </div>
+  			    
+  			    <div class="card">
 	  			    <!-- Actor File -->
-					<h2>Actor File</h2>
-					<table class="table">
-						<tr>
-							<th>Image</th>
-							<th>Type</th>
-							<th>Size</th>
-							<th>CreateDate</th>
-							<th>Delete</th>
-						</tr>
-						<c:forEach var="af" items="${actorFileList}">
+			    	<legend>
+			    		Actor File
+			    	</legend>
+			    	<hr>
+			    	<c:if test="${empty actorFileList==false}">
+						<table class="table">
 							<tr>
-								<td>
-									<img src="${pageContext.request.contextPath}/upload/${af.fileName}.${af.ext}">
-								</td>
-								<td>${af.contentType}</td>
-								<td>${af.size}</td>
-								<td>${af.createDate}</td>
-								<td>
-									<a href="">Delete</a>
-								</td>
+								<th>Image</th>
+								<th>Type</th>
+								<th>Size</th>
+								<th>CreateDate</th>
+								<th>Delete</th>
 							</tr>
-						</c:forEach>
-					</table>	  	
-					<div>
-						<a href="${pageContext.request.contextPath}/on/addActorFile?actorId=${actor.actorId}" class="btn btn-success">이미지 파일 추가</a>
-					</div>
-							    
+							<c:forEach var="af" items="${actorFileList}">
+								<tr>
+									<td>
+										<img src="${pageContext.request.contextPath}/upload/${af.fileName}.${af.ext}">
+									</td>
+									<td>${af.contentType}</td>
+									<td>${af.size}</td>
+									<td>${af.createDate}</td>
+									<td>
+			  			    			<a href="${pageContext.request.contextPath}/on/removeActorFile?actorFileId=${af.actorFileId}&actorId=${actorId}">Remove File</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>	
+					</c:if>  	
+						<div>
+							<a href="${pageContext.request.contextPath}/on/addActorFile?actorId=${actor.actorId}" class="btn btn-success">이미지 파일 추가</a>
+						</div>
+				</div>	
+				<div class="card">	    
 	  			    <!-- Film -->
-	  			    <h2>Film</h2>
-  			    	<ul>
-	  			    	<c:forEach var="f" items="${filmList}">
+	  			    <div>
+	  			    	<!-- 출연작 추가 : 영화 검색 -->
+	  			    	<form id="searchFilmForm" method="get" action="${pageContext.request.contextPath}/on/actorOne">
+	  			    		<legend>
+	  			    			Select Film
+	  			    		</legend>
+	  			    		<hr>
+	  			    		<%-- 컨트롤러에서 포워딩 방식으로 검색 --%>
+	  			    		<div class="mt-3">
+		  			    		<input type="hidden" name="actorId" value="${actor.actorId}">
+		  			    		<input type="text" name="searchTitle">
+		  			    		<buttom id="BtnsearchFilm" class="btn btn-success" type="button">Film 검색</buttom>
+	  			    		</div>
+	  			    	</form>
+	  			    	<!-- 출연작 추가 : 검색한 영화중에 선택 -->
+	  			    	
+  			    		<c:if test="${searchFilmList != null}">
+  			    			<form id="addFilmForm" method="post" action="${pageContext.request.contextPath}/on/addFilmByActor">
+  			    				<input type="hidden" name="actorId" value="${actor.actorId}">
+  			    				<div class="d-flex flex-col justify-content-center mt-3">
+	  			    				<select name="filmId">
+	  			    					<c:forEach var="sf" items="${searchFilmList}">
+	  			    						<option value="${sf.filmId}">${sf.title}</option>
+	  			    					</c:forEach>
+	  			    				</select>
+		  			    			<button class="btn btn-success" id="btnAddFilm" type="button">영화 등록</button>
+		  			    		</div>
+	  			    		</form>
+  			    		</c:if>
 
-		  			    	<li>
-		  			    		<a href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}">${f.title}</a>
-		  			    	</li>
-		  			    </c:forEach>
-  			    	</ul>
-				</div>
+	  			  	  </div>  	
+	  			   </div>
+	  			   <div class="card">	
+		   	  		   <legend>
+	  			    		Film
+	  			       </legend>
+	  			       <hr>     
+	  			    	  <table class="table table-striped table-primary">
+		  			    	<c:forEach var="f" items="${filmList}">
+			  			    	<tr>
+			  			    		<td>
+			  			    			${f.title}
+			  			    		</td>
+			  			    		<td>
+			  			    			<a class="btn btn-success" href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}">상세보기</a>
+			  			    		</td>
+			  			    		<td>
+			  			    			<a class="btn btn-danger" href="${pageContext.request.contextPath}/on/removeFileActor?filmId=${f.filmId}&actorId=${actor.actorId}">출연자에서 삭제</a>
+			  			    		</td>
+			  			    	</tr>
+			  			    </c:forEach>
+	  			    	  </table>
+					</div>
 			  </main>
 			
 			  <footer class="footer">
@@ -183,7 +252,12 @@
 			  </footer>
 		  </div>
     </body>
-    <script>
-    	
+    <script> 
+	    $('#BtnsearchFilm').click(function() {
+	    	$('#searchFilmForm').submit();
+	    });
+	    $('#btnAddFilm').click(function() {
+	    	$('#addFilmForm').submit();
+	    });
     </script>
 </html>
