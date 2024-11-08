@@ -270,5 +270,6 @@
 	    $('#btnAddFilm').click(function() {
 	    	$('#addFilmForm').submit();
 	    });
+	    
     </script>
 </html>
