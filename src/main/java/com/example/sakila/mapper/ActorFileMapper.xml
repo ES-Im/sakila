@@ -19,11 +19,6 @@
 		WHERE actor_id = #{actorId}
 	</select>
 	
-	<delete id="deleteActorFile" parameterType="int">
-		DELETE 
-		FROM actor_file
-		WHERE actor_file_id = #{actorFileId}
-	</delete>
 	
 	<select id="selectActorFileOne" parameterType="int" resultType="com.example.sakila.vo.ActorFile">
 		SELECT 
@@ -37,4 +32,18 @@
 		FROM actor_file
 		WHERE actor_file_id = #{actorFileId} 
 	</select>
+	
+	<delete id="deleteActorFile" parameterType="com.example.sakila.vo.ActorFile">
+		DELETE 
+		FROM actor_file
+		<where>
+			<if test="actorFileId != null">
+				actor_file_id = #{actorFileId}
+				AND actor_id = #{actorId}
+			</if>
+			<if test="actorFileId == null">
+				actor_id = #{actorId}
+			</if>
+		</where> 
+	</delete>
 </mapper>

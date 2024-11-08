@@ -151,7 +151,18 @@
 	  			    </table>
 
 	  			    <div>
-	  			    	<a class="btn btn-success" href="${pageContext.request.contextPath}/on/modifyActor">Edit ACTOR</a>
+	  			    	<a class="btn btn-success" href="${pageContext.request.contextPath}/on/modifyActor?actorId=${actor.actorId}">Edit ACTOR</a>
+	  			    	<form method="get" action="${pageContext.request.contextPath}/on/modifyActor?actorId=${actor.actorId}">
+	  			    		<table>
+	  			    			<tr>
+	  			    			
+	  			    			</tr>
+	  			    			
+	  			    		</table>
+	  			    	</form>
+	  			    </div>
+	  			    <div>
+	  			    	<a class="btn btn-success" href="${pageContext.request.contextPath}/on/removeActor?actorId=${actor.actorId}">DELETE ACTOR</a>
 	  			    </div>
 	  			    
   			    </div>

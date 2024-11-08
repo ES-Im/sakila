@@ -103,6 +103,28 @@ public class ActorController {
 		return "on/actorOne";
 	}
 	
+	@GetMapping("/on/modifyActor")
+	public String modifyActor(Model model, @RequestParam int actorId) {
+		Actor actor = actorService.getActorOne(actorId);
+		model.addAttribute("actor", actor);
+		return "on/modifyActor";
+	}
+	
+	@PostMapping("/on/modifyActor")
+	public String modifyActor(Actor actor) {
+		log.debug("actor = " + actor.toString());
+		actorService.modifyActor(actor);
+		return "redirect:/on/actorOne?actorId=" + actor.getActorId();
+	}
+	
+	@GetMapping("/on/removeActor")
+	public String removeActor(HttpSession session, @RequestParam int actorId) {
+		String path = session.getServletContext().getRealPath("/upload/");
+		actorService.deleteActor(actorId, path);
+		
+		return "redirect:/on/actorList";
+	}
+	
 	
 
 }

@@ -70,7 +70,7 @@ public class ActorFileService {
 	// /on/removeActorFile) actor_file 삭제 + 물리적으로 삭제(fileName, Path필요)
 	public void removeActorFile(int actorFileId, String path) {
 		ActorFile actorFile = actorFileMapper.selectActorFileOne(actorFileId);
-		int row = actorFileMapper.deleteActorFile(actorFileId);
+		int row = actorFileMapper.deleteActorFile(actorFile);
 		
 		if(row == 1) {
 			String fileFullName = path + actorFile.getFileName()+"."+actorFile.getExt();

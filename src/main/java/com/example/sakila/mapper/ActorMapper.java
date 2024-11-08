@@ -15,4 +15,8 @@ public interface ActorMapper {
 	Actor selectActorOne(int actorId);
 	
 	List<Actor> selectActorListByFilm(int filmId);
+	
+	int updateActor(Actor actor);
+	
+	int deleteActor(int actorId);
 }

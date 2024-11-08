@@ -13,9 +13,15 @@
 	<delete id="delectFileActor" parameterType="com.example.sakila.vo.FilmActor">
 		DELETE
 		FROM film_actor
-		WHERE
-			actor_id = #{actorId} 
-			AND
-			film_id = #{filmId}
+		<where>
+			<if test="filmId != null">
+				actor_id = #{actorId} 
+				AND
+				film_id = #{filmId}
+			</if>
+			<if test="filmId == null">
+				actor_id = #{actorId} 
+			</if>
+		</where>			
 	</delete>
 </mapper>

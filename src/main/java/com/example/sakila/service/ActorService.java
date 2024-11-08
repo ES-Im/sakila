@@ -14,9 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.sakila.mapper.ActorFileMapper;
 import com.example.sakila.mapper.ActorMapper;
+import com.example.sakila.mapper.FilmActorMapper;
 import com.example.sakila.vo.Actor;
 import com.example.sakila.vo.ActorFile;
 import com.example.sakila.vo.ActorForm;
+import com.example.sakila.vo.FilmActor;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ActorService {
 	@Autowired ActorFileMapper actorFileMapper;
 	@Autowired ActorMapper actorMapper;
-
+	@Autowired FilmActorMapper filmActorMapper;
+	
 	public Actor getActorOne(int actorId) {
 		return actorMapper.selectActorOne(actorId);
 	}
@@ -110,5 +113,33 @@ public class ActorService {
 		return actorMapper.selectActorListByFilm(filmNo);
 	}
 	
+	public int modifyActor(Actor actor) {
+		return actorMapper.updateActor(actor);
+	}
+	
+	
+	public void deleteActor(int actorId, String path) {
+		// 1) filmActor 리스트 삭제 : 없을 수 있음
+		FilmActor fa = new FilmActor();
+		fa.setActorId(actorId);
+		filmActorMapper.delectFileActor(fa);
+		// 2) 액터파일 정보 삭제 : 없을 수 있음
+		List<ActorFile> list = actorFileMapper.selectActorFileListByActor(actorId);
+		ActorFile onlyActorId = new ActorFile();
+		onlyActorId.setActorId(actorId);
+		actorFileMapper.deleteActorFile(onlyActorId);
+		// 3) 액터 정보 삭제
+		int row = actorMapper.deleteActor(actorId);
+		// 물리적 파일 삭제
+		if(row == 1 && list.isEmpty() == true) {
+			for(ActorFile af : list) {
+				String fullname = path + af.getFileName() + "." + af.getExt();
+				File f = new File(fullname);
+				f.delete();
+			}
+		}
+		
+		
+	}
 	
 }
