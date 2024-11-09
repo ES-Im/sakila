@@ -113,6 +113,7 @@
 		
 		  <main class="main">
 		    <div class="card">
+		    <div class="col" style="max-width: 50%; margin: 0px 5px">
 		    	<!-- form dto = Actor instance + multipart-form-data -->
 		    	<form id="formFilm" method="post" action="${pageContext.request.contextPath}/on/addFilm">
 		    	
@@ -128,29 +129,31 @@
 						
 						<%--releaseYear : select + forEach로 1900 ~ 현재년도 순환--%>
 						<label class="form-label">ReleaseYear</label>
-						<input id="releaseYear" name="releaseYear" class="form-control" type="number" >
+						<input id="releaseYear" name="releaseYear" class="form-control" type="number">
 						
 						<%--language_id--%>
-						<label class="form-label">language</label>
-						<select id="LanguageId" name="languageId">
-							<option value=""></option>
-							<c:forEach var="la" items="${languageList}">
-								<option value="${la.languageId}">${la.name}</option>
-							</c:forEach>
-						</select>
-						
-						<br>
+						<div class="row">
+						    <div class="col-xl-5">
+						        <label class="form-label">Language</label>
+						        <select class="form-select" id="LanguageId" name="languageId">
+						            <option value="">|||Select|||</option>
+						            <c:forEach var="la" items="${languageList}">
+						                <option value="${la.languageId}">${la.name}</option>
+						            </c:forEach>
+						        </select>
+						    </div>
 						
 						<%--originalLanguageId--%>
-						<label class="form-label">originalLanguage</label>
-						<select id="originalLanguageId" name="originalLanguageId">
-							<option value=""></option>
-							<c:forEach var="la" items="${languageList}">
-								<option value="${la.languageId}">${la.name}</option>
-							</c:forEach>
-						</select>
-						
-						<br>
+							 <div class="col-xl-5">
+						        <label class="form-label">Original Language</label>
+						        <select class="form-select" id="originalLanguageId" name="originalLanguageId">
+						            <option value="">|||Select|||</option>
+						            <c:forEach var="la" items="${languageList}">
+						                <option value="${la.languageId}">${la.name}</option>
+						            </c:forEach>
+						        </select>
+						    </div>
+						</div>
 						
 						<%--rentalDuration--%>
 						<label class="form-label">rentalDuration</label>
@@ -170,24 +173,57 @@
 						
 						<%--rating--%>
 						<label class="form-label">rating</label><br>
-						<input id="rating" name="rating" type="radio" value="G">G<br>
-						<input id="rating" name="rating" type="radio" value="PG">PG<br>
-						<input id="rating" name="rating" type="radio" value="PG-13">PG-13<br>
-						<input id="rating" name="rating" type="radio" value="R">R<br>
-						<input id="rating" name="rating" type="radio" value="NC-17">NC-17<br>
-						
+						<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+							<input class="btn-check" id="rating1" name="rating" value="G" type="radio" autocomplete="off">
+							<label class="btn btn-outline-primary" for="rating1">G</label>
+							
+							<input class="btn-check" id="rating2" name="rating" value="PG" type="radio" autocomplete="off">
+							<label class="btn btn-outline-primary" for="rating2">PG</label>
+							
+							<input class="btn-check" id="rating3" name="rating" value="PG-13" type="radio" autocomplete="off">
+							<label class="btn btn-outline-primary" for="rating3">PG-13</label>
+							
+							<input class="btn-check" id="rating4" name="rating" value="R" type="radio" autocomplete="off">
+							<label class="btn btn-outline-primary" for="rating4">R</label>
+							
+							<input class="btn-check" id="rating5" name="rating" value="NC-17" type="radio" autocomplete="off">
+							<label class="btn btn-outline-primary" for="rating5">NC-17</label>
+						</div>
+						<br>
 						<%--specialFeatures--%>
 						<label class="form-label">specialFeatures</label>
 						
-						<input id="specialFeatures" name="specialFeatures" type="checkBox" value="Trailers">Trailers
-						<input id="specialFeatures" name="specialFeatures" type="checkBox" value="Commentaries">Commentaries
-						<input id="specialFeatures" name="specialFeatures" type="checkBox" value="Deleted Scenes">Deleted Scenes
-						<input id="specialFeatures" name="specialFeatures" type="checkBox" value="Behind the Scenes">Behind the Scenes
-						
-						<button id="btnAddFilm" type="button">ADD</button>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Trailers" id="Trailers" name="specialFeatures">
+							<label class="form-check-label" for="Trailers">
+							 	Trailers
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Commentaries" id="Commentaries" name="specialFeatures">
+							<label class="form-check-label" for="Commentaries">
+							 	Commentaries
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Deleted Scenes" id="Deleted Scenes" name="specialFeatures">
+							<label class="form-check-label" for="Deleted Scenes">
+							 	Deleted Scenes
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Behind the Scenes" id="Behind the Scenes" name="specialFeatures">
+							<label class="form-check-label" for="Behind the Scenes">
+							 	Behind the Scenes
+							</label>
+						</div>
+						<div class="d-flex flex-row-reverse">
+							<button class="btn btn-success" id="btnAddFilm" type="button">ADD</button>
+						</div>
 					</div>
 					
 				</form>
+			</div>
 		    </div>
 		  </main>
 		

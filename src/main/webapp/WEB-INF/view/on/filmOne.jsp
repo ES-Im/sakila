@@ -133,32 +133,40 @@
 			  <main class="main">
 			    <div class="card">
   			    	<!-- Film Info -->
-  			    	<div class="col-sm-10">
-						<!-- main content -->
-						<h1>FILM ONE</h1>
+ 			    		<h1>FILM ONE</h1>
+						<hr>
 						<div>
 							${film}
 						</div>
 						<div>
-							<a href="${pageContext.request.contextPath}/on/">Edit</a>
-							<a href="">Delete</a>
+							<a class="btn btn-success" href="${pageContext.request.contextPath}/on/">Edit</a>
+							<a class="btn btn-success" href="">Delete</a>
 							<%-- artorList --%>
 						</div>
-						<br>	
-						<div>
-							<h2>작품에 출연한 배우들</h2>
-							<div>
-								<c:forEach var="a" items="${actorList}">
-									<div>
-										<a href="${pageContext.request.contextPath}/on/actorOne?actorId=${a.actorId}">
-											${a.firstName} ${a.lastName}
-										</a>
-									</div>
-								</c:forEach>
-								
-							</div>
-						</div>
-					</div>
+						<br>
+				</div>
+				<div class="card">	    
+	  			    <!-- Film -->
+ 			    	<h1>작품에 출연한 배우들</h1>
+ 			    	<hr>
+					<table class="table table-striped table-primary">
+						<tr>
+							<th>배우이름</th>
+							<th>이동</th>
+						</tr>
+						<c:forEach var="a" items="${actorList}">
+							<tr>
+		  			    		<td>
+		  			    			${a.firstName} ${a.lastName}
+		  			    		</td>
+		  			    		<td>
+									<a class="btn btn-success" href="${pageContext.request.contextPath}/on/actorOne?actorId=${a.actorId}">
+										배우 정보
+									</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
 			
 			  <footer class="footer">
 			  <div></div>
