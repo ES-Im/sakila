@@ -1,5 +1,6 @@
 package com.example.sakila.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,19 +76,31 @@ public class FilmController {
 		List<Map<String, Object>> filmList = filmService.getFilmList(filmListForm);
 		// 카테고리 종류 출력
 		List<Category> categoryList = categoryService.getCategoryList();
+		List<String> ratingList = new ArrayList<>(); 
+		 ratingList.add("G");
+		 ratingList.add("PG");
+		 ratingList.add("PG-13");
+		 ratingList.add("R");
+		 ratingList.add("NC-17");
+		 
+		
 		
 		//log.debug("categoryList = " + categoryList);
 		model.addAttribute("filmList", filmList);
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("ratingList", ratingList);
 		
 		model.addAttribute("currentPage", filmListForm.getCurrentPage());
 		model.addAttribute("rowPerPage", filmListForm.getRowPerPage());
+		model.addAttribute("lastPage", lastPage);
+		
 		model.addAttribute("searchWord", filmListForm.getSearchWord());
 		model.addAttribute("categoryId", filmListForm.getCategoryId());
-		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("rating", filmListForm.getRating());
 		
 		return "on/filmList";
 	}
+	
 	
 	
 }

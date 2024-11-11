@@ -10,4 +10,6 @@ public interface LanguageMapper {
 	// on/addFilm's checkBox
 	List<Language> selectLanuageList();
 
+	// on/addFilm -> on/addLanguage 
+	int insertLanguage(String lang);
 }

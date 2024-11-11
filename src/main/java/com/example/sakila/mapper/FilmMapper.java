@@ -30,5 +30,5 @@ public interface FilmMapper {
 	// 라스트 페이지 구하기용 /on/filmList 매개값 = 검색필터 전부다 (kind, rating, title - searchWord)
 	int selectTotalRow(FilmListForm filmListForm);
 	
-
+	
 }

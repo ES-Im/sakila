@@ -124,20 +124,14 @@
 			    			<a class="btn" href="${pageContext.request.contextPath}/on/filmList?rowPerPage=5">5Page</a>
 			    			<a class="btn" href="${pageContext.request.contextPath}/on/filmList?rowPerPage=10">10Page</a>
 				    	</span>
-						<div class="dropdown">
-							<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-								Select Gerne
-							</button>
-							<ul class="dropdown-menu category">
-								<c:forEach var="c" items="${categoryList}">
-						  			<li>
-										<a href="${pageContext.request.contextPath}/on/filmList?categoryId=${c.categoryId}">
-											${c.name}
-										</a>						  			
-						  			</li>
-								</c:forEach>
-				  			</ul>
-						</div>
+				    	<span class="p-1">
+							<form method="get" action="${pageContext.request.contextPath}/on/filmList">
+								<input name="rating" type="hidden" value="${rating}">
+								<input name="categoryId" type="hidden" value="${categoryId}">
+								<input id="searchWord" name="searchWord" type="text"  placeholder="Search Title">
+								<button id="searchBtn" class="btn btn-primary" type="submit">SEARCH</button>
+							</form>
+						</span>
 		    		</div>
 			    	
 			    	<table class="table table-striped">
@@ -149,9 +143,42 @@
 				    			<th>rentalDuration</th>
 				    			<th>rentalRate</th>
 				    			<th>length</th>
-				    			<th>rating</th>
 				    			<th>replacementCost</th>
-				    			<th>Category_id</th>
+				    			<th>
+									<%-- 제한등급 검색 --%>
+									<div class="dropdown">
+										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+											Select Rating
+										</button>
+										<ul class="dropdown-menu category">
+											<c:forEach var="r" items="${ratingList}">
+									  			<li>
+													<a href="${pageContext.request.contextPath}/on/filmList?rating=${r}&categoryId=${categoryId}&searchWord=${searchWord}">
+														${r}
+													</a>						  			
+									  			</li>
+											</c:forEach>
+							  			</ul>
+									</div>
+				    			</th>
+				    			
+				    			<th>					    	
+				    				<%-- 장르 검색 --%>
+									<div class="dropdown">
+										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+											Select Gerne
+										</button>
+										<ul class="dropdown-menu category">
+											<c:forEach var="c" items="${categoryList}">
+									  			<li>
+													<a href="${pageContext.request.contextPath}/on/filmList?categoryId=${c.categoryId}&rating=${rating}&searchWord=${searchWord}">
+														${c.name}
+													</a>						  			
+									  			</li>
+											</c:forEach>
+							  			</ul>
+									</div>
+								</th>
 				    			<th>상세보기</th>
 				    		</tr>
 			    		</thead>
@@ -163,8 +190,8 @@
 			    				<td>${f.rentalDuration}</td>
 			    				<td>${f.rentalRate}</td>
 			    				<td>${f.length}</td>
-			    				<td>${f.rating}</td>
 			    				<td>${f.replacementCost}</td>
+			    				<td>${f.rating}</td>
 			    				<td>${f.categoryId}</td>
 			    				<td>
 			    					<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}">이동</a>

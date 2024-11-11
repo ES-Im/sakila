@@ -17,4 +17,8 @@ public class LanguageService {
 	public List<Language> getLanguageList(){
 		return languageMapper.selectLanuageList();
 	}
+	
+	public int addLanguage(String name) {
+		return languageMapper.insertLanguage(name);
+	}
 }

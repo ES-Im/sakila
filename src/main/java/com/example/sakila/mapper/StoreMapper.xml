@@ -5,6 +5,63 @@
 		SELECT store_id storeId	FROM store
 	</select>
 
+	<select id="selectStoreListwithallInfo" resultType="map">
+		SELECT 
+			store.store_id storeId
+			, store.manager_staff_id managerStaffId
+			, staff.username userName
+			, staff.first_name firstName
+			, staff.last_name lastName
+			, staff.address_id addressId
+			, staff.email email
+			, staff.`active` active
+			, staff.password PASSWORD
+			, store.store_id store_id
+			, v3.addressId addressId 
+			, v3.address address
+			, v3.district district
+			, v3.postalCode postalCode
+			, v3.cityId cityId
+			, v3.cityId cityId
+			, v3.cityName cityName
+			, v3.countryName countryName
+		FROM store 
+		INNER JOIN staff
+		ON store.manager_staff_id = staff.staff_id
+		INNER JOIN 
+			(SELECT 
+				store.store_id storeId
+				, store.address_id addressId
+				, v2.address address
+				, v2.district district
+				, v2.postalCode postalCode
+				, v2.cityId cityId
+				, v2.cityName cityName
+				, v2.countryName countryName
+				, store.manager_staff_id managetStaffId	
+			FROM store 
+			INNER JOIN 
+				(SELECT
+					address.address_id addressId
+					,address.address address
+					,address.district district
+					,address.postal_code postalCode
+					,address.city_id cityId
+					, v1.city cityName
+					, v1.countryName countryName
+				FROM address 
+				INNER JOIN 
+					(SELECT 
+						city.city_id cityId
+						, city.city city
+						, country.country_id country_id
+						, country.country countryName
+					FROM country INNER JOIN city
+					ON city.country_id = country.country_id) v1
+				ON address.city_id = v1.cityId) v2
+			ON store.address_id = v2.addressId) v3
+		on store.store_Id = v3.storeId;
+	</select>
 </mapper>
 
 

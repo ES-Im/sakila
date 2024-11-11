@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.sakila.mapper.FilmMapper;
+import com.example.sakila.mapper.LanguageMapper;
 import com.example.sakila.vo.Film;
 import com.example.sakila.vo.FilmForm;
 import com.example.sakila.vo.FilmListForm;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class FilmService {
 	@Autowired FilmMapper filmMapper;
+	
 	
 	// on/actorOne
 	public List<Film> getFilmTitleListByActor(int actorId) {
@@ -32,6 +34,7 @@ public class FilmService {
 	
 	// on/addFilm
 	public int addFilm(FilmForm filmForm) {
+
 		// 커맨드 객체 모양 -> 도메인객체 모양으로 바꾸기
 		Film film = new Film();
 		film.setTitle(filmForm.getTitle());
@@ -85,4 +88,7 @@ public class FilmService {
 		
 		return lastPage;
 	}
+	
+	
+	
 }

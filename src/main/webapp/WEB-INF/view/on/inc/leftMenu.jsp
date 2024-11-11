@@ -39,9 +39,6 @@
   <li class="sidenav__list-item">
   	<a class="nav-link" href="${pageContext.request.contextPath}/on/addFilm">ADD FILM</a>
   </li>
-  <li class="sidenav__list-item">
-  	<a class="nav-link" href="${pageContext.request.contextPath}/on/LanguageList">ADD Language</a>
-  </li>
   
   <li style="padding : 5% 5%">	
   	||| Shop |||

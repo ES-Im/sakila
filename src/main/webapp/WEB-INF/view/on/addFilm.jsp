@@ -111,13 +111,13 @@
 			  <c:import url="/WEB-INF/view/on/inc/leftMenu.jsp"></c:import>
 		  </aside>
 		
-		  <main class="main">
-		    <div class="card">
-		    <div class="col" style="max-width: 50%; margin: 0px 5px">
+		  <main class="main row">
+		    <div class="card" style="max-width:50%">
+		    <div class="col">
 		    	<!-- form dto = Actor instance + multipart-form-data -->
 		    	<form id="formFilm" method="post" action="${pageContext.request.contextPath}/on/addFilm">
 		    	
-		    		<div style="width: 80%">
+		    		<div style="width: 90%">
 		    			<%--title--%>
 						<label class="form-label">Title</label>
 						<input id="title" name="title" class="form-control" type="text">
@@ -133,7 +133,7 @@
 						
 						<%--language_id--%>
 						<div class="row">
-						    <div class="col-xl-5">
+						    <div class="col-xl-4">
 						        <label class="form-label">Language</label>
 						        <select class="form-select" id="LanguageId" name="languageId">
 						            <option value="">|||Select|||</option>
@@ -144,7 +144,7 @@
 						    </div>
 						
 						<%--originalLanguageId--%>
-							 <div class="col-xl-5">
+							 <div class="col-xl-4">
 						        <label class="form-label">Original Language</label>
 						        <select class="form-select" id="originalLanguageId" name="originalLanguageId">
 						            <option value="">|||Select|||</option>
@@ -153,7 +153,13 @@
 						            </c:forEach>
 						        </select>
 						    </div>
+						    
+					    <%-- 언어 추가 --%>
+							<button class="btn btn-success col-xl-1" id="addLanguage" style="white-space: nowrap; hidden: hidden; border: 5px">ADD Language</button>
 						</div>
+						
+						
+						
 						
 						<%--rentalDuration--%>
 						<label class="form-label">rentalDuration</label>
@@ -231,6 +237,14 @@
 		</div>
     </body>
     <script>
+    
+	
+		$('#addLanguage').click(function() {
+			let url = `${pageContext.request.contextPath}/on/addLanguage`
+			window.open(url, '언어 등록하기', 'width=500pv, height=400pv');
+			return false;
+		});
+    
     	// form submit
 		$('#btnAddFilm').click(function() {
 			let arr = [$("#rentalDuration").val(),  $("#rentalRate").val(), $("#replacementCost").val(), $('#rating:checked').length, $("#title").val()];
@@ -264,5 +278,7 @@
 			$("#formFilm").submit();
 		});
 		
+
+    	
     </script>
 </html>
