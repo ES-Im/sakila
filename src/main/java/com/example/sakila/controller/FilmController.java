@@ -62,17 +62,19 @@ public class FilmController {
 	
 	@GetMapping("/on/filmList")
 	public String getFilmList(Model model, FilmListForm filmListForm) {
-		log.debug("currentPage = " + filmListForm.getCurrentPage());
-		// 필름 리스팅
-		List<Map<String, Object>> filmList = filmService.getFilmList(filmListForm);
-		// 카테고리 종류 출력
-		List<Category> categoryList = categoryService.getCategoryList();
+		
 		
 		//log.debug("category 값 = " +  categoryId);
 		//log.debug("filmList = " + filmList);
 		
-		//라스트 페이지 구하기 
+		//페이징
+		filmListForm.setBeginRow((filmListForm.getCurrentPage()-1) * filmListForm.getRowPerPage());
 		int lastPage = filmService.getFilmListLastPage(filmListForm);
+		
+		// 필름 리스팅
+		List<Map<String, Object>> filmList = filmService.getFilmList(filmListForm);
+		// 카테고리 종류 출력
+		List<Category> categoryList = categoryService.getCategoryList();
 		
 		//log.debug("categoryList = " + categoryList);
 		model.addAttribute("filmList", filmList);

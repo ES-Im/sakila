@@ -11,5 +11,5 @@ public class FilmListForm {
 	
 	private Integer currentPage = 1;
 	private Integer rowPerPage = 10;
-	private Integer beginRow = (currentPage - 1) * rowPerPage;
+	private Integer beginRow;
 }
