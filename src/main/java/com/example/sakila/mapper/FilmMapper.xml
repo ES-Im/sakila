@@ -63,6 +63,56 @@
 			film_id filmId, title
 		FROM film
 		WHERE title LIKE CONCAT('%',#{s},'%')
-	
 	</select>
+	
+	
+	<select id="selectFilmList" parameterType="com.example.sakila.vo.FilmListForm" resultType="Map">
+		SELECT 
+			f.film_id filmId
+			, f.title title
+			, f.release_year releaseYear
+			, f.rental_duration rentalDuration
+		    , f.rental_rate rentalRate
+		    , f.length length
+			, f.rating
+			, f.replacement_cost replacementCost
+			, fc.category_id categoryId 
+		from film f LEFT OUTER JOIN film_category fc
+		ON f.film_id = fc.film_id
+		<if test="(categoryId != null and categoryId != -1) or (searchWord != null and searchWord != '') or (rating != null and rating != '')">
+			 <trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="categoryId != null and categoryId != -1">
+					AND fc.category_id = #{categoryId}
+				</if>
+				<if test="searchWord != null and searchWord != ''">
+					AND f.title LIKE CONCAT('%', #{searchWord}, '%')
+				</if> 
+				<if test="rating != null and rating != ''">
+					AND f.rating LIKE #{rating}
+				</if>
+			</trim>
+		</if>
+		ORDER BY f.film_id DESC
+		Limit #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectTotalRow" parameterType="com.example.sakila.vo.Film" resultType="int">
+		SELECT count(*)
+		from film f LEFT OUTER JOIN film_category fc
+		ON f.film_id = fc.film_id
+		<if test="(categoryId != null and categoryId != -1) or (searchWord != null and searchWord != '') or (rating != null and rating != '')">
+			 <trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="(categoryId != null and categoryId != -1)">
+					AND fc.category_id = #{categoryId}
+				</if>
+				<if test="(searchWord != null and searchWord != '')">
+					AND f.title LIKE CONCAT('%', #{searchWord}, '%')
+				</if> 
+				<if test="(rating != null and rating != '')">
+					AND f.rating LIKE #{rating}
+				</if>
+			</trim>
+		</if>
+	</select>
+		
 </mapper>

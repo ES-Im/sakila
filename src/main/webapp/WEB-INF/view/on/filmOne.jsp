@@ -110,7 +110,7 @@
 		1) film 상세 
 			(o) - film One
 			- film 수정 /on/modifyFilm
-			- actor 삭제 /on/removeActor (film_actor 삭제 + film-category 삭제 + film 삭제) 
+			- actor 삭제 /on/removeActor (인벤토리 렌탈정보 확인) - (렌탈 정보에 없으면) -> (film_actor 삭제 + film-category 삭제) 
 		2) film-category 리스트
 			- 리스트
 			- film-category 추가 /on/addFilmCategory (체크박스로 선택, 추가)
@@ -119,11 +119,12 @@
 			(o) - 리스트 
 			- film_actor 추가 /on/addActorByFilm (Actor 검색 후 선택, 추가)
 			- film_actor 개별 삭제 /on/removeActorFile
+		4) inventory 정보 출력
 	 --%>
     <body>
 	       <div class="grid-container">
 			  <header class="header">
-			    <div>Actor List</div>
+			    <div>FILM ONE</div>
 			  </header>
 			
 			  <aside class="sidenav">
@@ -133,20 +134,69 @@
 			  <main class="main">
 			    <div class="card">
   			    	<!-- Film Info -->
- 			    		<h1>FILM ONE</h1>
+ 			    		
 						<hr>
 						<div>
-							${film}
+	  			    <!-- Actor Info  -->
+				    	<legend>
+				    		Actor
+				    	</legend>
+				    	<hr>
+			    		<table class="table table-primary">
+			    			<tr>
+			    				<td>FilmId</td>
+			    				<td>${film.filmId}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>Title</td>
+			    				<td>${film.title}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>releaseY</td>
+			    				<td>${film.releaseYear}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>rentalDur</td>
+			    				<td>${film.rentalDuration}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>rentalRate</td>
+			    				<td>${film.rentalRate}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>length</td>
+			    				<td>${film.description}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>replacementCost</td>
+			    				<td>${film.replacementCost}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>rating</td>
+			    				<td>${film.rating}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>specialFeatures</td>
+			    				<td>${film.specialFeatures}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>lastUpdate</td>
+			    				<td>${film.lastUpdate}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>languageName</td>
+			    				<td>${film.languageName}</td>
+			    			</tr>
+		  			    </table>
 						</div>
 						<div>
 							<a class="btn btn-success" href="${pageContext.request.contextPath}/on/">Edit</a>
 							<a class="btn btn-success" href="">Delete</a>
-							<%-- artorList --%>
-						</div>
+						</div>	
 						<br>
 				</div>
 				<div class="card">	    
-	  			    <!-- Film -->
+	  			    <%-- artorList --%>
  			    	<h1>작품에 출연한 배우들</h1>
  			    	<hr>
 					<table class="table table-striped table-primary">
@@ -168,10 +218,11 @@
 						</c:forEach>
 					</table>
 			
-			  <footer class="footer">
-			  <div></div>
-			  </footer>
-		  </div>
+		 	 </div>
+				  <footer class="footer">
+				  <div></div>
+				  </footer>
+			  </main>
     </body>
     <script>
 

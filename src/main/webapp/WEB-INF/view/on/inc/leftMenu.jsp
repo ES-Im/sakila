@@ -34,10 +34,41 @@
   	<hr>
   </li>
   <li class="sidenav__list-item">
-  	<a class="nav-link" href="">Film List</a>
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/filmList">Film List</a>
   </li>
   <li class="sidenav__list-item">
   	<a class="nav-link" href="${pageContext.request.contextPath}/on/addFilm">ADD FILM</a>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/LanguageList">ADD Language</a>
+  </li>
+  
+  <li style="padding : 5% 5%">	
+  	||| Shop |||
+  	<hr>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/storeList">Store List</a>
+  </li>
+  <%--  
+  		StoreMapper.selectStoreList() : return List<Map> Type : need Joining Store & Staff & Address 
+  		StoreService.getStoreList() : MAP
+  		Get/on/storeList - StoreController.storeList() - storeList.jsp
+  
+   --%>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/addStore">ADD Store</a>
+  	<%-- 
+		StoreMapper.insertStore() : Integer
+		StoreService.addStore() : Integer
+
+  		Get on/addStore - StaffMapper.selectStaffList - StoreController.addStore() add {staffList  & searchAddress} Model - addStore.jsp
+  						- AdressMapper.select(searchAddress)   
+		Post on/addStore - StaffController.addStore(Store) -
+		
+			
+  		
+  	--%>
   </li>
   
   <li style="padding : 5% 5%">	

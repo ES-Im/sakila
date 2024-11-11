@@ -1,5 +1,6 @@
 package com.example.sakila.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.sakila.mapper.FilmMapper;
 import com.example.sakila.vo.Film;
 import com.example.sakila.vo.FilmForm;
+import com.example.sakila.vo.FilmListForm;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 @Transactional
 public class FilmService {
@@ -64,5 +68,21 @@ public class FilmService {
 	// on//actorOne for searchFilm
 	public List<Film> getFilmListByTitle(String searchTitle) {
 		return filmMapper.selectFilmListByTitle(searchTitle);
+	}
+	
+	// on/filmList
+	public List<Map<String, Object>> getFilmList(FilmListForm filmListForm) {
+		return filmMapper.selectFilmList(filmListForm);
+	}
+	
+	// on/filmList 라스트 페이지 구하기용
+	public int getFilmListLastPage(FilmListForm filmListForm) {
+		int getTotalRow = filmMapper.selectTotalRow(filmListForm);
+		int lastPage = getTotalRow / filmListForm.getRowPerPage();
+		if(getTotalRow % filmListForm.getRowPerPage() != 0) {
+			lastPage++;
+		}
+		
+		return lastPage;
 	}
 }
