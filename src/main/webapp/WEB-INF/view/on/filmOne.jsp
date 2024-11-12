@@ -133,13 +133,10 @@
 			
 			  <main class="main">
 			    <div class="card">
-  			    	<!-- Film Info -->
- 			    		
-						<hr>
-						<div>
-	  			    <!-- Actor Info  -->
+			    	<div>
+	  			    <!-- FILM Info  -->
 				    	<legend>
-				    		Actor
+				    		FILM
 				    	</legend>
 				    	<hr>
 			    		<table class="table table-primary">
@@ -150,6 +147,10 @@
 			    			<tr>
 			    				<td>Title</td>
 			    				<td>${film.title}</td>
+			    			</tr>
+			    			<tr>
+			    				<td>Description</td>
+			    				<td>${film.description}</td>
 			    			</tr>
 			    			<tr>
 			    				<td>releaseY</td>
@@ -165,7 +166,7 @@
 			    			</tr>
 			    			<tr>
 			    				<td>length</td>
-			    				<td>${film.description}</td>
+			    				<td>${film.length}</td>
 			    			</tr>
 			    			<tr>
 			    				<td>replacementCost</td>
@@ -187,14 +188,29 @@
 			    				<td>languageName</td>
 			    				<td>${film.languageName}</td>
 			    			</tr>
+			    			<tr>
+			    				<td>edit</td>
+			    				<td>
+			    					<a class="btn btn-success" href="${pageContext.request.contextPath}/on/modifyFilm?filmId=${film.filmId}">Edit</a>
+			    				</td>
+		    				</tr>
+			    			<tr>
+			    				<td>Remove</td>
+			    				<td>
+			    					<a class="btn btn-success" href="${pageContext.request.contextPath}/on/removeFilm?filmId=${film.filmId}">Delete</a>
+									<span>${param.removeFilmMsg}</span>
+			    				</td>
+		    				</tr>
 		  			    </table>
 						</div>
-						<div>
-							<a class="btn btn-success" href="${pageContext.request.contextPath}/on/">Edit</a>
-							<a class="btn btn-success" href="">Delete</a>
-						</div>	
 						<br>
 				</div>
+				
+				<div class="card">	    
+	  			    <%-- artorList --%>
+ 			    	<h1>장르</h1>
+ 			    	<hr>
+		    	</div>
 				<div class="card">	    
 	  			    <%-- artorList --%>
  			    	<h1>작품에 출연한 배우들</h1>

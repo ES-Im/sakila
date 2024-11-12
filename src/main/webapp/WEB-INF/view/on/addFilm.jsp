@@ -155,7 +155,7 @@
 						    </div>
 						    
 					    <%-- 언어 추가 --%>
-							<button class="btn btn-success col-xl-1" id="addLanguage" style="white-space: nowrap; hidden: hidden; border: 5px">ADD Language</button>
+							<button class="btn btn-success col-xl-1" id="addLanguage"  style="white-space: nowrap; width: 180px; margin-top: 10px;">ADD Language</button>
 						</div>
 						
 						
@@ -171,7 +171,7 @@
 						
 						<%--length--%>
 						<label class="form-label">length</label>
-						<input id="length" name="length" class="form-control" type="number">
+						
 						
 						<%--replacementCost--%>
 						<label class="form-label">replacementCost</label>
@@ -180,7 +180,7 @@
 						<%--rating--%>
 						<label class="form-label">rating</label><br>
 						<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-							<input class="btn-check" id="rating1" name="rating" value="G" type="radio" autocomplete="off">
+							<input class="btn-check" id="rating1" name="rating" value="G" type="radio" autocomplete="off" checked>
 							<label class="btn btn-outline-primary" for="rating1">G</label>
 							
 							<input class="btn-check" id="rating2" name="rating" value="PG" type="radio" autocomplete="off">
@@ -247,7 +247,7 @@
     
     	// form submit
 		$('#btnAddFilm').click(function() {
-			let arr = [$("#rentalDuration").val(),  $("#rentalRate").val(), $("#replacementCost").val(), $('#rating:checked').length, $("#title").val()];
+			let arr = [$("#rentalDuration").val(),  $("#rentalRate").val(), $("#replacementCost").val(), $('#rating:checked'), $("#title").val()];
 			/* FilmForm 의 int를 전부 기본형으로 설계시 사용 : 서비스에서 -1을 널로 치환하는 작업을 해야된다.(공백을 int에 담을수없어 공백입력받을시 특정 숫자로 치환필요)
 			$('#releaseYear').val(($('#releaseYear').val() == "") ? -1 : $('#releaseYear').val());
 			$('#length').val(($('#length').val() == "") ? -1 : $('#length').val());
@@ -264,7 +264,7 @@
 						return;
 					}
 					// 유효성 검사(2) : 대상 = rating 이 체크되어 있지 않은지
-					if((i==3) && arr[i] == 0) {
+					if((i==3) && arr[i] == false) {
 						alert('rating을 선택하세요');
 						return;
 					}

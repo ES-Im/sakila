@@ -25,10 +25,11 @@
 			fi.rating as rating, 
 			fi.special_features as specialFeatures, 
 			fi.last_update as lastUpdate, 
+			fi.language_id as languageId, 
 			la.name as languageName
 		FROM film fi INNER JOIN language la
 		ON fi.language_id = la.language_id
-		WHERE fi.film_id=#{a};
+		WHERE fi.film_id=#{a}
 	</select>
 	
 	<insert id="insertFilm" parameterType="com.example.sakila.vo.Film">
@@ -70,6 +71,7 @@
 		SELECT 
 			f.film_id filmId
 			, f.title title
+			, f.description description
 			, f.release_year releaseYear
 			, f.rental_duration rentalDuration
 		    , f.rental_rate rentalRate
@@ -114,5 +116,50 @@
 			</trim>
 		</if>
 	</select>
+	
+	<delete id="deleteFilmByKey" parameterType="Integer">
+		DELETE FROM film 
+		WHERE film_id = #{q}
+	</delete>
+	
+	<update id="updateFilm" parameterType="com.example.sakila.vo.Film">
+		UPDATE 
+		<set>
+			<if test="title != null">
+				title = #{title}
+			</if>
+			<if test="description != null">
+				description = #{description}
+			</if>
+			<if test="release_year != null">
+				release_year = #{releaseYear}
+			</if>
+			<if test="language_id != null">
+				language_id = #{languageId}
+			</if>
+			<if test="original_language_id != null">
+				original_language_id = #{originalLanguageId}
+			</if>
+			<if test="rental_duration != null">
+				rental_duration = #{rentalDuration}
+			</if>
+			<if test="rental_rate != null">
+				rental_rate = #{rentalRate}
+			</if>
+			<if test="length != null">
+				length = #{length}
+			</if>
+			<if test="replacement_cost != null">
+				replacement_cost = #{replacementCost}
+			</if>
+			<if test="rating != null">
+				rating = #{rating}
+			</if>
+			<if test="special_features != null">
+				special_features = #{specialFeatures}
+			</if>
+		</set>
+		WHERE film_id=#{filmId}
+	</update>
 		
 </mapper>

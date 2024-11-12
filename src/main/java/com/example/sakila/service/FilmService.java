@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.sakila.mapper.FilmActorMapper;
+import com.example.sakila.mapper.FilmCategoryMapper;
 import com.example.sakila.mapper.FilmMapper;
+import com.example.sakila.mapper.InventoryMapper;
 import com.example.sakila.mapper.LanguageMapper;
 import com.example.sakila.vo.Film;
 import com.example.sakila.vo.FilmForm;
@@ -20,7 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class FilmService {
 	@Autowired FilmMapper filmMapper;
-	
+	@Autowired FilmActorMapper filmActorMapper;
+	@Autowired FilmCategoryMapper filmCategoryMapper;
 	
 	// on/actorOne
 	public List<Film> getFilmTitleListByActor(int actorId) {
@@ -59,7 +63,7 @@ public class FilmService {
 				if(i == targetSpecialFeatures.size() - 1) {
 					springBuilder.append(targetSpecialFeatures.get(i));
 				} else {
-					springBuilder.append(targetSpecialFeatures.get(i)+", ");
+					springBuilder.append(targetSpecialFeatures.get(i)+",");
 				}
 			}
 		}
@@ -70,6 +74,7 @@ public class FilmService {
 
 	// on//actorOne for searchFilm
 	public List<Film> getFilmListByTitle(String searchTitle) {
+		
 		return filmMapper.selectFilmListByTitle(searchTitle);
 	}
 	
@@ -89,6 +94,18 @@ public class FilmService {
 		return lastPage;
 	}
 	
+	// /on/deleteFilm -> (1)film_category에서 film_no 삭제 + film_actor에서 film_no 삭제 (2) film삭제 
+	public Integer removeFilmByKey(Integer filmId) {
+		//1) 필름배우 삭제(filmActor) 
+		filmActorMapper.deleteFilmActorByFilm(filmId);
+		//2) 필름 장르 삭제 (film_category)
+		filmCategoryMapper.deleteFilmCategoryByFilm(filmId);
+		//3) 필름 삭제
+		return filmMapper.deleteFilmByKey(filmId);
+	}
 	
+	// /on/modifyFilm
+	
+	// 
 	
 }

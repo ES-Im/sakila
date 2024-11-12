@@ -3,7 +3,7 @@ package com.example.sakila.vo;
 import lombok.Data;
 @Data
 public class Film {
-	private int filmId;				//PK
+	private Integer filmId;				//PK
 	private String title;
 	private String description;		// default : null
 	private Integer releaseYear;		// default : null

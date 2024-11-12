@@ -24,4 +24,10 @@
 			</if>
 		</where>			
 	</delete>
+	
+	<delete id="deleteFilmActorByFilm" parameterType="com.example.sakila.vo.Film">
+		DELETE 
+		FROM film_actor
+		WHERE film_id = #{q}
+	</delete>
 </mapper>

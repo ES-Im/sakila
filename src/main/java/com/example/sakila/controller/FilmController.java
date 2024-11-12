@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.sakila.service.ActorService;
 import com.example.sakila.service.CategoryService;
 import com.example.sakila.service.FilmService;
+import com.example.sakila.service.InventoryService;
 import com.example.sakila.service.LanguageService;
 import com.example.sakila.vo.Actor;
 import com.example.sakila.vo.Category;
+import com.example.sakila.vo.Film;
 import com.example.sakila.vo.FilmForm;
 import com.example.sakila.vo.FilmListForm;
 import com.example.sakila.vo.Language;
@@ -31,12 +33,13 @@ public class FilmController {
 	@Autowired ActorService actorService;
 	@Autowired LanguageService languageService;
 	@Autowired CategoryService categoryService;
+	@Autowired InventoryService inventoryService;
 	
 	// filmOne Info
 	@GetMapping("/on/filmOne")
 	public String filmOne(Model model, @RequestParam int filmId) {
 		Map<String,Object> film = filmService.getFilmOne(filmId);
-		 List<Actor> actorList = actorService.getActorListByFilm(filmId);
+		List<Actor> actorList = actorService.getActorListByFilm(filmId);
 		model.addAttribute("film", film);
 		model.addAttribute("actorList", actorList);
 		//log.debug((String)filmList.get("filmId"));
@@ -63,7 +66,6 @@ public class FilmController {
 	
 	@GetMapping("/on/filmList")
 	public String getFilmList(Model model, FilmListForm filmListForm) {
-		
 		
 		//log.debug("category 값 = " +  categoryId);
 		//log.debug("filmList = " + filmList);
@@ -101,6 +103,54 @@ public class FilmController {
 		return "on/filmList";
 	}
 	
+	@GetMapping("/on/removeFilm")
+	public String removeFilm(Model model, @RequestParam Integer filmId) {
+		String removeFilmMsg = "";
+		
+		// 인벤토리에 필름이 있는지 확인 (있으면 삭제 중단, filmOne에 리다이렉트 및 메세지 전송)
+		Integer count = inventoryService.getInventoryByFilm(filmId);
+		if(count != 0) {
+			log.debug("count=" + count);
+			removeFilmMsg = "film in inventory remain";
+			return("redirect:/on/filmOne?filmId="+filmId+"&removeFilmMsg="+removeFilmMsg);	
+		}
+		
+		// 성공시 filmList로 이동 실패시, 메세지와 함께 삭제 실패 메세지 전송
+		int row = filmService.removeFilmByKey(filmId);
+		if(row == 0) {
+			log.debug("row=" + row);
+			removeFilmMsg = "removing film failed";
+			return("redirect:/on/filmOne?filmId="+filmId+"&removeFilmMsg="+removeFilmMsg);		
+		}
+		
+		return "redirect:/on/filmList";
+	}
+	
+	@GetMapping("/on/modifyFilm")
+	public String modifyFilm(Model model, Integer filmId) {
+		// 기본 값 조회 쿼리 -> selectFilmOne (by Key) 단, language_id / originalLanguageId 는 name이 나오도록 special_Features는 체크박스로, 기본값 체크 
+		Map<String, Object> filmInfo = filmService.getFilmOne(filmId);
+		List<Language> languageList = languageService.getLanguageList();
+		// log.debug("filmInfo.get(\"specialFeatures\"); =  " + filmInfo.get("specialFeatures"));
+		
+		// specialFeatures 리스트로 쪼개기 
+		String specialFeaturesStr = (String) filmInfo.get("specialFeatures");
+		
+		String[] arr = specialFeaturesStr.split(",");
+		List<String> specialFeaturesList = new ArrayList<>();
+		if(specialFeaturesStr != null) {
+			specialFeaturesList =  new ArrayList<>(List.of(arr));
+			log.debug("specialFeaturesList = "+specialFeaturesList.get(0));
+		}
+		
+		
+		model.addAttribute("specialFeaturesList", specialFeaturesList);
+		model.addAttribute("languageList", languageList);
+		model.addAttribute("filmInfo", filmInfo);
+		return "on/modifyFilm";
+	}
+	
+	// 수정 쿼리 -> updateFilm
 	
 	
 }

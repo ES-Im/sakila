@@ -36,7 +36,7 @@
   <li class="sidenav__list-item">
   	<a class="nav-link" href="${pageContext.request.contextPath}/on/filmList">Film List</a>
   </li>
-  <li class="sidenav__list-item">
+  <li class="sidenav__list-item"> <!-- 언어 리스트 & 언어 추가, 카테고리 리스트 & 카테고리 추가/삭제 포함 -->
   	<a class="nav-link" href="${pageContext.request.contextPath}/on/addFilm">ADD FILM</a>
   </li>
   
