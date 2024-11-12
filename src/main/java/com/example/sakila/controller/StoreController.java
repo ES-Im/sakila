@@ -22,7 +22,7 @@ public class StoreController {
 		List<Map<String, Object>> storeList = storeService.getStoreListWithAllInfo();
 		
 		
-		model.addAttribute(storeList);
+		model.addAttribute("storeList", storeList);
 		return "on/storeList";
 	}
 }
