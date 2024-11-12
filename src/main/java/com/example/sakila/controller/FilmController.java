@@ -20,6 +20,8 @@ import com.example.sakila.service.LanguageService;
 import com.example.sakila.vo.Actor;
 import com.example.sakila.vo.Category;
 import com.example.sakila.vo.Film;
+import com.example.sakila.vo.FilmActor;
+import com.example.sakila.vo.FilmCategory;
 import com.example.sakila.vo.FilmForm;
 import com.example.sakila.vo.FilmListForm;
 import com.example.sakila.vo.Language;
@@ -37,14 +39,36 @@ public class FilmController {
 	
 	// filmOne Info
 	@GetMapping("/on/filmOne")
-	public String filmOne(Model model, @RequestParam int filmId) {
+	public String filmOne(Model model, @RequestParam int filmId, @RequestParam(required = false) String searchName) {
+		// 1. 현재 필름 정보
 		Map<String,Object> film = filmService.getFilmOne(filmId);
+		
+		// 2. 현재 출연진 정보
 		List<Actor> actorList = actorService.getActorListByFilm(filmId);
+		
+		// 3. 카테고리
+		// 3-1. 전체 카테고리
+		List<Category> allCategoryList = categoryService.getCategoryList();
+		// 3-2. 현재 영화의 카테고리 
+		List<Map<String, Object>> filmCategoryList = categoryService.getFilmCategoryList(filmId);
+		
+		// 4. 출연진 추가 ( + 검색된 배우 출력 (searchName!= null)
+		if(searchName != null) {
+			log.debug("searchName = " + searchName);
+			List<Actor> searchedActorList = actorService.getActorList(searchName);
+			model.addAttribute("searchedActorList", searchedActorList);
+			log.debug("searchedActorList = " + searchedActorList.size());
+		}
+		
+		model.addAttribute("filmCategoryList", filmCategoryList);
+		model.addAttribute("searchName", searchName);
 		model.addAttribute("film", film);
 		model.addAttribute("actorList", actorList);
+		model.addAttribute("allCategoryList",allCategoryList);
 		//log.debug((String)filmList.get("filmId"));
 		return "on/filmOne";
 	}
+	
 	
 	// on/addFilm
 	@GetMapping("/on/addFilm")
@@ -140,17 +164,35 @@ public class FilmController {
 		List<String> specialFeaturesList = new ArrayList<>();
 		if(specialFeaturesStr != null) {
 			specialFeaturesList =  new ArrayList<>(List.of(arr));
-			log.debug("specialFeaturesList = "+specialFeaturesList.get(0));
+			//log.debug("specialFeaturesList = "+specialFeaturesList.get(0));
 		}
 		
 		
 		model.addAttribute("specialFeaturesList", specialFeaturesList);
 		model.addAttribute("languageList", languageList);
 		model.addAttribute("filmInfo", filmInfo);
+		
 		return "on/modifyFilm";
 	}
 	
 	// 수정 쿼리 -> updateFilm
+	@PostMapping("/on/modifyFilm")
+	public String modifyFilm(Film film) {
+		filmService.updateFilm(film);
+		
+		return "redirect:/on/filmOne?filmId="+film.getFilmId();
+	}
 	
+	@PostMapping("/on/addCategoryOnFilm")
+	public String addCategoryOnFilm(FilmCategory filmCategory) {
+		categoryService.addCategoryOnFilm(filmCategory);
+		
+		return "redirect:/on/filmOne?filmId="+filmCategory.getFilmId();
+	}
 	
+	@GetMapping("on/removeCategoryOnFilm")
+	public String removeCategoryOnFilm(FilmCategory filmCategory) {
+		categoryService.removeCategoryOnFilm(filmCategory);
+		return "redirect:/on/filmOne?filmId="+filmCategory.getFilmId();
+	}
 }

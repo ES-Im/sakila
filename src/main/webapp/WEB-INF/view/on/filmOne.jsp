@@ -205,20 +205,99 @@
 						</div>
 						<br>
 				</div>
-				
+				<%-- =============================== category =============================== --%>
 				<div class="card">	    
-	  			    <%-- artorList --%>
+	  			    <%-- gerneList --%>
  			    	<h1>장르</h1>
  			    	<hr>
+ 			    	<%-- 영화 카테고리 추가 --%>
+ 			    	<form method="post" action="${pageContext.request.contextPath}/on/addCategoryOnFilm">
+ 			    		 <input type="hidden" name="filmId" value="${film.filmId}">
+						 <select name="categoryId" id="categoryId">
+					 		<option value="">|||선택|||</option>
+						 	<c:forEach var="c" items="${allCategoryList}">
+						 		<option value="${c.categoryId}">${c.name}</option>
+						 	</c:forEach>
+						 </select>    	
+						 <button class="btn btn-primary" id="addCategoryBtn" type="submit">카테고리 추가</button>
+ 			    	</form>
+ 			    	
+ 			    	<%-- 현재 카테고리 리스트 --%>
+ 			    	<c:if test="${filmCategoryList != null}">
+	 			    	<table class="table table-striped table-primary">
+							<tr>
+								<th>categoryId</th>
+								<th>categoryName</th>
+								<th>삭제</th>
+							</tr>
+							<c:forEach var="a" items="${filmCategoryList}">
+								<tr>
+			  			    		<td>
+			  			    			${a.categoryId}
+			  			    		</td>
+			  			    		<td>
+			  			    			${a.categoryName}
+									</td>
+									<td>
+										<a class="btn btn-success" href="${pageContext.request.contextPath}/on/removeCategoryOnFilm?categoryId=${a.categoryId}&filmId=${film.filmId}">
+											삭제
+										</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:if>
 		    	</div>
+		    	
+		    	
+  			    <%-- =============================== artorList =============================== --%>
 				<div class="card">	    
-	  			    <%-- artorList --%>
  			    	<h1>작품에 출연한 배우들</h1>
  			    	<hr>
+ 			    	<%-- 배우 추가 --%>
+			    	
+			    	<%-- 배우 검색 --%>
+					<form method="get" action="${pageContext.request.contextPath}/on/filmOne">
+						<input name="filmId" value="${film.filmId}" type="hidden">
+						<input id="searchName" name="searchName" type="text"  placeholder="Search Title">
+						<button id="actorSearchBtn" class="btn btn-primary" type="submit">SEARCH</button>
+					</form>
+					
+					
+					<%-- 검색 결과 및 배우 추가 --%>
+					<c:if test="${searchName != null}">
+					
+    	 		   		<form method="post" action="${pageContext.request.contextPath}/on/addActorByFilm">
+    	 		   		
+							<label for="Result" class="form-label mt-5 mb-2">Search Result:</label>
+							<br>
+							<c:if test="${searchedActorList.size() != 0}">
+							<input name="filmId" value="${film.filmId}" type="hidden">
+							
+							<select name="actorId" class="form-select" size="10">
+								<c:forEach var="a" items="${searchedActorList}">
+									<option value="${a.actorId}">${a.firstName} ${a.lastName}</option>
+								</c:forEach>
+							</select>
+							
+							<div class="d-flex flex-row-reverse">
+								<button id="btnAddrSel" class="btn btn-success mt-4" type="submit"  style="margin: 10px;" >배우 추가</button>
+								<hr>
+							</div>
+							</c:if>
+							
+							<c:if test="${searchedActorList.size() == 0}">
+								<div>검색 결과가 없습니다.</div>
+							</c:if>
+							
+ 			    		</form>
+ 			    		
+					</c:if>
 					<table class="table table-striped table-primary">
 						<tr>
 							<th>배우이름</th>
-							<th>이동</th>
+							<th>상세보기</th>
+							<th>삭제</th>
 						</tr>
 						<c:forEach var="a" items="${actorList}">
 							<tr>
@@ -230,15 +309,20 @@
 										배우 정보
 									</a>
 								</td>
+								<td>
+									<a class="btn btn-success" href="${pageContext.request.contextPath}/on/removeActorByFilm?actorId=${a.actorId}&filmId=${film.filmId}">
+										삭제
+									</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
 			
 		 	 </div>
-				  <footer class="footer">
-				  <div></div>
-				  </footer>
-			  </main>
+			  <footer class="footer">
+			  <div></div>
+			  </footer>
+		  </main>
     </body>
     <script>
 

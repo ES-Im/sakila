@@ -6,4 +6,41 @@
 			, category_id categoryId
 		FROM category; 	
 	</select>
+	
+	<insert id="insertCategoryOnFilm" parameterType="com.example.sakila.vo.FilmCategory">
+		INSERT INTO film_category(
+			film_id
+			, category_id
+		) VALUES (
+			(SELECT film_id FROM film WHERE film_id = #{filmId}),
+			(SELECT category_id FROM category WHERE category_id=#{categoryId})
+		)
+	</insert>
+	
+	<select id="getFilmCategoryList" parameterType="int" resultType="map">
+		SELECT 
+		   f.film_id filmId
+			, f.title title
+			, v0.categoryId categoryId
+			, v0.categoryName categoryName
+		FROM film f
+		INNER JOIN 
+			(SELECT 
+				fc.film_id filmId
+				, fc.last_update filmCategoryLastUpdate
+				, c.category_id categoryId
+				, c.`name` categoryName
+				, c.last_update categoryLastUpdate
+			FROM film_category fc
+			Inner JOIN category c
+			ON fc.category_id = c.category_id) v0
+		ON f.film_id = v0.filmId
+		WHERE f.film_id = #{q}
+	</select>
+	
+	<delete id="deleteCategoryOnFile" parameterType="com.example.sakila.vo.FilmCategory">
+		DELETE from film_category
+		WHERE film_id = (SELECT film_id FROM film WHERE film_id = #{filmId})
+			  AND category_id = (SELECT category_id FROM category WHERE category_id=#{categoryId});
+	</delete>
 </mapper>

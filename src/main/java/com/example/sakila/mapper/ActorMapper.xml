@@ -23,7 +23,9 @@
 		    </if>
 	    </where>
 	    ORDER BY first_name ASC
-	    LIMIT  #{beginRow}, #{rowPerPage}
+	    <if test="beginRow != null">
+	    	LIMIT  #{beginRow}, #{rowPerPage}
+	    </if>
 	</select>
 	
 	<select id="selectTotalCount" parameterType="String" resultType="int">

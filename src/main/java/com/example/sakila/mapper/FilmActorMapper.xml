@@ -2,15 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sakila.mapper.FilmActorMapper">
 	<insert id="insertFilmActor" parameterType="com.example.sakila.vo.FilmActor">
-		INSERT
-		INTO film_actor(
-			actor_id, film_id
-		) VALUES (
-			#{actorId}, #{filmId}
+		INSERT INTO film_actor(actor_id, film_id)
+		VALUES(
+			(SELECT actor_id FROM actor WHERE actor_id=#{actorId}), 
+			(SELECT film_id FROM film WHERE film_id=#{filmId})
 		)
 	</insert>
 	
-	<delete id="delectFileActor" parameterType="com.example.sakila.vo.FilmActor">
+	<delete id="delectFilmActor" parameterType="com.example.sakila.vo.FilmActor">
 		DELETE
 		FROM film_actor
 		<where>

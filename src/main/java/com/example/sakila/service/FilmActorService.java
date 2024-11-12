@@ -18,6 +18,9 @@ public class FilmActorService {
 	}
 	
 	public int removeFilmActor(FilmActor fa) {
-		return filmActorMapper.delectFileActor(fa);
+		return filmActorMapper.delectFilmActor(fa);
 	}
+	
+	
+	
 }

@@ -88,6 +88,13 @@ public class ActorService {
 
 	}
 
+	public List<Actor> getActorList(String searchWord) {
+		Map<String, Object> paramMap = new HashMap<>();
+
+		paramMap.put("searchWord", searchWord);
+		return actorMapper.selectActorList(paramMap);
+	}
+	
 	public List<Actor> getActorList(int currentPage, int rowPerPage, String searchWord) {
 		Map<String, Object> paramMap = new HashMap<>();
 		int beginRow = (currentPage - 1) * rowPerPage;
@@ -122,7 +129,7 @@ public class ActorService {
 		// 1) filmActor 리스트 삭제 : 없을 수 있음
 		FilmActor fa = new FilmActor();
 		fa.setActorId(actorId);
-		filmActorMapper.delectFileActor(fa);
+		filmActorMapper.delectFilmActor(fa);
 		// 2) 액터파일 정보 삭제 : 없을 수 있음
 		List<ActorFile> list = actorFileMapper.selectActorFileListByActor(actorId);
 		ActorFile onlyActorId = new ActorFile();
