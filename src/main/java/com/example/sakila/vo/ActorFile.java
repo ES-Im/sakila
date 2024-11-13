@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class ActorFile {
-	private int actorId;
-	private int actorFileId;
+	private Integer actorId;
+	private Integer actorFileId;
 	private String originName;
 	private String fileName;
 	private String ext;

@@ -106,7 +106,6 @@
 		</Style>
 		<title></title>
     </head>
-    // 배우의 firstName, lastName 수정 기능 과제[입력폼, 액션, 서비스, 매퍼]
 	<%--
 		1) actor 상세 
 			(o) - actor One
@@ -141,11 +140,11 @@
 			    	<hr>
 		    		<table class="table table-primary">
 		    			<tr>
-		    				<td>Id</td>
-		    				<td>${actor.actorId}</td>
+		    				<th>Id</th>
+		    				<th>Name</th>
 		    			</tr>
 		    			<tr>
-		    				<td>Name</td>
+		    				<td>${actor.actorId}</td>
 		    				<td>${actor.firstName} ${actor.lastName}</td>
 		    			</tr>
 	  			    </table>
@@ -173,7 +172,7 @@
 			    		Actor File
 			    	</legend>
 			    	<hr>
-			    	<c:if test="${empty actorFileList==false}">
+			    	<c:if test="${actorFileList.size() != 0}">
 						<table class="table">
 							<tr>
 								<th>Image</th>
@@ -207,7 +206,7 @@
 	  			    	<!-- 출연작 추가 : 영화 검색 -->
 	  			    	<form id="searchFilmForm" method="get" action="${pageContext.request.contextPath}/on/actorOne">
 	  			    		<legend>
-	  			    			Select Film
+	  			    			Film
 	  			    		</legend>
 	  			    		<hr>
 	  			    		<%-- 컨트롤러에서 포워딩 방식으로 검색 --%>
@@ -219,7 +218,7 @@
 	  			    	</form>
 	  			    	<!-- 출연작 추가 : 검색한 영화중에 선택 -->
 	  			    	
-  			    		<c:if test="${searchFilmList != null}">
+  			    		<c:if test="${searchFilmList.size() != 0}">
   			    			<form id="addFilmForm" method="post" action="${pageContext.request.contextPath}/on/addFilmByActor">
   			    				<input type="hidden" name="actorId" value="${actor.actorId}">
   			    				<div class="d-flex flex-col justify-content-center mt-3">
@@ -234,13 +233,14 @@
   			    		</c:if>
 
 	  			  	  </div>  	
-	  			   </div>
-	  			   <div class="card">	
-		   	  		   <legend>
-	  			    		Film
-	  			       </legend>
+
 	  			       <hr>     
 	  			    	  <table class="table table-striped table-primary">
+		  			    		<tr>
+		  			    			<th>타이틀</th>
+		  			    			<th>상세보기</th>
+		  			    			<th>삭제</th>
+		  			    		</tr>
 		  			    	<c:forEach var="f" items="${filmList}">
 			  			    	<tr>
 			  			    		<td>
@@ -250,7 +250,7 @@
 			  			    			<a class="btn btn-success" href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}">상세보기</a>
 			  			    		</td>
 			  			    		<td>
-			  			    			<a class="btn btn-danger" href="${pageContext.request.contextPath}/on/removeFileActor?filmId=${f.filmId}&actorId=${actor.actorId}">출연자에서 삭제</a>
+			  			    			<a class="btn btn-danger" href="${pageContext.request.contextPath}/on/removeFilmActor?filmId=${f.filmId}&actorId=${actor.actorId}">출연자에서 삭제</a>
 			  			    		</td>
 			  			    	</tr>
 			  			    </c:forEach>

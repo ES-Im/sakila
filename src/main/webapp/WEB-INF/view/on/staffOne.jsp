@@ -105,7 +105,7 @@
     <body>
 	       <div class="grid-container">
 			  <header class="header">
-			    <div>Main</div>
+			    <div>Staff Info</div>
 			  </header>
 			
 			  <aside class="sidenav">
@@ -113,78 +113,41 @@
 			  </aside>
 			
 			  <main class="main">
-			    <div class="card">
-					<div class="col-sm-10">
-						<!-- main content -->
-						<h1>Staff One</h1>
-						<hr>
-						<!-- Staff OutLine bar-->				
-						<div id="accordion">
-						
-						  <div class="card">
-						    <div class="card-header">
-						      <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
-						        STAFF INFO
-						      </a>
-						    </div>
-						    <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
-						      <div class="card-body">
-							      	STAFF : ${staff.staffUserName} ( ${staff.staffFirstName} ${staff.staffLastName} )
-									<br>
-									ADDRESS : ${staff.staffCountry} ${staff.staffCity} ${staff.staffDistrict} ${staff.staffAddress}
-									<a href="">Edit ADDRESS</a>
-									<br>
-									EMAIL : ${staff.staffEmail}
-									<a href="">Edit Email</a>
-									<br>
-									PHONE NUM : ${staff.staffPhone}
-									
-									<a href="">Edit Password</a>
-						      </div>
-						    </div>
-						  </div>
-						
-						  <div class="card">
-						    <div class="card-header">
-						      <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
-						      	 #${staff.storeId} STORE INFO 
-						      </a>
-						    </div>
-						    <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
-						      <div class="card-body">
-							        STOREID : ${staff.storeId}
-							        <br>
-							        ADDRESS : ${staff.storeCountry} ${staff.storeDistrict} ${staff.storeCity} ${staff.storeAddress}
-									<br>
-									<a href="">Change Store</a>
-						      </div>
-						    </div>
-						  </div>
-						
-						  <div class="card">
-						    <div class="card-header">
-						      <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseThree">
-						        #${staff.storeId} STORE MANAGER INFO 
-						      </a>
-						    </div>
-						    <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
-						      <div class="card-body">
-		 							STORE MANAGER ID : ${staff.managerStaffId}
-							        <br>
-							        STORE MANAGER NAME : ${staff.managerName}
-						      </div>
-						    </div>
-						  </div>
-						</div>
-					</div>
-					<a href="">modify account</a>
-					<a href="">delete account</a>
+				<!-- Staff OutLine bar-->				
+				  <div class="card">
+				  	<h3>Staff Info</h3>
+				  	<hr>
+			      	STAFF : ${staff.staffUserName} ( ${staff.staffFirstName} ${staff.staffLastName} )
+					<br>
+					ADDRESS : ${staff.staffCountry} ${staff.staffCity} ${staff.staffDistrict} ${staff.staffAddress}
+					<a href="">Edit ADDRESS</a>
+					<br>
+					EMAIL : ${staff.staffEmail}
+					<a href="">Edit Email</a>
+					<br>
 					
-					<hr>
-								
-				</div>			    
-			    
-			    </div>
+					<a href="">Edit Password</a>
+			      </div>
+						
+				  <div class="card">
+				     <h3>#${staff.storeId} STORE INFO</h3> 
+				     <hr>
+				        STOREID : ${staff.storeId}
+				        <br>
+				        ADDRESS : ${staff.storeCountry} ${staff.storeDistrict} ${staff.storeCity} ${staff.storeAddress}
+						<br>
+						<a href="">Change Store</a>
+				  </div>
+				
+				  <div class="card">
+				     <h3>#${staff.storeId} STORE MANAGER INFO</h3> 
+					 <hr>
+						  STORE MANAGER ID : ${staff.managerStaffId}
+			          <br>
+			          STORE MANAGER NAME : ${staff.managerName}
+				</div>
+				<a href="">modify account</a>
+				<a href="">delete account</a>
 			  </main>
 			
 			  <footer class="footer">

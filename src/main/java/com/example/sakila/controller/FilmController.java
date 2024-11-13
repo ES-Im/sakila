@@ -46,19 +46,44 @@ public class FilmController {
 		// 2. 현재 출연진 정보
 		List<Actor> actorList = actorService.getActorListByFilm(filmId);
 		
-		// 3. 카테고리
+		// 3. 카테고리==================================================================================
 		// 3-1. 전체 카테고리
 		List<Category> allCategoryList = categoryService.getCategoryList();
 		// 3-2. 현재 영화의 카테고리 
 		List<Map<String, Object>> filmCategoryList = categoryService.getFilmCategoryList(filmId);
 		
+		//3-3. 현재 영화의 카테고리에서 현재 영화의 카테고리가 있으면 해당 categoryId를 없앤다
+		for(int i = 0; i<allCategoryList.size(); i++) {
+			for(Map<String, Object> f : filmCategoryList) {
+				if(allCategoryList.get(i).getCategoryId().equals(f.get("categoryId"))){
+					allCategoryList.remove(i);
+				}
+			}
+		}
+		// 3-3 디버그
+		//log.debug("현재 film에서 선택할 수 있는 카테고리 = " + allCategoryList.toString());
+		
 		// 4. 출연진 추가 ( + 검색된 배우 출력 (searchName!= null)
+		List<Actor> searchedActorList = new ArrayList<>();
+		
 		if(searchName != null) {
 			log.debug("searchName = " + searchName);
-			List<Actor> searchedActorList = actorService.getActorList(searchName);
+			searchedActorList = actorService.getActorList(searchName);
 			model.addAttribute("searchedActorList", searchedActorList);
 			log.debug("searchedActorList = " + searchedActorList.size());
 		}
+		
+		// 4-1. 현재 영화에 해당 배우가 출연자로 입력되어있다면 전체 배우 리스트에서 제외시킨다.
+		for(int i = 0; i < searchedActorList.size(); i++) {
+			for(Actor a : actorList) {
+				if(searchedActorList.get(i).getActorId().equals(a.getActorId())){
+					searchedActorList.remove(i);
+				}
+			}
+		}
+
+		// log.debug("현재 film에서 검색되는 배우가 있는지 확인 = " + checkSearchActor(searchedActorList, actorList));
+		
 		
 		model.addAttribute("filmCategoryList", filmCategoryList);
 		model.addAttribute("searchName", searchName);
@@ -69,6 +94,17 @@ public class FilmController {
 		return "on/filmOne";
 	}
 	
+	// filmOne의 4-1 디버그 메서드
+	private boolean checkSearchActor(List<Actor> allList, List<Actor> inList) {
+		for(int i = 0; i < allList.size(); i++) {
+			for(Actor a : inList) {
+				if(allList.get(i).getActorId().equals(a.getActorId())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	// on/addFilm
 	@GetMapping("/on/addFilm")

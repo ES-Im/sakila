@@ -126,47 +126,33 @@
 					<thead class="table-primary">
 						<tr>
 							<th>storeId</th>
-							<th>address</th>
-							<th>district</th>
-							<th>cityName</th>
-							<th>countryName</th>
-						</tr>
-					</thead>
-					<c:forEach var="s" items="${storeList}">
-						<tr>
-							<td>${s.storeId}</td>
-							<td>${s.address}</td>
-							<td>${s.district}</td>
-							<td>${s.cityName}</td>
-							<td>${s.countryName}</td>
-						</tr>
-					</c:forEach>
-				</table>
-				
-				<h1>매니저 정보</h1>
-			    <hr>
-				<table class="table table-striped">
-					<thead class="table-primary">
-						<tr>
-							<th>managerStaffId</th>
-							<th>Name(userName)</th>
+							<th>위치</th>
+							<th>Inventory</th>
+							<th>Manager</th>
 							<th>email</th>
-							<th>active</th>
 							<th>staffOne 이동</th>
 						</tr>
 					</thead>
 					<c:forEach var="s" items="${storeList}">
 						<tr>
-							<td>${s.managerStaffId}</td>
+							<td>${s.storeId}</td>
+							<td>${s.countryName} ${s.cityName} ${s.district} ${s.address}</td>
+							<td>
+								<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/inventoryList?storeId=${s.storeId}">
+									인벤토리 관리
+								</a>
+							</td>
 							<td>${s.firstName} ${s.lastName} (${s.userName})</td>
 							<td>${s.email}</td>
-							<td>${s.active}</td>
 							<td>
 								<a class="btn btn-success" href="${pageContext.request.contextPath}/on/staffOne?staffId=${managerStaffId}">이동</a>
 							</td>
+							
 						</tr>
 					</c:forEach>
 				</table>
+				
+
 			</div>
 			
 		    

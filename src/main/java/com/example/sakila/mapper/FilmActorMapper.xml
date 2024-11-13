@@ -13,13 +13,9 @@
 		DELETE
 		FROM film_actor
 		<where>
+			actor_id = #{actorId} 
 			<if test="filmId != null">
-				actor_id = #{actorId} 
-				AND
-				film_id = #{filmId}
-			</if>
-			<if test="filmId == null">
-				actor_id = #{actorId} 
+				AND	film_id = #{filmId}
 			</if>
 		</where>			
 	</delete>

@@ -37,13 +37,15 @@
 		DELETE 
 		FROM actor_file
 		<where>
+			actor_id = (
+				SELECT actor_id FROM actor WHERE actor_id=#{actorId}
+			)
 			<if test="actorFileId != null">
-				actor_file_id = #{actorFileId}
-				AND actor_id = #{actorId}
-			</if>
-			<if test="actorFileId == null">
-				actor_id = #{actorId}
+				AND actor_file_id = #{actorFileId}
 			</if>
 		</where> 
+		
+		
+		
 	</delete>
 </mapper>

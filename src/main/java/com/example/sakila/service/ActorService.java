@@ -130,15 +130,19 @@ public class ActorService {
 		FilmActor fa = new FilmActor();
 		fa.setActorId(actorId);
 		filmActorMapper.delectFilmActor(fa);
-		// 2) 액터파일 정보 삭제 : 없을 수 있음
+//		log.debug("filmActor 매개변수 = " + fa.toString());
+		
+//		// 2) 액터파일 정보 삭제 : 없을 수 있음
 		List<ActorFile> list = actorFileMapper.selectActorFileListByActor(actorId);
 		ActorFile onlyActorId = new ActorFile();
 		onlyActorId.setActorId(actorId);
-		actorFileMapper.deleteActorFile(onlyActorId);
-		// 3) 액터 정보 삭제
+		actorFileMapper.deleteActorFile(onlyActorId);	// 해당쿼리가 정상처리가 되지 않아 FK 이슈발생
+		
+//		log.debug("onlyActorId = " + onlyActorId.toString());
+//		// 3) 액터 정보 삭제
 		int row = actorMapper.deleteActor(actorId);
 		// 물리적 파일 삭제
-		if(row == 1 && list.isEmpty() == true) {
+		if(row == 1 && list != null && list.size() > 0) {
 			for(ActorFile af : list) {
 				String fullname = path + af.getFileName() + "." + af.getExt();
 				File f = new File(fullname);

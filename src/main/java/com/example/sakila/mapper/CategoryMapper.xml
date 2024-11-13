@@ -3,7 +3,7 @@
 <mapper namespace="com.example.sakila.mapper.CategoryMapper">
 	<select id="getCategoryList" parameterType="com.example.sakila.vo.Category">
 		SELECT name
-			, category_id categoryId
+			   , category_id categoryId
 		FROM category; 	
 	</select>
 	

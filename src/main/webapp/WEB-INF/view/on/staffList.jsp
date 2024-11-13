@@ -132,6 +132,7 @@
 						<th>Store Id</th>
 						<th>last Update</th>
 						<th>Active</th>
+						<th>상세보기</th>
 					</tr>
 				</thead>
 				<c:forEach items="${staffMap}" var="s">
@@ -145,11 +146,13 @@
 						<td>${s.lastUpdate}</td>
 						<td>status : ${s.active}</td>
 						<td>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/modifyStaffActive?staffId=${s.staffId}&active=${s.active}">
-							<c:if test="${s.active==1}">disable</c:if>
-							<c:if test="${s.active==2}">Activate</c:if>
-						</a>
-						
+							<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/modifyStaffActive?staffId=${s.staffId}&active=${s.active}">
+								<c:if test="${s.active==1}">disable</c:if>
+								<c:if test="${s.active==2}">Activate</c:if>
+							</a>
+						</td>
+						<td>
+							<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/staffOne?staffId=${s.staffId}">이동</a>
 						</td>
 						
 					</tr>
