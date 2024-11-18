@@ -127,6 +127,7 @@
 						<tr>
 							<th>storeId</th>
 							<th>위치</th>
+							<th>STOCK</th>
 							<th>Inventory</th>
 							<th>Manager</th>
 							<th>email</th>
@@ -137,6 +138,11 @@
 						<tr>
 							<td>${s.storeId}</td>
 							<td>${s.countryName} ${s.cityName} ${s.district} ${s.address}</td>
+							<td>
+								<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/movieInventoryList?storeId=${s.storeId}">
+									재고 관리
+								</a>
+							</td>
 							<td>
 								<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/inventoryList?storeId=${s.storeId}">
 									인벤토리 관리

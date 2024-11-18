@@ -50,7 +50,14 @@
 				 ON i.inventory_id = V4.inventory_id) V5
 			GROUP BY storeId, filmId) V6
 		ON V6.filmId = f.film_id
-		WHERE storeId = #{storeId}
+		<where>
+			<if test="searchWord == null">
+			 	storeId = #{storeId}
+			</if>
+			<if test="searchWord != null">
+			 	storeId = #{storeId} AND title LIKE '%#{searchWord}%'
+			</if>
+		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
@@ -97,12 +104,19 @@
 				 ON i.inventory_id = V4.inventory_id) V5
 			GROUP BY storeId, filmId) V6
 		ON V6.filmId = f.film_id
-		WHERE storeId = #{storeId}
+		<where>
+			<if test="searchWord == null">
+			 	storeId = #{storeId}
+			</if>
+			<if test="searchWord != null">
+			 	storeId = #{storeId} AND title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	
-	<select id="select_UnReturned_InventoryTotalRowByStore" parameterType="Integer" resultType="Integer">
+	<select id="select_UnReturned_InventoryTotalRowByStore" parameterType="map" resultType="Integer">
 		SELECT COUNT(*)
 		FROM film f
 				INNER join
@@ -140,10 +154,17 @@
 						 ON i.inventory_id = V4.inventory_id) V5
 					GROUP BY storeId, filmId) V6
 				ON V6.filmId = f.film_id
-		WHERE storeId = #{storeId}
+		<where>
+			<if test="searchWord == null">
+			 	storeId = #{storeId}
+			</if>
+			<if test="searchWord != null">
+			 	storeId = #{storeId} AND title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 	</select>
 	
-	<select id="select_Returned_InventoryTotalRowByStore" parameterType="Integer" resultType="Integer">
+	<select id="select_Returned_InventoryTotalRowByStore" parameterType="map" resultType="Integer">
 		SELECT COUNT(*)
 		FROM film f
 				INNER join
@@ -181,8 +202,59 @@
 						 ON i.inventory_id = V4.inventory_id) V5
 					GROUP BY storeId, filmId) V6
 				ON V6.filmId = f.film_id
-		WHERE storeId = #{storeId}
+		<where>
+			<if test="searchWord == null">
+			 	storeId = #{storeId}
+			</if>
+			<if test="searchWord != null">
+			 	storeId = #{storeId} AND title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 	</select>
+	
+	<select id="selectInventoryList" parameterType="Map" resultType="Map">
+		SELECT 
+			i.inventory_id inventoryId
+			, i.film_id filmId
+			, i.store_id storeId
+			, f.title title
+		FROM inventory i
+		INNER JOIN 
+		film f
+		ON f.film_id = i.film_id
+		<where>
+			i.store_id = #{storeId} 
+			<if test="searchWord != null">
+				AND f.title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectInventoryLastPage" parameterType="map" resultType="Integer">
+		SELECT count(*)	
+		FROM inventory i
+		INNER JOIN 
+		film f
+		ON f.film_id = i.film_id
+		<where>
+			i.store_id = #{storeId} 
+			<if test="searchWord != null">
+				AND f.title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertInventory" parameterType="com.example.sakila.vo.Inventory">
+		INSERT INTO inventory(film_id, store_id)
+		VALUES(#{filmId},#{storeId})
+	</insert>
+	
+	<delete id="deleteInvetoryByKey" parameterType="Integer">
+		DELETE FROM inventory
+		WHERE inventory_id = #{inventoryId}
+	</delete>
+	
 </mapper>
 
 

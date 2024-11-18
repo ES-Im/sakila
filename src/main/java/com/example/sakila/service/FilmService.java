@@ -77,7 +77,7 @@ public class FilmService {
 		return filmMapper.insertFilm(film);
 	}
 
-	// on//actorOne for searchFilm
+	// on//actorOne for searchFilm + /on/addInventory
 	public List<Film> getFilmListByTitle(String searchTitle) {
 		
 		return filmMapper.selectFilmListByTitle(searchTitle);

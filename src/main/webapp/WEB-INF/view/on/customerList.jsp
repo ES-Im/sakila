@@ -110,7 +110,7 @@
     <body>
 	       <div class="grid-container">
 			  <header class="header">
-			    <div>#${storeId} Store's Inventory List</div>
+			    <div>Actor List</div>
 			  </header>
 			
 			  <aside class="sidenav">
@@ -118,81 +118,80 @@
 			  </aside>
 			
 			  <main class="main">
-	    		<%-- 영화 검색 박스 --%>
-	    		
-	    		<div class="card">
-	    			영화검색
-	    			<span class="p-1">
-						<form method="get" action="${pageContext.request.contextPath}/on/inventoryList">
-							<input name="storeId" type="hidden" value="${storeId}">
-							<input id="searchWord" name="searchWord" type="text"  placeholder="Search Title">
-							<button id="searchBtn" class="btn btn-primary" type="submit">SEARCH</button>
-						</form>
-					</span>
-					
-					<div>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/addInventory?storeId=${storeId}">
-							인벤토리 추가	
-						</a>
-					</div>
-	    		</div>
 			    <div class="card">
-			    	<h1>#${storeId} Store's Inventory List</h1>
-			    	<hr>
-			    	
 			    	<div class="d-flex justify-content-between  text-white">
 	  			    	<span class="p-1">
-			    			<a class="btn" href="${pageContext.request.contextPath}/on/inventoryList?rowPerPage=5&storeId=${storeId}&searchWord=${searchWord}">5Page</a>
-			    			<a class="btn" href="${pageContext.request.contextPath}/on/inventoryList?rowPerPage=10&storeId=${storeId}&searchWord=${searchWord}">10Page</a>
+			    			<a class="btn" href="${pageContext.request.contextPath}/on/customerList?rowPerPage=5">5Page</a>
+			    			<a class="btn" href="${pageContext.request.contextPath}/on/customerList?rowPerPage=10">10Page</a>
 				    	</span>
+						<form class="p-1" id="formSearch" action="${pageContext.request.contextPath}/on/customerList" method="get" placeholder="Search Customer">
+				    		<div class="form-control">
+					    		<input class="form-input" name="searchWord" id="searchWord" type="text">
+					    		<button  id="btnSearch">Search</button>
+				    		</div>
+				    	</form>
 		    		</div>
 			    	
 			    	<table class="table table-striped">
 			    		<thead class="table-primary">
 				    		<tr>
-				    			<th>NO</th>
-				    			<th>title</th>
-				    			<th>인벤토리 삭제</th>
+				    			<th>CustomerNo</th>
+				    			<th>Name</th>
+				    			<th>storeId</th>
+				    			<th>Address</th>
+				    			<th>active</th>
 				    		</tr>
 			    		</thead>
-			    		<c:forEach var="i" items="${inventoryList}">
+			    		<c:forEach var="c" items="${customerList}">
 			    			<tr>
-			    				<td>${i.inventoryId}</td>
-			    				<td>
-			    					<a href="${pageContext.request.contextPath}/on/filmOne?filmId=${i.filmId}">${i.title}</a>
-			    				</td>
-			    				<td>
-			    					<a href="${pageContext.request.contextPath}/on/deleteInventory?inventoryId=${i.inventoryId}&storeId=${storeId}">삭제</a>
-			    				</td>
+			    				<td>${c.customerId}</td>
+			    				<td>${c.firstName} ${c.lastName}</td>
+			    				<td>${c.storeId}</td>
+			    				<td>${c.country} ${c.city} ${c.address} (${c.district})</td>
+			    				<td>${c.active}</td>
 			    			</tr>
 			    		</c:forEach>
 			    	</table>
 			    	
 			    	<ul class="pagination">
-				    	<c:if test="${currentPage > 1 && lastPage != 0}">
+				    	<c:if test="${currentPage > 1}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=1&rowPerPage=${rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">처음으로</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=1">처음으로</a>
 					    	</li>
+				    	</c:if>
+				    	<c:if test="${currentPage > 10}">
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">이전</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${currentPage-10}">이전</a>
 					    	</li>
 				    	</c:if>
 				    	<li class="page">
-			    			[currentPage : ${currentPage} / ${lastPage}]
+			    			<c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+				    				<c:if test="${page.currentPage == num}">
+				    					${num}&nbsp;
+				    				</c:if>
+				    				
+				    				<c:if test="${page.currentPage != num}">
+				    					<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${num}">
+				    						${num}
+				    					</a>
+				    					&nbsp;
+				    				</c:if>
+			    			</c:forEach>
+			    			
+			    			
 			    		</li>
 			    		
-				    	<c:if test="${currentPage != lastPage && lastPage != 0}">
+				    	<c:if test="${page.currentPage != page.lastPage}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">다음</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage+10}">다음</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${lastPage}&rowPerPage=${rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">마지막</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.lastPage}">마지막</a>
 					    	</li>
 				    	</c:if>
 		    		</ul>
+		    		[currentPage : ${page.currentPage} / ${page.lastPage}]
 				</div>
-				
-		
 			  </main>
 			
 			  <footer class="footer">
@@ -201,14 +200,12 @@
 		  </div>
     </body>
     <script>
-)
+    	$('#btnSearch').onclick(function() {
+    		if($('#searchWord').val() == '') {
+    			alert('검색어를 입력하세요');
+    			return;
+    		}
+    		$('#formSearch').submit();
+    	})
     </script>
 </html>
-
-
-
-
-
-
-
-

@@ -69,6 +69,14 @@
   </li>
   
   <li style="padding : 5% 5%">	
+  	||| CUSTOMER |||
+  	<hr>
+  </li>
+  <li class="sidenav__list-item">
+  	<a class="nav-link" href="${pageContext.request.contextPath}/on/customerList">CUSTOMER LIST</a>
+  </li>
+  
+  <li style="padding : 5% 5%">	
   	||| STATICSTICS |||
   	<hr>
   </li>
