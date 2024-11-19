@@ -86,13 +86,15 @@ public class InventoryController {
 	public String getinventoryList(Model model
 			, @RequestParam() String storeId
 			, @RequestParam(required = false) String searchWord
-			, @RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "10") int rowPerPage) {
+			, @RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "10") int rowPerPage
+			, @RequestParam(required = false) String rentaled) {
 		// 0) paramMap
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("storeId", storeId);
 		paramMap.put("searchWord", searchWord);
 		paramMap.put("beginRow", (currentPage-1)*rowPerPage);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("rentaled", rentaled);
 		
 		// 1) inventoryList 호출
 		List<Map<String, Object>> inventoryList = inventoryService.getInventoryList(paramMap);

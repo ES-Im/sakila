@@ -25,6 +25,7 @@ public interface InventoryMapper {
 	Integer select_Returned_InventoryTotalRowByStore(Map<String, Object> paramMap);
 	
 	
+	
 	// /on/inventoryList  (인벤토리 영화 검색 +)
 	List<Map<String, Object>> selectInventoryList(Map<String, Object> paramMap); 
 	

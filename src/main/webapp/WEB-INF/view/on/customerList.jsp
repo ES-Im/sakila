@@ -140,6 +140,7 @@
 				    			<th>storeId</th>
 				    			<th>Address</th>
 				    			<th>active</th>
+				    			<th>CustomerOne</th>
 				    		</tr>
 			    		</thead>
 			    		<c:forEach var="c" items="${customerList}">
@@ -149,21 +150,23 @@
 			    				<td>${c.storeId}</td>
 			    				<td>${c.country} ${c.city} ${c.address} (${c.district})</td>
 			    				<td>${c.active}</td>
+			    				<td>
+			    					<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/customerOne?customerId=${c.customerId}">이동</a>
+			    				</td>
 			    			</tr>
 			    		</c:forEach>
 			    	</table>
 			    	
 			    	<ul class="pagination">
-				    	<c:if test="${currentPage > 1}">
+				    	<c:if test="${currentPage-10 > 0}">
 				    		<li class="page">
 					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=1">처음으로</a>
 					    	</li>
-				    	</c:if>
-				    	<c:if test="${currentPage > 10}">
 					    	<li class="page">
 					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${currentPage-10}">이전</a>
 					    	</li>
 				    	</c:if>
+				    	
 				    	<li class="page">
 			    			<c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
 				    				<c:if test="${page.currentPage == num}">
@@ -177,11 +180,9 @@
 				    					&nbsp;
 				    				</c:if>
 			    			</c:forEach>
-			    			
-			    			
 			    		</li>
 			    		
-				    	<c:if test="${page.currentPage != page.lastPage}">
+				    	<c:if test="${page.currentPage > page.lastPage-10 && page.lastPage != 0}">
 				    		<li class="page">
 					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage+10}">다음</a>
 					    	</li>

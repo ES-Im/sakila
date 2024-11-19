@@ -29,14 +29,33 @@ public class CustomerService {
 		return lastPage;
 	}
 	
+	// /on/customerList 에서 고객 리스팅용으로 사용
 	public List<Map<String, Object>> getCustomerList(Page page, String searchWord) {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("searchWord", searchWord);
 		paramMap.put("beginRow", page.getBeginRow());
 		paramMap.put("rowPerPage", page.getRowPerPage());
 		
+		log.debug("paramMap" + paramMap.toString());
+		return customerMapper.selectCustomerList(paramMap); 
+	}
+	
+	// /on/addRental 에서 고객 검색용으로 사용
+	public List<Map<String, Object>> getCustomerListForRental(String searchWord) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("searchWord", searchWord);
 		
 		log.debug("paramMap" + paramMap.toString());
 		return customerMapper.selectCustomerList(paramMap); 
+	}
+	
+	// /on/CustomerOne 
+	public Map<String, Object> getCustomerListForGetOne(Integer customerId) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("customerId", customerId);
+		Map<String, Object> customerOne = customerMapper.selectCustomerList(paramMap).get(0);
+		
+		log.debug("customerOne" + customerOne.toString());
+		return customerOne; 
 	}
 }

@@ -10,6 +10,8 @@
 			, customer.store_id storeId
 			, customer.email email
 			, customer.active active
+			, customer.create_date createDate
+			, customer.last_update lastUpdate
 			, V1.address address
 			, V1.district district
 			, V1.city city
@@ -34,11 +36,21 @@
 				ON city.country_id = country.country_id) V0
 			ON address.city_id = V0.city_id) V1
 		ON customer.address_id = V1.addressId
-		<if test="searchWord != null">
-			WHERE first_name LIKE CONCAT('%', '#{searchWord}', '%') OR last_name LIKE CONCAT('%', '#{searchWord}', '%')
+		<if test="searchWord != null and searchWord != ''">
+			WHERE				
+				first_name LIKE CONCAT('%', #{searchWord}, '%') OR last_name LIKE CONCAT('%', #{searchWord}, '%')
+			<if test="beginRow == null and rowPerPage == null">
+				AND active = 1
+			</if>
+		</if>
+		<if test="customerId != null and searchWord != ''">
+			WHERE				
+				customer_id = #{customerId}
 		</if>
 		ORDER BY firstName, lastName
-		LIMIT #{beginRow}, #{rowPerPage}
+		<if test="beginRow != null and rowPerPage != null">
+			LIMIT #{beginRow}, #{rowPerPage}
+		</if>
 	</select>
 	
 	<select id="selectCustomerTotalRow" parameterType="String" resultType="Integer">

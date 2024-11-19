@@ -214,35 +214,68 @@
 	
 	<select id="selectInventoryList" parameterType="Map" resultType="Map">
 		SELECT 
-			i.inventory_id inventoryId
-			, i.film_id filmId
-			, i.store_id storeId
-			, f.title title
-		FROM inventory i
-		INNER JOIN 
-		film f
-		ON f.film_id = i.film_id
+			V1.inventory_id inventoryId
+			, V1.film_id filmId
+			, V1.title title
+			, V1.last_update lastUpdate
+			, V2.customer_id customerId
+			, V1.storeId storeId
+			, IFNULL(V2.rental_date, '-1') rentalDate
+		FROM
+			(SELECT
+				i.inventory_id 
+				, i.film_id 
+				, i.store_id storeId
+				, i.last_update 
+				, f.title
+			FROM inventory i INNER JOIN film f
+			ON i.film_id = f.film_id) V1
+			left outer join
+			(SELECT 
+				inventory_id
+				, customer_id
+				, rental_date
+			FROM rental
+			WHERE return_date IS NULL) V2
+			ON V1.inventory_id = V2.inventory_id
 		<where>
-			i.store_id = #{storeId} 
+			storeId = #{storeId} 
 			<if test="searchWord != null">
-				AND f.title LIKE CONCAT('%',#{searchWord},'%')
+				AND title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			<if test="rentaled != null">
+				AND rentalDate != '-1'
 			</if>
 		</where>
+		ORDER BY V1.inventory_id ASC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<select id="selectInventoryLastPage" parameterType="map" resultType="Integer">
-		SELECT count(*)	
-		FROM inventory i
-		INNER JOIN 
-		film f
-		ON f.film_id = i.film_id
-		<where>
-			i.store_id = #{storeId} 
-			<if test="searchWord != null">
-				AND f.title LIKE CONCAT('%',#{searchWord},'%')
-			</if>
-		</where>
+		SELECT 
+			COUNT(*)
+		from
+			(SELECT
+				i.inventory_id inventoryId
+				, i.film_id filmId
+				, i.store_id storeId
+				, f.title title
+			FROM inventory i INNER JOIN film f
+			ON i.film_id = f.film_id) V1
+			left outer join
+			(SELECT 
+				inventory_id inventoryId
+				, customer_id customerId
+				, rental_date rentalDate
+			FROM rental
+			WHERE return_date IS NULL) V2
+			ON V1.inventoryId = V2.inventoryId
+			<where>
+				V1.storeId = #{storeId} 
+				<if test="searchWord != null">
+					AND title LIKE CONCAT('%',#{searchWord},'%')
+				</if>
+			</where>
 	</select>
 	
 	<insert id="insertInventory" parameterType="com.example.sakila.vo.Inventory">

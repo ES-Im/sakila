@@ -152,6 +152,28 @@
 				    		<tr>
 				    			<th>NO</th>
 				    			<th>title</th>
+				    			<th>customerId</th>
+				    			<%-- rental 가능 여부 필터링 --%>
+				    			<th>
+				    				<div class="dropdown">
+										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+											Rental
+										</button>
+										<ul class="dropdown-menu category">
+								  			<li>
+												<a href="${pageContext.request.contextPath}/on/inventoryList?storeId=${storeId}&searchWord=${searchWord}&rentaled=${true}">
+													렌탈 가능
+												</a>						  			
+								  			</li>
+								  			<li>
+												<a href="${pageContext.request.contextPath}/on/inventoryList?storeId=${storeId}&searchWord=${searchWord}">
+													렌탈중
+												</a>						  			
+								  			</li>
+							  			</ul>
+									</div>
+				    			
+				    			</th>
 				    			<th>인벤토리 삭제</th>
 				    		</tr>
 			    		</thead>
@@ -162,7 +184,21 @@
 			    					<a href="${pageContext.request.contextPath}/on/filmOne?filmId=${i.filmId}">${i.title}</a>
 			    				</td>
 			    				<td>
-			    					<a href="${pageContext.request.contextPath}/on/deleteInventory?inventoryId=${i.inventoryId}&storeId=${storeId}">삭제</a>
+			    					<c:if test="${i.customerId != null}">
+			    						<a class="" href="${pageContext.request.contextPath}/on/customerOne?customerId=${c.customerId}">${i.customerId}</a>
+			    					</c:if>
+			    				</td>
+			    				
+			    				<td>
+			    					<c:if test="${i.rentalDate == '-1'}">
+			    						<a class="btn btn-primary" href="${pageContext.request.contextPath}/on/addRental?inventoryId=${i.inventoryId}&storeId=${storeId}">대여</a>
+			    					</c:if>
+			    					<c:if test="${i.rentalDate != '-1'}">
+			    						${i.rentalDate}
+			    					</c:if>
+			    				</td>
+			    				<td>
+			    					<a class="btn btn-danger" href="${pageContext.request.contextPath}/on/deleteInventory?inventoryId=${i.inventoryId}&storeId=${storeId}">삭제</a>
 			    				</td>
 			    			</tr>
 			    		</c:forEach>
