@@ -124,11 +124,10 @@
 			    			<a class="btn" href="${pageContext.request.contextPath}/on/customerList?rowPerPage=5">5Page</a>
 			    			<a class="btn" href="${pageContext.request.contextPath}/on/customerList?rowPerPage=10">10Page</a>
 				    	</span>
-						<form class="p-1" id="formSearch" action="${pageContext.request.contextPath}/on/customerList" method="get" placeholder="Search Customer">
-				    		<div class="form-control">
-					    		<input class="form-input" name="searchWord" id="searchWord" type="text">
-					    		<button  id="btnSearch">Search</button>
-				    		</div>
+				    	
+						<form class="p-1" id="formSearch" action="${pageContext.request.contextPath}/on/customerList" method="get">
+				    		<input class="form-input" name="searchWord" id="searchWord" type="text"  placeholder="Search Customer">
+				    		<button type="button" id="btnSearch">Search</button>
 				    	</form>
 		    		</div>
 			    	
@@ -160,10 +159,10 @@
 			    	<ul class="pagination">
 				    	<c:if test="${page.currentPage - 10 > 0}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=1&rowPerPage=${page.rowPerPage}">처음으로</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=1&rowPerPage=${page.rowPerPage}&searchWord=${searchWord}">처음으로</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage-10}&rowPerPage=${page.rowPerPage}">이전</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage-10}&rowPerPage=${page.rowPerPage}&searchWord=${searchWord}">이전</a>
 					    	</li>
 				    	</c:if>
 				    	
@@ -174,7 +173,7 @@
 				    				</c:if>
 				    				
 				    				<c:if test="${page.currentPage != num}">
-				    					<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${num}&rowPerPage=${page.rowPerPage}">
+				    					<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${num}&rowPerPage=${page.rowPerPage}&searchWord=${searchWord}">
 				    						${num}
 				    					</a>
 				    					&nbsp;
@@ -184,10 +183,10 @@
 			    		
 				    	<c:if test="${page.currentPage <= page.lastPage-10 && page.lastPage != 0}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage+10}&rowPerPage=${page.rowPerPage}">다음</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage+10}&rowPerPage=${page.rowPerPage}&searchWord=${searchWord}">다음</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.lastPage}&rowPerPage=${page.rowPerPage}">마지막</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.lastPage}&rowPerPage=${page.rowPerPage}&searchWord=${searchWord}">마지막</a>
 					    	</li>
 				    	</c:if>
 		    		</ul>
@@ -200,13 +199,17 @@
 			  </footer>
 		  </div>
     </body>
+    
+    
+    
     <script>
-    	$('#btnSearch').onclick(function() {
+    	$('#btnSearch').click(function() {
+    		console.log("click");
     		if($('#searchWord').val() == '') {
     			alert('검색어를 입력하세요');
     			return;
     		}
     		$('#formSearch').submit();
-    	})
+    	});
     </script>
 </html>

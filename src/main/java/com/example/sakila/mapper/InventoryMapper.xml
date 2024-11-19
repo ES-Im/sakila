@@ -218,7 +218,7 @@
 			, V1.last_update lastUpdate
 			, V2.customer_id customerId
 			, V1.storeId storeId
-			, IFNULL(V2.rental_date, '-1') rentalDate
+			, IFNULL(V2.rental_date, 'notReturn') rentalDate
 		FROM
 			(SELECT
 				i.inventory_id 
@@ -241,8 +241,8 @@
 			<if test="searchWord != null">
 				AND title LIKE CONCAT('%',#{searchWord},'%')
 			</if>
-			<if test="rentaled != null">
-				AND rentalDate != '-1'
+			<if test="rentaled == NULL">
+				AND rentalDate LIKE 'notReturn'
 			</if>
 		</where>
 		ORDER BY V1.inventory_id ASC

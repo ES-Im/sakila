@@ -30,15 +30,16 @@ public class CustomerController {
 		page.getBeginRow();
 		
 		// currentPage, rowPerPage, lastPage, beginRow, startPagingNum
-		log.debug("page 객체 toString =" + page.toString());
-		log.debug("page 객체의 beginRow =" + page.getBeginRow());
-		log.debug("page 객체의 start ~ end =" + page.getStartPagingNum() + ", " + page.getEndPagingNum());
+		//log.debug("page 객체 toString =" + page.toString());
+		//log.debug("page 객체의 beginRow =" + page.getBeginRow());
+		//log.debug("page 객체의 start ~ end =" + page.getStartPagingNum() + ", " + page.getEndPagingNum());
 		
 		List<Map<String, Object>> resultMap = customerService.getCustomerList(page, searchWord);
 		
 		// 1) 페이징 변수와 customerList 포워딩
 		model.addAttribute("page", page);
 		model.addAttribute("customerList", resultMap);
+		model.addAttribute("searchWord",searchWord);
 		
 		
 		return "on/customerList";
