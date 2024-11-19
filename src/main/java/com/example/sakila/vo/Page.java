@@ -8,19 +8,20 @@ public class Page {
     private Integer rowPerPage = 10;
     private Integer numPerPage = 10;
     private Integer lastPage;
-
     
-    public int getBeginRow() {
-        return (this.currentPage - 1) * this.rowPerPage;
+
+    public Integer getBeginRow() {
+        return this.currentPage == null? 1 : (this.currentPage - 1) * this.rowPerPage;
     }
 
-    public int getStartPagingNum() {
-        return (currentPage - 1) / 10 * 10 + 1;
+    public Integer getStartPagingNum() {
+        return this.currentPage == null? 1 : (this.currentPage - 1) / 10 * 10 + 1;
     }
 
-    public int getEndPagingNum() {
+    public Integer getEndPagingNum() {
         return Math.min((this.getStartPagingNum() + (this.numPerPage - 1)), this.lastPage);
     }
+
 }
 
 

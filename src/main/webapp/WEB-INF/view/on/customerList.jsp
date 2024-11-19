@@ -158,12 +158,12 @@
 			    	</table>
 			    	
 			    	<ul class="pagination">
-				    	<c:if test="${currentPage-10 > 0}">
+				    	<c:if test="${page.currentPage - 10 > 0}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=1">처음으로</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=1&rowPerPage=${page.rowPerPage}">처음으로</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${currentPage-10}">이전</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage-10}&rowPerPage=${page.rowPerPage}">이전</a>
 					    	</li>
 				    	</c:if>
 				    	
@@ -174,7 +174,7 @@
 				    				</c:if>
 				    				
 				    				<c:if test="${page.currentPage != num}">
-				    					<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${num}">
+				    					<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${num}&rowPerPage=${page.rowPerPage}">
 				    						${num}
 				    					</a>
 				    					&nbsp;
@@ -182,12 +182,12 @@
 			    			</c:forEach>
 			    		</li>
 			    		
-				    	<c:if test="${page.currentPage > page.lastPage-10 && page.lastPage != 0}">
+				    	<c:if test="${page.currentPage <= page.lastPage-10 && page.lastPage != 0}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage+10}">다음</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.currentPage+10}&rowPerPage=${page.rowPerPage}">다음</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.lastPage}">마지막</a>
+					    		<a href="${pageContext.request.contextPath}/on/customerList?currentPage=${page.lastPage}&rowPerPage=${page.rowPerPage}">마지막</a>
 					    	</li>
 				    	</c:if>
 		    		</ul>

@@ -11,11 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.sakila.mapper.FilmActorMapper;
 import com.example.sakila.mapper.FilmCategoryMapper;
 import com.example.sakila.mapper.FilmMapper;
-import com.example.sakila.mapper.InventoryMapper;
-import com.example.sakila.mapper.LanguageMapper;
 import com.example.sakila.vo.Film;
 import com.example.sakila.vo.FilmForm;
-import com.example.sakila.vo.FilmListForm;
+import com.example.sakila.vo.Page;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -84,15 +82,29 @@ public class FilmService {
 	}
 	
 	// on/filmList
-	public List<Map<String, Object>> getFilmList(FilmListForm filmListForm) {
-		return filmMapper.selectFilmList(filmListForm);
+	public List<Map<String, Object>> getFilmList(Page page, String categoryId, String searchWord, String rating) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("categoryId", categoryId);
+		paramMap.put("searchWord", searchWord);
+		paramMap.put("rating", rating);
+		paramMap.put("beginRow", page.getBeginRow());
+		paramMap.put("rowPerPage", page.getRowPerPage());
+		log.debug("beginRow / RowPerPage = " + page.getBeginRow() + "/" + page.getRowPerPage());
+		
+		return filmMapper.selectFilmList(paramMap);
 	}
 	
 	// on/filmList 라스트 페이지 구하기용
-	public int getFilmListLastPage(FilmListForm filmListForm) {
-		int getTotalRow = filmMapper.selectTotalRow(filmListForm);
-		int lastPage = getTotalRow / filmListForm.getRowPerPage();
-		if(getTotalRow % filmListForm.getRowPerPage() != 0) {
+	public Integer getFilmListLastPage(Page page, String categoryId, String searchWord, String rating) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("categoryId", categoryId);
+		paramMap.put("searchWord", searchWord);
+		paramMap.put("rating", rating);
+		
+		
+		int getTotalRow = filmMapper.selectTotalRow(paramMap);
+		int lastPage = getTotalRow / page.getRowPerPage();
+		if(getTotalRow % page.getRowPerPage() != 0) {
 			lastPage++;
 		}
 		

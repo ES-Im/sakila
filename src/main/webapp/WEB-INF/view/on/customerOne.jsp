@@ -193,9 +193,6 @@
 		  			    		<td>
 		  			    			<a class="btn btn-success" href="${pageContext.request.contextPath}/on/filmOne?filmId=${f.filmId}">상세보기</a>
 		  			    		</td>
-		  			    		<td>
-		  			    			<a class="btn btn-danger" href="${pageContext.request.contextPath}/on/removeFilmActor?filmId=${f.filmId}&actorId=${actor.actorId}">출연자에서 삭제</a>
-		  			    		</td>
 		  			    	</tr>
 		  			    </c:forEach>
   			    	  </table>

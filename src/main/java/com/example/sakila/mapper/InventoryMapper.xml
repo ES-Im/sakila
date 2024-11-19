@@ -105,11 +105,9 @@
 			GROUP BY storeId, filmId) V6
 		ON V6.filmId = f.film_id
 		<where>
-			<if test="searchWord == null">
 			 	storeId = #{storeId}
-			</if>
-			<if test="searchWord != null">
-			 	storeId = #{storeId} AND title LIKE CONCAT('%',#{searchWord},'%')
+			<if test="searchWord != null and searchWord != ''">
+			 	AND title LIKE CONCAT('%',#{searchWord},'%')
 			</if>
 		</where>
 		LIMIT #{beginRow}, #{rowPerPage}

@@ -67,7 +67,7 @@
 	</select>
 	
 	
-	<select id="selectFilmList" parameterType="com.example.sakila.vo.FilmListForm" resultType="Map">
+	<select id="selectFilmList" parameterType="Map" resultType="Map">
 		SELECT 
 			f.film_id filmId
 			, f.title title
@@ -81,9 +81,9 @@
 			, fc.category_id categoryId 
 		from film f LEFT OUTER JOIN film_category fc
 		ON f.film_id = fc.film_id
-		<if test="(categoryId != null and categoryId != -1) or (searchWord != null and searchWord != '') or (rating != null and rating != '')">
+		<if test="(categoryId != null and categoryId != '') or (searchWord != null and searchWord != '') or (rating != null and rating != '')">
 			 <trim prefix="WHERE" prefixOverrides="AND|OR">
-				<if test="categoryId != null and categoryId != -1">
+				<if test="categoryId != null and categoryId != ''">
 					AND fc.category_id = #{categoryId}
 				</if>
 				<if test="searchWord != null and searchWord != ''">
@@ -98,13 +98,13 @@
 		Limit #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<select id="selectTotalRow" parameterType="com.example.sakila.vo.Film" resultType="int">
+	<select id="selectTotalRow" parameterType="Map" resultType="int">
 		SELECT count(*)
 		from film f LEFT OUTER JOIN film_category fc
 		ON f.film_id = fc.film_id
-		<if test="(categoryId != null and categoryId != -1) or (searchWord != null and searchWord != '') or (rating != null and rating != '')">
+		<if test="(categoryId != null and categoryId != '') or (searchWord != null and searchWord != '') or (rating != null and rating != '')">
 			 <trim prefix="WHERE" prefixOverrides="AND|OR">
-				<if test="(categoryId != null and categoryId != -1)">
+				<if test="(categoryId != null and categoryId != '')">
 					AND fc.category_id = #{categoryId}
 				</if>
 				<if test="(searchWord != null and searchWord != '')">

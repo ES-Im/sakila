@@ -12,6 +12,7 @@ import com.example.sakila.service.FilmService;
 import com.example.sakila.service.InventoryService;
 import com.example.sakila.vo.Film;
 import com.example.sakila.vo.Inventory;
+import com.example.sakila.vo.Page;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,28 +87,26 @@ public class InventoryController {
 	public String getinventoryList(Model model
 			, @RequestParam() String storeId
 			, @RequestParam(required = false) String searchWord
-			, @RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "10") int rowPerPage
+			, Page page
 			, @RequestParam(required = false) String rentaled) {
 		// 0) paramMap
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("storeId", storeId);
 		paramMap.put("searchWord", searchWord);
-		paramMap.put("beginRow", (currentPage-1)*rowPerPage);
-		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("beginRow", (page.getCurrentPage()-1)*page.getRowPerPage());
+		paramMap.put("rowPerPage", page.getRowPerPage());
 		paramMap.put("rentaled", rentaled);
 		
 		// 1) inventoryList 호출
 		List<Map<String, Object>> inventoryList = inventoryService.getInventoryList(paramMap);
 		
 		// 2) lastPage 호출
-		Integer lastPage = inventoryService.getInventoryLastPage(paramMap);
+		page.setLastPage(inventoryService.getInventoryLastPage(paramMap));
 		
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("storeId", storeId);
 		model.addAttribute("inventoryList", inventoryList);
-		model.addAttribute("lastPage", lastPage);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("page", page);
 		
 		return "on/inventoryList";
 	}

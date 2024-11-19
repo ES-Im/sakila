@@ -19,6 +19,7 @@ import com.example.sakila.vo.Actor;
 import com.example.sakila.vo.ActorFile;
 import com.example.sakila.vo.ActorForm;
 import com.example.sakila.vo.Film;
+import com.example.sakila.vo.Page;
 import com.example.sakila.service.ActorFileService;
 
 import jakarta.servlet.http.HttpSession;
@@ -62,17 +63,14 @@ public class ActorController {
 	}
 	
 	@GetMapping("/on/actorList")
-	public String actorList(@RequestParam(defaultValue="1") int currentPage, 
-							@RequestParam(defaultValue = "10") int rowPerPage,
-							@RequestParam(required = false) String searchWord,
-							Model model) {
+	public String actorList(Model model, Page page
+							, @RequestParam(required = false) String searchWord) {
 		log.debug("searchWord : " + searchWord);
-		List<Actor> actorList = actorService.getActorList(currentPage, rowPerPage, searchWord);
+		List<Actor> actorList = actorService.getActorList(page.getCurrentPage(), page.getRowPerPage(), searchWord);
 		
-		int lastPage = actorService.getLastPage(rowPerPage, searchWord);
+		page.setLastPage(actorService.getLastPage(page.getRowPerPage(), searchWord));
 		
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("page", page);
 		model.addAttribute("actorList", actorList);
 		
 		return "on/actorList";

@@ -33,10 +33,10 @@
 					, customer_id customerId
 					, rental_date rentalDate
 					, return_date returnDate
-				FROM rental
-				WHERE return_date IS NOT NULL) V2
+				FROM rental) V2
 			ON V1.inventoryId = V2.inventoryId
-		WHERE customerId = #{customerId};
+		WHERE customerId = #{customerId}
+		ORDER BY returnDate Desc, storeId
 	</select>
 
 </mapper>

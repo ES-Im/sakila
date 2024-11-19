@@ -201,27 +201,40 @@
 			    	</table>
 			    	
 			    	<ul class="pagination">
-				    	<c:if test="${currentPage > 1}">
+				    	<c:if test="${page.currentPage - 10 > 0}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/filmList?currentPage=1&rowPerPage=${rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">처음으로</a>
+					    		<a href="${pageContext.request.contextPath}/on/filmList?currentPage=1&rowPerPage=${page.rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">처음으로</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">이전</a>
+					    		<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${page.currentPage-10}&rowPerPage=${page.rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">이전</a>
 					    	</li>
 				    	</c:if>
+				    	
 				    	<li class="page">
-			    			[currentPage : ${currentPage} / ${lastPage}]
+			    			<c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+				    				<c:if test="${page.currentPage == num}">
+				    					${num}&nbsp;
+				    				</c:if>
+				    				
+				    				<c:if test="${page.currentPage != num}">
+				    					<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${num}&rowPerPage=${page.rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">
+				    						${num}
+				    					</a>
+				    					&nbsp;
+				    				</c:if>
+			    			</c:forEach>
 			    		</li>
 			    		
-				    	<c:if test="${currentPage != lastPage}">
+				    	<c:if test="${page.currentPage <= page.lastPage - 10 && page.lastPage != 0}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">다음</a>
+					    		<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${page.currentPage+10}&rowPerPage=${page.rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">다음</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${lastPage}&rowPerPage=${rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">마지막</a>
+					    		<a href="${pageContext.request.contextPath}/on/filmList?currentPage=${page.lastPage}&rowPerPage=${page.rowPerPage}&rating=${rating}&searchWord=${searchWord}&categoryId=${categoryId}">마지막</a>
 					    	</li>
 				    	</c:if>
 		    		</ul>
+		    		<div>현재페이지 : ${page.currentPage} / ${page.lastPage}</div>
 				</div>
 			  </main>
 			

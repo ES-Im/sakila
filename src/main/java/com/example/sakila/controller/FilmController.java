@@ -17,14 +17,15 @@ import com.example.sakila.service.CategoryService;
 import com.example.sakila.service.FilmService;
 import com.example.sakila.service.InventoryService;
 import com.example.sakila.service.LanguageService;
+import com.example.sakila.util.TeamColor;
 import com.example.sakila.vo.Actor;
 import com.example.sakila.vo.Category;
 import com.example.sakila.vo.Film;
 import com.example.sakila.vo.FilmActor;
 import com.example.sakila.vo.FilmCategory;
 import com.example.sakila.vo.FilmForm;
-import com.example.sakila.vo.FilmListForm;
 import com.example.sakila.vo.Language;
+import com.example.sakila.vo.Page;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -125,26 +126,34 @@ public class FilmController {
 	}
 	
 	@GetMapping("/on/filmList")
-	public String getFilmList(Model model, FilmListForm filmListForm) {
+	public String getFilmList(Model model
+							, Page page
+							, @RequestParam(required = false) String categoryId
+							, @RequestParam(required = false) String searchWord
+							, @RequestParam(required = false) String rating) {
 		
 		//log.debug("category 값 = " +  categoryId);
-		//log.debug("filmList = " + filmList);
 		
-		//페이징
-		filmListForm.setBeginRow((filmListForm.getCurrentPage()-1) * filmListForm.getRowPerPage());
-		int lastPage = filmService.getFilmListLastPage(filmListForm);
-		
+		// 페이지 변수 설정
+		page.setLastPage(filmService.getFilmListLastPage(page, categoryId, searchWord, rating));
+//		log.debug(TeamColor.CyanBack + "page 출력" + page.toString() + TeamColor.reset);
+//		log.debug(TeamColor.CyanBack + "page 스타트 넘버 출력" + page.getStartPagingNum() + TeamColor.reset);
 		// 필름 리스팅
-		List<Map<String, Object>> filmList = filmService.getFilmList(filmListForm);
+		List<Map<String, Object>> filmList = filmService.getFilmList(page, categoryId, searchWord, rating);
+		
 		// 카테고리 종류 출력
 		List<Category> categoryList = categoryService.getCategoryList();
+		
+		// 등급 종류 출력
 		List<String> ratingList = new ArrayList<>(); 
-		 ratingList.add("G");
-		 ratingList.add("PG");
-		 ratingList.add("PG-13");
-		 ratingList.add("R");
-		 ratingList.add("NC-17");
+		ratingList.add("G");
+		ratingList.add("PG");
+		ratingList.add("PG-13");
+		ratingList.add("R");
+		ratingList.add("NC-17");
 		 
+		//log.debug(TeamColor.CyanBack + "filmList 0번 출력" + filmList.get(0).toString() + TeamColor.reset);
+		log.debug(TeamColor.CyanBack + "page 출력" + page.toString() + TeamColor.reset);
 		
 		
 		//log.debug("categoryList = " + categoryList);
@@ -152,16 +161,15 @@ public class FilmController {
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("ratingList", ratingList);
 		
-		model.addAttribute("currentPage", filmListForm.getCurrentPage());
-		model.addAttribute("rowPerPage", filmListForm.getRowPerPage());
-		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("page", page);
 		
-		model.addAttribute("searchWord", filmListForm.getSearchWord());
-		model.addAttribute("categoryId", filmListForm.getCategoryId());
-		model.addAttribute("rating", filmListForm.getRating());
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("rating", rating);
 		
 		return "on/filmList";
 	}
+	
 	
 	@GetMapping("/on/removeFilm")
 	public String removeFilm(Model model, @RequestParam Integer filmId) {

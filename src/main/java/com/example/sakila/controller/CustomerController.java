@@ -50,7 +50,7 @@ public class CustomerController {
 		
 		List<Map<String, Object>> rentaledList = rentalService.getRentalListByCustomerId(customerId);
 		model.addAttribute("customer", customerOne);
-		model.addAttribute(rentaledList);
+		model.addAttribute("rentaledList",rentaledList);
 		return "on/customerOne";
 	}
 	

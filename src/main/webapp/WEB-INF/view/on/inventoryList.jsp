@@ -185,7 +185,7 @@
 			    				</td>
 			    				<td>
 			    					<c:if test="${i.customerId != null}">
-			    						<a class="" href="${pageContext.request.contextPath}/on/customerOne?customerId=${c.customerId}">${i.customerId}</a>
+			    						<a class="" href="${pageContext.request.contextPath}/on/customerOne?customerId=${i.customerId}">${i.customerId}</a>
 			    					</c:if>
 			    				</td>
 			    				
@@ -205,29 +205,43 @@
 			    	</table>
 			    	
 			    	<ul class="pagination">
-				    	<c:if test="${currentPage > 1 && lastPage != 0}">
+			    		
+						<c:if test="${page.currentPage - 10 > 0}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=1&rowPerPage=${rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">처음으로</a>
+					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=1&rowPerPage=${page.rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">처음으로</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">이전</a>
+					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${page.currentPage-10}&rowPerPage=${page.rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">이전</a>
 					    	</li>
 				    	</c:if>
-				    	<li class="page">
-			    			[currentPage : ${currentPage} / ${lastPage}]
+			    	
+			    	
+			    		<li class="page">
+			    			<c:forEach var="num" begin="${page.getStartPagingNum()}" end="${page.getEndPagingNum()}">
+				    				<c:if test="${page.currentPage == num}">
+				    					${num}&nbsp;
+				    				</c:if>
+				    				
+				    				<c:if test="${page.currentPage != num}">
+				    					<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${num}&rowPerPage=${page.rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">
+				    						${num}
+				    					</a>
+				    					&nbsp;
+				    				</c:if>
+			    			</c:forEach>
 			    		</li>
 			    		
-				    	<c:if test="${currentPage != lastPage && lastPage != 0}">
+				    	<c:if test="${page.currentPage <= page.lastPage-10 && page.lastPage != 0}">
 				    		<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">다음</a>
+					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${page.currentPage+10}&rowPerPage=${page.rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">다음</a>
 					    	</li>
 					    	<li class="page">
-					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${lastPage}&rowPerPage=${rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">마지막</a>
+					    		<a href="${pageContext.request.contextPath}/on/inventoryList?currentPage=${page.lastPage}&rowPerPage=${page.rowPerPage}&storeId=${storeId}&searchWord=${searchWord}">마지막</a>
 					    	</li>
 				    	</c:if>
 		    		</ul>
+		    		[currentPage : ${page.currentPage} / ${page.lastPage}]
 				</div>
-				
 		
 			  </main>
 			
