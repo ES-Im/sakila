@@ -161,12 +161,12 @@
 										</button>
 										<ul class="dropdown-menu category">
 								  			<li>
-												<a href="${pageContext.request.contextPath}/on/inventoryList?storeId=${storeId}&searchWord=${searchWord}&rentaled=${true}">
+												<a href="${pageContext.request.contextPath}/on/inventoryList?storeId=${storeId}&searchWord=${searchWord}&rentaled=true">
 													렌탈 가능
 												</a>						  			
 								  			</li>
 								  			<li>
-												<a href="${pageContext.request.contextPath}/on/inventoryList?storeId=${storeId}&searchWord=${searchWord}">
+												<a href="${pageContext.request.contextPath}/on/inventoryList?storeId=${storeId}&searchWord=${searchWord}&rentaled=false">
 													렌탈중
 												</a>						  			
 								  			</li>

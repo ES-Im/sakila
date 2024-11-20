@@ -85,10 +85,10 @@ public class InventoryController {
 	
 	@GetMapping("/on/inventoryList")
 	public String getinventoryList(Model model
+			, Page page
 			, @RequestParam() String storeId
 			, @RequestParam(required = false) String searchWord
-			, Page page
-			, @RequestParam(required = false) String rentaled) {
+			, @RequestParam(defaultValue = "false") String rentaled) {
 		// 0) paramMap
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("storeId", storeId);

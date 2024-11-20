@@ -241,7 +241,7 @@
 			<if test="searchWord != null">
 				AND title LIKE CONCAT('%',#{searchWord},'%')
 			</if>
-			<if test="rentaled == NULL">
+			<if test="rentaled == false">
 				AND rentalDate LIKE 'notReturn'
 			</if>
 		</where>
